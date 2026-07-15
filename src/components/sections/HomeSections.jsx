@@ -36,12 +36,16 @@ export function MomentsStrip() {
         </Link>
       </motion.div>
 
-      <div className="marquee-row">
-        <div className="marquee-track flex gap-5 w-max px-6">
-          {[...MOMENT_IMAGES, ...MOMENT_IMAGES, ...MOMENT_IMAGES].map((m, i) => (
+      <div className="flex overflow-hidden w-full">
+        <motion.div
+          className="flex shrink-0 gap-5 pr-5 min-w-max"
+          animate={{ x: "-100%" }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+        >
+          {MOMENT_IMAGES.map((m, i) => (
             <div
-              key={i}
-              className="relative flex-shrink-0 w-72 sm:w-80 h-44 sm:h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
+              key={`a-${i}`}
+              className="relative w-72 sm:w-80 h-44 sm:h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
               <img
                 src={m.img}
@@ -58,7 +62,33 @@ export function MomentsStrip() {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
+        <motion.div
+          className="flex shrink-0 gap-5 pr-5 min-w-max"
+          animate={{ x: "-100%" }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+        >
+          {MOMENT_IMAGES.map((m, i) => (
+            <div
+              key={`b-${i}`}
+              className="relative w-72 sm:w-80 h-44 sm:h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
+            >
+              <img
+                src={m.img}
+                alt={m.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                <span className="font-display text-white text-lg sm:text-xl">{m.title}</span>
+                <span className="text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded-full bg-white/20 text-white backdrop-blur-md">
+                  {m.pill}
+                </span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

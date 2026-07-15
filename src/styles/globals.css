@@ -72,7 +72,7 @@
     @apply text-[9px] uppercase tracking-micro font-semibold font-body;
   }
   .text-editorial {
-    @apply font-display italic;
+    @apply font-display font-medium tracking-tight;
   }
 
   /* Brand line decoration */
@@ -194,7 +194,6 @@
 
   /* --- Marquee --- */
   .marquee-track { animation: marquee 35s linear infinite; }
-  .marquee-row:hover .marquee-track { animation-play-state: paused; }
 
   @keyframes marquee {
     0% { transform: translateX(0); }
@@ -290,14 +289,14 @@
   
   /* Dropcap for editorial blocks */
   .editorial-dropcap::first-letter {
-    font-family: "Libre Baskerville", Georgia, serif;
+    font-family: var(--font-display, "Inter", sans-serif);
     font-size: 3.5rem;
     float: left;
     line-height: 1;
     margin-right: 0.5rem;
     margin-top: 0.2rem;
-    font-weight: bold;
-    color: var(--dropcap-color, #B85C38);
+    font-weight: 700;
+    color: var(--dropcap-color, #0066CC);
   }
 
   /* Editorial text outline style */

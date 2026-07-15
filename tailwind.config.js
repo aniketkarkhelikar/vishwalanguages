@@ -6,37 +6,37 @@ export default {
       // --- Brand Colors ---
       colors: {
         paper:      '#FFFFFF',
-        surface:    '#FAFAF8',
-        tile:       '#F5F2EC',
-        ink:        '#171512',
+        surface:    '#F5F5F7', // Apple-like subtle gray
+        tile:       '#F5F5F7',
+        ink:        '#000000', // Solid black for contrast
         brown:      '#8A5A44',
-        terracotta: '#B85C38',
-        sage:       '#6E7D64',
-        'vw-blue':  '#4C6478',
-        blue:       '#4C6478',
-        clay:       '#E4D5C4',
-        gold:       '#D9A98A',
+        terracotta: '#0066CC', // Apple-like blue accent instead of terracotta
+        sage:       '#86868B', // Apple-like gray text
+        'vw-blue':  '#0066CC',
+        blue:       '#0066CC',
+        clay:       '#E5E5EA',
+        gold:       '#F5F5F7', // Changed to match surface for simplicity
         // Healthcare palette
-        'health':       '#1B8A6B',
-        'health-dark':  '#14705A',
-        'health-light': '#E8F5F0',
-        'health-accent': '#2CB88A',
+        'health':       '#0066CC',
+        'health-dark':  '#004C99',
+        'health-light': '#F0F8FF',
+        'health-accent': '#3385D6',
       },
 
       // --- Typography ---
       fontFamily: {
-        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
-        body:    ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+        body:    ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
       },
 
       // --- Font Sizes ---
       fontSize: {
-        'hero':  ['clamp(3.5rem, 8vw, 8.5rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
-        'h1':    ['clamp(2.5rem, 5vw, 5rem)',   { lineHeight: '1.1',  letterSpacing: '-0.02em' }],
-        'h2':    ['clamp(2rem, 4vw, 3.5rem)',   { lineHeight: '1.15', letterSpacing: '-0.01em' }],
-        'h3':    ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.2' }],
-        'micro': ['0.625rem', { lineHeight: '1', letterSpacing: '0.2em' }],
-        'label': ['0.5625rem', { lineHeight: '1', letterSpacing: '0.2em' }],
+        'hero':  ['clamp(3rem, 7vw, 7rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '600' }],
+        'h1':    ['clamp(2.5rem, 5vw, 5rem)',   { lineHeight: '1.1',  letterSpacing: '-0.03em', fontWeight: '600' }],
+        'h2':    ['clamp(2rem, 4vw, 3.5rem)',   { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '600' }],
+        'h3':    ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.2', fontWeight: '500' }],
+        'micro': ['0.75rem', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '500' }],
+        'label': ['0.625rem', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '500' }],
       },
 
       // --- Spacing Scale ---

@@ -1,82 +1,61 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { testimonials } from '@/data/testimonials';
-import { colors } from '@/lib/tokens';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { fadeUpScale, staggerContainer } from '@/animations/motion';
 
 /**
- * TestimonialsSection — An ultra-minimal, airy text slider.
- * Focuses on delicate typography and generous whitespace.
+ * TestimonialsSection — An ultra-minimal, Apple-style card grid.
+ * Focuses on clean typography and sharp, high-end aesthetics.
  */
 export function TestimonialsSection() {
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const t = testimonials[currentIdx];
-
-  const handleNext = () => setCurrentIdx((prev) => (prev + 1) % testimonials.length);
-  const handlePrev = () => setCurrentIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-
   return (
-    <section id="stories-section" className="py-24 md:py-32 bg-paper relative overflow-hidden" style={{ borderTop: `1px solid ${colors.line}` }}>
-      {/* Very subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-surface/50 rounded-[100%] blur-[120px] -z-10 pointer-events-none" />
-
-      <div className="container-site max-w-4xl mx-auto text-center relative z-10">
+    <section id="stories-section" className="py-24 md:py-32 bg-surface relative overflow-hidden" style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+      <div className="container-site max-w-6xl mx-auto relative z-10">
         
-        <span className="text-[10px] font-mono uppercase tracking-widest text-terracotta mb-12 md:mb-16 block">
-          Student Stories
-        </span>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIdx}
-            initial={{ opacity: 0, scale: 0.98, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: -10 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center min-h-[320px] md:min-h-[280px] justify-center"
-          >
-            {/* The Quote */}
-            <blockquote className="font-serif font-light italic text-2xl md:text-4xl lg:text-5xl text-ink leading-[1.3] mb-12 px-4">
-              "{t.quote}"
-            </blockquote>
-
-            {/* The Author */}
-            <div className="flex flex-col items-center">
-              <div 
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-display text-sm md:text-lg text-white mb-4 shadow-sm"
-                style={{ backgroundColor: colors.terracotta }}
-              >
-                {t.initials}
-              </div>
-              <div className="text-ink font-medium text-sm md:text-base mb-1">{t.name}</div>
-              <div className="text-[9px] md:text-[10px] uppercase tracking-widest text-ink/40 mb-3">{t.role}</div>
-              
-              <div className="flex items-center gap-4 text-xs font-mono text-ink/50 border-t border-ink/10 pt-3">
-                <span>{t.level}</span>
-                <span className="w-1 h-1 rounded-full bg-ink/20" />
-                <span>{t.outcome}</span>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Controls */}
-        <div className="flex justify-center gap-4 mt-12 md:mt-16">
-          <button 
-            onClick={handlePrev} 
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-ink/10 flex items-center justify-center text-ink/40 hover:text-ink hover:border-ink/30 hover:bg-surface transition-all"
-            aria-label="Previous story"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button 
-            onClick={handleNext} 
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-ink/10 flex items-center justify-center text-ink/40 hover:text-ink hover:border-ink/30 hover:bg-surface transition-all"
-            aria-label="Next story"
-          >
-            <ChevronRight size={18} />
-          </button>
+        <div className="text-center mb-16 md:mb-24">
+          <span className="text-[11px] font-body font-bold uppercase tracking-widest text-vw-blue mb-4 block">
+            Student Stories
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold tracking-tight text-ink">
+            Hear from our alumni.
+          </h2>
         </div>
+
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid md:grid-cols-3 gap-6 md:gap-8"
+        >
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={t.id}
+              variants={fadeUpScale}
+              className="bg-white rounded-3xl p-8 md:p-10 flex flex-col justify-between shadow-sm border border-black/5 hover:shadow-lg transition-shadow duration-500"
+            >
+              <blockquote className="font-body text-lg text-ink/70 leading-relaxed mb-12 tracking-tight">
+                "{t.quote}"
+              </blockquote>
+
+              <div className="flex items-center gap-4">
+                <div 
+                  className="w-12 h-12 rounded-full flex items-center justify-center font-display text-sm font-bold text-white shadow-md shrink-0 bg-vw-blue"
+                >
+                  {t.initials}
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-ink font-semibold text-sm tracking-tight">{t.name}</div>
+                  <div className="text-[11px] uppercase tracking-wide text-ink/40 font-medium mb-1">{t.role}</div>
+                  <div className="flex items-center gap-2 text-[10px] font-mono text-ink/50 mt-1">
+                    <span className="bg-surface px-2 py-0.5 rounded-md text-vw-blue">{t.level}</span>
+                    <span className="w-1 h-1 rounded-full bg-ink/20" />
+                    <span>{t.outcome}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
       </div>
     </section>

@@ -5,6 +5,18 @@ import { ChevronLeft, ArrowRight, Clock, Users, Trophy, CheckCircle2, ChevronDow
 import { fadeUp, staggerContainer, pageSlideUp } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 
+const CINEMATIC_TEXTS = {
+  japanese: "吾輩は猫である。\n名前はまだ無い。\nどこで生れたか\nとんと見当がつかぬ。",
+  german: "Habe nun, ach!\nPhilosophie,\nJuristerei und Medizin,\nUnd leider auch Theologie!",
+  french: "Longtemps, je me\nsuis couché de bonne heure.\nParfois, à peine\nma bougie éteinte...",
+  spanish: "En un lugar\nde la Mancha,\nde cuyo nombre no\nquiero acordarme...",
+  mandarin: "道可道，非常道。\n名可名，非常名。\n无名天地之始；\n有名万物之母。",
+  korean: "나 보기가 역겨워\n가실 때에는\n말없이 고이 보내\n드리오리다.",
+  english: "To be, or not to be,\nthat is the question:\nWhether 'tis nobler\nin the mind...",
+  ielts: "The limits of my\nlanguage mean the\nlimits of my world.",
+  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।\nमा कर्मफलहेतुर्भू\nर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+};
+
 /**
  * LanguageTemplate — renders any language page from its data object.
  * Rich visual layout: hero → bento level cards → highlights → FAQ accordion → testimonial → CTA.
@@ -91,21 +103,22 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
             </button>
           </motion.div>
 
-          {/* Right: large native script as visual anchor — sits in the hero */}
-          <div className="hidden md:flex md:col-span-5 items-end justify-end pb-0 overflow-hidden">
+          {/* Right: cinematic native script as visual anchor */}
+          <div className="hidden md:flex md:col-span-5 items-end justify-end pb-0 overflow-hidden relative h-full">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="font-display leading-none select-none pointer-events-none"
+              className="font-display leading-[1.1] select-none pointer-events-none whitespace-pre-line text-right"
               style={{
-                fontSize: 'clamp(10rem, 18vw, 22rem)',
+                fontSize: 'clamp(2.5rem, 4vw, 4.5rem)',
                 color: lang.color,
-                opacity: 0.18,
-                lineHeight: 1,
+                opacity: 0.15,
+                maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
               }}
             >
-              {lang.nativeName}
+              {CINEMATIC_TEXTS[lang.slug] || lang.nativeName}
             </motion.div>
           </div>
         </div>

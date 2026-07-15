@@ -71,49 +71,95 @@ function LanguageExplorer({ onShowToast }) {
   const scrollingLangs = [...languageCatalogue, ...languageCatalogue, ...languageCatalogue, ...languageCatalogue];
   
   return (
-    <div className="border-y py-6 bg-surface overflow-hidden" style={{ borderColor: colors.line }}>
-      <div className="marquee-row">
-        <div className="marquee-track flex gap-4 w-max px-4">
-          {scrollingLangs.map((lang, idx) => {
-            const isReady = !lang.comingSoon;
-            return (
-              <button
-                key={`${lang.slug}-${idx}`}
-                onClick={() => {
-                  if (isReady) window.location.href = `/languages/${lang.slug}`;
-                  else onShowToast?.(`${lang.card.title} program is launching soon.`);
-                }}
-                className={`group relative flex-shrink-0 flex items-center gap-4 px-6 py-3.5 rounded-full bg-paper border transition-all duration-300
-                  ${isReady
-                    ? 'cursor-pointer hover:shadow-sm hover:border-terracotta/25 hover:-translate-y-0.5'
-                    : 'cursor-not-allowed opacity-50'
-                  }`}
-                style={{ borderColor: colors.line }}
+    <div className="border-y py-6 bg-surface overflow-hidden w-full flex" style={{ borderColor: colors.line }}>
+      <motion.div
+        className="flex shrink-0 min-w-max gap-4 pr-4 items-center"
+        animate={{ x: "-100%" }}
+        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+      >
+        {languageCatalogue.map((lang, idx) => {
+          const isReady = !lang.comingSoon;
+          return (
+            <button
+              key={`a-${lang.slug}-${idx}`}
+              onClick={() => {
+                if (isReady) window.location.href = `/languages/${lang.slug}`;
+                else onShowToast?.(`${lang.card.title} program is launching soon.`);
+              }}
+              className={`group relative flex-shrink-0 flex items-center gap-4 px-6 py-3.5 rounded-full bg-paper border transition-all duration-300
+                ${isReady
+                  ? 'cursor-pointer hover:shadow-sm hover:border-vw-blue hover:-translate-y-0.5'
+                  : 'cursor-not-allowed opacity-50'
+                }`}
+              style={{ borderColor: 'rgba(0,0,0,0.08)' }}
+            >
+              {!isReady && (
+                <span className="absolute -top-2 right-4 text-[7px] uppercase tracking-wide font-bold px-1.5 py-0.5 rounded-full bg-tile text-ink/40">
+                  Soon
+                </span>
+              )}
+              <span
+                className={`font-display text-2xl transition-colors ${isReady ? 'text-ink group-hover:text-vw-blue' : 'text-ink/30'}`}
               >
-                {!isReady && (
-                  <span className="absolute -top-2 right-4 text-[7px] uppercase tracking-wide font-bold px-1.5 py-0.5 rounded-full bg-tile text-ink/40">
-                    Soon
-                  </span>
-                )}
-                <span
-                  className={`font-display text-2xl transition-colors ${isReady ? 'text-ink group-hover:text-terracotta' : 'text-ink/30'}`}
-                >
-                  {lang.nativeName}
+                {lang.nativeName}
+              </span>
+              <span className="text-sm font-medium opacity-60 tracking-tight">
+                {lang.card.title}
+              </span>
+              {isReady && (
+                <ArrowRight
+                  size={14}
+                  className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-vw-blue ml-1"
+                />
+              )}
+            </button>
+          );
+        })}
+      </motion.div>
+      <motion.div
+        className="flex shrink-0 min-w-max gap-4 pr-4 items-center"
+        animate={{ x: "-100%" }}
+        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+      >
+        {languageCatalogue.map((lang, idx) => {
+          const isReady = !lang.comingSoon;
+          return (
+            <button
+              key={`b-${lang.slug}-${idx}`}
+              onClick={() => {
+                if (isReady) window.location.href = `/languages/${lang.slug}`;
+                else onShowToast?.(`${lang.card.title} program is launching soon.`);
+              }}
+              className={`group relative flex-shrink-0 flex items-center gap-4 px-6 py-3.5 rounded-full bg-paper border transition-all duration-300
+                ${isReady
+                  ? 'cursor-pointer hover:shadow-sm hover:border-vw-blue hover:-translate-y-0.5'
+                  : 'cursor-not-allowed opacity-50'
+                }`}
+              style={{ borderColor: 'rgba(0,0,0,0.08)' }}
+            >
+              {!isReady && (
+                <span className="absolute -top-2 right-4 text-[7px] uppercase tracking-wide font-bold px-1.5 py-0.5 rounded-full bg-tile text-ink/40">
+                  Soon
                 </span>
-                <span className="text-sm font-medium opacity-60">
-                  {lang.card.title}
-                </span>
-                {isReady && (
-                  <ArrowRight
-                    size={14}
-                    className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-terracotta ml-1"
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+              )}
+              <span
+                className={`font-display text-2xl transition-colors ${isReady ? 'text-ink group-hover:text-vw-blue' : 'text-ink/30'}`}
+              >
+                {lang.nativeName}
+              </span>
+              <span className="text-sm font-medium opacity-60 tracking-tight">
+                {lang.card.title}
+              </span>
+              {isReady && (
+                <ArrowRight
+                  size={14}
+                  className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-vw-blue ml-1"
+                />
+              )}
+            </button>
+          );
+        })}
+      </motion.div>
     </div>
   );
 }
