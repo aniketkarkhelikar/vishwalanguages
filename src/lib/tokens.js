@@ -21,6 +21,16 @@ export const colors = {
   gold:       '#D9A98A',
 };
 
+// --- Healthcare Palette (distinct from corporate) ---
+export const healthcareColors = {
+  primary:    '#1B8A6B',   // Teal — trust, healing, medical
+  secondary:  '#14705A',   // Deeper teal
+  accent:     '#2CB88A',   // Bright green — growth, new beginnings
+  light:      '#E8F5F0',   // Very light mint
+  bgTint:     'rgba(27,138,107,0.06)',
+  gold:       '#D4A44C',   // Warm gold for Germany references
+};
+
 // --- Typography ---
 export const fonts = {
   display: '"Libre Baskerville", Georgia, serif',

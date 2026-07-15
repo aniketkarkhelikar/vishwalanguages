@@ -9,15 +9,23 @@ import {
   BookCTASection,
 } from '@/components/sections/HomeSections';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { fadeUp } from '@/animations/motion';
+import { ArrowRight, ArrowUpRight, Mic, Stethoscope, CheckCircle2 } from 'lucide-react';
+import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { languageCatalogue } from '@/data/languages';
-import { colors } from '@/lib/tokens';
+import { colors, healthcareColors } from '@/lib/tokens';
 
 /**
- * HomePage — All verticals, strong visual hierarchy.
- * Section order: Hero → Language Strip → Why Vishwa → Programs →
- *                Corporate → Moments → Services (Interpretation + Healthcare) → Stories → CTA
+ * HomePage — Clear information hierarchy:
+ * 
+ * 1. Hero — Brand promise, emotional hook
+ * 2. Language Strip — Quick scan of what's available
+ * 3. Programs List — Core product: language courses
+ * 4. Why Vishwa — Trust & differentiation (after they see programs)
+ * 5. Corporate — B2B offering (separate audience)
+ * 6. Other Services — Interpretation + Healthcare (secondary offerings)
+ * 7. Student Stories — Social proof
+ * 8. Moments — Visual energy
+ * 9. CTA — Close
  */
 export function HomePage({ onOpenConsultation, onShowToast }) {
   const scrollToPrograms = () => {
@@ -34,7 +42,7 @@ export function HomePage({ onOpenConsultation, onShowToast }) {
       {/* Language Explorer Strip */}
       <LanguageExplorer onShowToast={onShowToast} />
 
-      {/* Why Vishwa — trust before selling */}
+      {/* Why Vishwa — trust and methodology */}
       <WhyVishwaSection />
 
       {/* Language Programs */}
@@ -43,14 +51,14 @@ export function HomePage({ onOpenConsultation, onShowToast }) {
       {/* Corporate Training */}
       <CorporateSection onOpenConsultation={onOpenConsultation} />
 
-      {/* Moments marquee */}
-      <MomentsStrip />
-
-      {/* Services — two-up feature section */}
-      <ServicesSection />
+      {/* Other Services: Interpretation + Healthcare */}
+      <OtherServicesSection />
 
       {/* Student Stories */}
       <TestimonialsSection />
+
+      {/* Moments marquee */}
+      <MomentsStrip />
 
       {/* Closing CTA */}
       <BookCTASection onOpenConsultation={onOpenConsultation} />
@@ -110,128 +118,85 @@ function LanguageExplorer({ onShowToast }) {
   );
 }
 
-// --- Services — two-up visual feature cards ---
-function ServicesSection() {
-  const services = [
-    {
-      eyebrow: 'Corporate & Legal',
-      title: 'Translation & Interpretation',
-      subtitle: 'Every word matters.',
-      body: 'Professional interpretation requiring instant and precise communication in real-time. Document translation for contracts, manuals, and apps.',
-      href: '/interpretation-services',
-      cta: 'Learn about interpretation',
-      color: colors.sage,
-      bgColor: colors.surface,
-      bgImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
-      char: '言',
-      charColor: colors.sage,
-      features: [
-        'Document Translation (Contracts, Manuals)',
-        'Website & App Localization',
-        'Certified & Notarized Translation',
-        'Simultaneous & Consecutive Interpretation',
-      ],
-    },
-    {
-      eyebrow: 'Medical Professionals',
-      title: 'Healthcare Placements',
-      subtitle: 'From India to Germany.',
-      body: 'Nurses and healthcare professionals guided from A1 German language all the way to verified hospital placement in Germany.',
-      href: '/healthcare-placement',
-      cta: 'Explore healthcare placement',
-      color: colors.blue,
-      bgColor: colors.paper,
-      bgImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80',
-      char: '⚕',
-      charColor: colors.blue,
-      features: [
-        'CEFR German Language Prep (A1 - B2)',
-        'Deficit Assessment & Document Verification',
-        'Direct Interviews with German Hospitals',
-        'Visa, Travel, & Onboarding Support',
-      ],
-    },
-  ];
-
+// --- Other Services We Provide ---
+function OtherServicesSection() {
   return (
-    <section
-      className="py-0 border-t"
-      style={{ borderColor: colors.line }}
-    >
-      <div className="grid md:grid-cols-2">
-        {services.map((s, i) => (
-          <ServiceCard key={s.href} service={s} idx={i} />
-        ))}
+    <section className="py-32 md:py-48 bg-surface border-t" style={{ borderColor: colors.line }}>
+      <div className="container-site max-w-7xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mb-24 md:mb-32 text-center"
+        >
+          <span className="text-[10px] font-mono uppercase tracking-widest text-brown block mb-6">Beyond Language Courses</span>
+          <h2 className="font-display text-5xl md:text-7xl leading-tight">
+            Specialized solutions.
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+          {/* Interpretation Card - Massive Typographic Block */}
+          <motion.div
+            variants={fadeUpScale}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="group relative bg-ink border border-ink/10 rounded-[3rem] p-12 md:p-16 flex flex-col justify-between min-h-[500px] hover:-translate-y-2 transition-transform duration-700 overflow-hidden"
+          >
+            <div className="relative z-10 text-white">
+              <span className="text-[10px] font-mono uppercase tracking-widest opacity-50 block mb-12">Translation & Interpretation</span>
+              <h3 className="font-display text-4xl md:text-5xl leading-[1.1] mb-6">
+                Precision communication for high-stakes environments.
+              </h3>
+              <p className="text-white/50 font-light text-lg md:text-xl leading-relaxed max-w-sm">
+                Legal, medical, and corporate specialists in Japanese, German, French, and Spanish.
+              </p>
+            </div>
+            <Link
+              to="/interpretation-services"
+              className="relative z-10 mt-12 inline-flex items-center gap-4 text-sm uppercase font-bold tracking-widest text-white hover:text-sage transition-colors"
+            >
+              Request Quote <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
+            </Link>
+            {/* Abstract Graphic */}
+            <div className="absolute -bottom-10 -right-10 w-[300px] h-[300px] rounded-full blur-[80px] opacity-30 mix-blend-overlay" style={{ background: `radial-gradient(circle, ${colors.sage} 0%, transparent 70%)` }} />
+            <div className="absolute -bottom-10 -right-6 font-display text-[15rem] leading-none opacity-[0.05] pointer-events-none select-none text-white">言</div>
+          </motion.div>
+
+          {/* Healthcare Card - Massive Typographic Block */}
+          <motion.div
+            variants={fadeUpScale}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="group relative border rounded-[3rem] p-12 md:p-16 flex flex-col justify-between min-h-[500px] hover:-translate-y-2 transition-transform duration-700 overflow-hidden"
+            style={{ borderColor: `${healthcareColors.primary}20`, backgroundColor: healthcareColors.light }}
+          >
+            <div className="relative z-10">
+              <span className="text-[10px] font-mono uppercase tracking-widest block mb-12" style={{ color: healthcareColors.primary }}>Healthcare Placements</span>
+              <h3 className="font-display text-4xl md:text-5xl leading-[1.1] text-ink mb-6">
+                An exclusive pathway from India to Germany.
+              </h3>
+              <p className="text-ink/60 font-light text-lg md:text-xl leading-relaxed max-w-sm">
+                For nursing graduates: We handle A1-B2 language training, credential recognition, and hospital matching.
+              </p>
+            </div>
+            <Link
+              to="/healthcare-placement"
+              className="relative z-10 mt-12 inline-flex items-center gap-4 text-sm uppercase font-bold tracking-widest hover:opacity-70 transition-opacity"
+              style={{ color: healthcareColors.primary }}
+            >
+              Check Eligibility <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
+            </Link>
+            {/* Abstract Graphic */}
+            <div className="absolute -bottom-10 -right-10 w-[300px] h-[300px] rounded-full blur-[80px] opacity-[0.15] mix-blend-overlay" style={{ background: `radial-gradient(circle, ${healthcareColors.primary} 0%, transparent 70%)` }} />
+            <div className="absolute -bottom-10 -right-6 font-display text-[15rem] leading-none opacity-[0.05] pointer-events-none select-none" style={{ color: healthcareColors.primary }}>⚕</div>
+          </motion.div>
+        </div>
       </div>
     </section>
-  );
-}
-
-function ServiceCard({ service: s, idx }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      className={`group relative overflow-hidden p-8 md:p-12 lg:p-16 flex flex-col justify-between min-h-[auto] md:min-h-[640px] ${idx === 0 ? 'md:border-r' : ''} border-b md:border-b-0`}
-      style={{ backgroundColor: s.bgColor, borderColor: colors.line }}
-    >
-      {/* Background Image with low opacity for visual texture */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none">
-        <img 
-          src={s.bgImage} 
-          alt={s.eyebrow} 
-          className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" 
-        />
-      </div>
-
-      {/* Background character */}
-      <div
-        className="absolute -bottom-10 -right-10 font-display text-[16rem] md:text-[20rem] leading-none select-none pointer-events-none opacity-[0.05] group-hover:opacity-[0.08] transition-opacity duration-700 z-0"
-        style={{ color: s.charColor }}
-      >
-        {s.char}
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        <span className="text-[10px] font-mono uppercase tracking-widest block mb-4 md:mb-6" style={{ color: s.color }}>
-          {s.eyebrow}
-        </span>
-        
-        {/* Huge Service Title for clarity */}
-        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight mb-3">
-          {s.title}
-        </h2>
-        
-        <h3 className="font-display italic text-xl md:text-2xl lg:text-3xl leading-tight mb-8" style={{ color: s.color }}>
-          {s.subtitle}
-        </h3>
-        
-        <p className="text-ink/65 text-sm md:text-base font-light leading-relaxed max-w-sm mb-8">
-          {s.body}
-        </p>
-
-        {/* Feature Checkmarks */}
-        <ul className="space-y-3 max-w-sm">
-          {s.features.map((feature, fIdx) => (
-            <li key={fIdx} className="flex items-start gap-3 text-xs md:text-sm text-ink/75 font-medium">
-              <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ backgroundColor: s.color }} />
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <Link
-        to={s.href}
-        className="relative z-10 mt-12 inline-flex items-center gap-2 text-[11px] uppercase font-bold tracking-wider transition-all group-hover:gap-3"
-        style={{ color: s.color }}
-      >
-        {s.cta}
-        <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-      </Link>
-    </motion.div>
   );
 }

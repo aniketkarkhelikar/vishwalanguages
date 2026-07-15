@@ -4,7 +4,7 @@
 
 /* ============================================================
    VISHWA LANGUAGES — Global Stylesheet
-   Foundation → Components → Utilities
+   Foundation → Components → Animations → Utilities
    ============================================================ */
 
 /* --- Base Layer --- */
@@ -15,15 +15,37 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply font-body text-ink bg-paper overflow-x-hidden;
+    @apply font-body text-ink bg-paper overflow-x-clip;
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {
     background-color: rgba(184, 92, 56, 0.15);
     color: #171512;
+  }
+
+  /* Ensure proper touch targets for interactive elements */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Override for inline links and very small UI elements */
+  a:not(.btn-primary):not(.btn-ghost):not(.btn-outline):not(.btn-corporate) {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Smooth focus outlines for accessibility */
+  :focus-visible {
+    outline: 2px solid #B85C38;
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
@@ -61,10 +83,20 @@
   /* --- Navigation --- */
   .nav-link {
     @apply text-micro opacity-60 hover:opacity-100 hover:text-terracotta
-           transition-all duration-300 cursor-pointer;
+           transition-all duration-300 cursor-pointer relative;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-terracotta transition-all duration-300;
+  }
+  .nav-link:hover::after {
+    @apply w-full;
   }
   .nav-link--active {
     @apply text-terracotta opacity-100;
+  }
+  .nav-link--active::after {
+    @apply w-full;
   }
 
   /* --- Buttons --- */
@@ -74,6 +106,7 @@
            text-[11px] uppercase tracking-wide
            hover:shadow-xl hover:shadow-terracotta/20
            hover:-translate-y-0.5 transition-all duration-300;
+    min-height: 48px;
   }
 
   .btn-ghost {
@@ -82,6 +115,8 @@
            border-b border-ink/30 pb-1
            hover:text-terracotta hover:border-terracotta
            transition-all duration-300;
+    min-height: auto;
+    min-width: auto;
   }
 
   .btn-outline {
@@ -90,6 +125,7 @@
            text-[11px] uppercase tracking-wide font-medium
            hover:border-terracotta/30 hover:bg-terracotta/5
            hover:shadow-card transition-all duration-300;
+    min-height: 44px;
   }
 
   .btn-corporate {
@@ -97,6 +133,7 @@
            bg-white text-ink font-medium
            text-[11px] uppercase tracking-wide
            hover:bg-gold transition-all duration-300;
+    min-height: 48px;
   }
 
   /* --- Cards --- */
@@ -126,21 +163,29 @@
            focus:border-terracotta focus:shadow-[0_0_0_4px_rgba(184,92,56,0.12)];
     padding-left: 2.75rem;  /* Icon clearance — always explicit */
     padding-right: 1rem;
+    min-height: 48px;
   }
 
   .field-select {
     @apply field-input cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23171512' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
   }
 
   .field-label {
     @apply block text-[10px] uppercase tracking-micro font-semibold
            text-ink/45 mb-2;
+    min-height: auto;
   }
 
   /* --- Badges --- */
   .badge {
     @apply inline-flex items-center px-3 py-1 rounded-md
            text-[9px] uppercase tracking-wide font-bold;
+    min-height: auto;
+    min-width: auto;
   }
 
   /* --- Scrollbar hide --- */
@@ -158,6 +203,84 @@
 
   /* --- Divider Line --- */
   .divider { @apply border-t border-ink/[0.09]; }
+
+  /* --- Scroll Reveal Animations (CSS) --- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-scale {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .reveal-blur {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-blur.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Stagger children with CSS delays */
+  .stagger-children > * { transition-delay: calc(var(--stagger-index, 0) * 80ms); }
+
+  /* --- Ambient Glow --- */
+  .ambient-glow {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    z-index: -1;
+    animation: glow-breathe 8s ease-in-out infinite;
+  }
+
+  @keyframes glow-breathe {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.08); }
+  }
+
+  /* --- Line Draw --- */
+  .line-draw {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .line-draw.visible {
+    transform: scaleX(1);
+  }
+
+  /* --- Healthcare Palette Classes --- */
+  .healthcare-accent { color: #1B8A6B; }
+  .healthcare-bg { background-color: #E8F5F0; }
+  .healthcare-border { border-color: rgba(27, 138, 107, 0.15); }
+  .btn-healthcare {
+    @apply inline-flex items-center gap-2 px-8 py-4 rounded-xl
+           text-white font-medium text-[11px] uppercase tracking-wide
+           hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300;
+    background-color: #1B8A6B;
+    min-height: 48px;
+  }
+  .btn-healthcare:hover {
+    background-color: #14705A;
+    box-shadow: 0 12px 32px -8px rgba(27, 138, 107, 0.3);
+  }
 }
 
 /* --- Utility Layer --- */
@@ -188,4 +311,50 @@
     background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0);
     background-size: 24px 24px;
   }
+
+  /* Performance: GPU acceleration for animated elements */
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Safe area insets for notched devices */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-scale, .reveal-blur {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* --- Cross-browser backdrop-filter fallback --- */
+@supports not (backdrop-filter: blur(1px)) {
+  .backdrop-blur-sm, .backdrop-blur-md, .backdrop-blur-xl, .backdrop-blur-2xl, .backdrop-blur-3xl {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+}
+
+/* --- Print styles --- */
+@media print {
+  nav, footer, .marquee-row, .ambient-glow { display: none !important; }
+  body { color: black; background: white; }
 }

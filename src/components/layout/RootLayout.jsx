@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/Footer';
  */
 export function RootLayout({ children, onOpenConsultation }) {
   return (
-    <div className="min-h-screen flex flex-col font-body bg-paper text-ink overflow-x-hidden">
+    <div className="min-h-screen flex flex-col font-body bg-paper text-ink overflow-x-clip">
       <Navbar onOpenConsultation={onOpenConsultation} />
       <main id="main-content" className="flex-1">
         {children}

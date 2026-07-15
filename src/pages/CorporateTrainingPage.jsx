@@ -1,171 +1,221 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
-import { pageSlideUp, fadeUp, staggerContainer } from '@/animations/motion';
+import { ArrowRight } from 'lucide-react';
+import { pageSlideUp, fadeUp, staggerContainer, fadeUpScale } from '@/animations/motion';
 import { corporateTraining } from '@/data/services/corporate';
 import { colors } from '@/lib/tokens';
-import corporateTrainingHero from '@/assets/images/corporate_training_hero.png';
 
+/**
+ * CorporateTrainingPage — Apple-inspired Enterprise Design.
+ * Reimagined with a dark, high-contrast, non-sticky layout.
+ * Massive typography, direct information flow.
+ */
 export function CorporateTrainingPage({ onOpenConsultation }) {
   const d = corporateTraining;
+  const [activeStep, setActiveStep] = useState(0);
+
+  // Set up intersection observer to detect active step on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-process-index') || '0', 10);
+            setActiveStep(index);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '-40% 0px -40% 0px', // Trigger when block is near center of screen
+        threshold: 0.1
+      }
+    );
+
+    const elements = document.querySelectorAll('[data-process-index]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
 
   return (
-    <motion.div variants={pageSlideUp} initial="hidden" animate="visible" exit="exit" className="relative">
+    <motion.div variants={pageSlideUp} initial="hidden" animate="visible" exit="exit" className="bg-ink text-white">
       
-      {/* Editorial layout lines */}
-      <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block">
-        <div className="container-site h-full grid grid-cols-4 gap-0">
-          <div className="border-r border-ink/[0.04] h-full" />
-          <div className="border-r border-ink/[0.04] h-full" />
-          <div className="border-r border-ink/[0.04] h-full" />
-          <div className="h-full" />
-        </div>
-      </div>
-
-      {/* Hero: Split Screen Dark Hero */}
-      <section className="relative pt-40 pb-20 md:py-28 bg-ink text-white overflow-hidden border-b" style={{ borderColor: colors.line }}>
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="corp-grid-hero" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#corp-grid-hero)" />
-          </svg>
+      {/* ══ MASSIVE B2B HERO ══ */}
+      {/* Structural mirror to the new Healthcare Hero, but tailored for Enterprise */}
+      <section className="relative min-h-[90vh] flex flex-col justify-center pb-12 md:pb-24 pt-40 px-6 overflow-hidden bg-ink">
+        {/* Subtle grid and glows */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <svg width="100%" height="100%" className="opacity-[0.03]"><defs><pattern id="c-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#c-grid)" /></svg>
+          <div className="absolute top-[20%] left-[20%] w-[50vw] h-[50vw] rounded-full blur-[120px] opacity-20" style={{ background: `radial-gradient(circle, ${colors.gold} 0%, transparent 70%)` }} />
         </div>
 
-        <div className="container-site relative z-10 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="text-micro text-gold font-medium block mb-6 tracking-[0.2em]">{d.hero.eyebrow}</span>
-            <h1 className="font-display text-h1 leading-tight mb-8">
-              Corporate language training.<br />
-              <span className="italic text-gold">Engineered for growth.</span>
-            </h1>
-            <p className="text-white/60 text-lg md:text-xl font-light leading-relaxed mb-10">
-              {d.hero.subtitle}
-            </p>
-            <button 
-              onClick={() => onOpenConsultation({ type: 'corporate' })}
-              className="btn-corporate"
-            >
-              {d.hero.cta} <ArrowRight size={16} />
-            </button>
-          </div>
-
-          <div className="relative h-[320px] md:h-[420px] rounded-3xl overflow-hidden shadow-lift border border-white/10">
-            <img 
-              src={corporateTrainingHero} 
-              alt="Corporate Training in Tokyo" 
-              className="w-full h-full object-cover"
-            />
-            {/* Absolute badge inside hero */}
-            <div className="absolute bottom-4 right-4 bg-ink/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-[10px] uppercase tracking-wider font-semibold text-gold">
-              Expat relos & business teams
+        <div className="container-site relative z-10 max-w-7xl mx-auto w-full">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 border-b border-white/10 pb-16">
+            <div className="max-w-4xl">
+              <motion.span
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-gold block mb-6 md:mb-10"
+              >
+                Vishwa Enterprise Solutions
+              </motion.span>
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+                className="font-display text-[12vw] md:text-[7rem] lg:text-[9rem] leading-[0.9] text-white tracking-[-0.03em] mb-6 md:mb-0"
+              >
+                Global<br />
+                <span className="italic text-white/50">fluency.</span>
+              </motion.h1>
+            </div>
+            
+            <div className="flex flex-col gap-8 pb-4">
+              <p className="text-white/60 font-light text-lg md:text-xl max-w-sm leading-relaxed">
+                We engineer custom language programs for modern enterprises. From expat relocations to cross-cultural sales teams, we deliver measurable ROI.
+              </p>
+              
+              <button 
+                onClick={() => onOpenConsultation({ type: 'corporate' })}
+                className="group relative inline-flex items-center justify-center px-8 py-4 border border-white/20 hover:border-gold hover:text-ink hover:bg-gold rounded-full text-white overflow-hidden transition-all duration-300 w-fit"
+              >
+                <span className="relative z-10 flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
+                  Request a Proposal <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Features: Card Grid layout */}
-      <section className="py-24 md:py-32 bg-surface border-b" style={{ borderColor: colors.line }}>
-        <div className="container-site">
-          <div className="mb-16">
-            <span className="text-micro opacity-50 block mb-3">Enterprise Framework</span>
-            <h2 className="font-display text-3xl md:text-4xl">What we deliver</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {d.features.map((f, i) => (
-              <motion.div
-                key={f.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="p-8 border bg-paper rounded-2xl shadow-sm hover:shadow-lift hover:-translate-y-1 transition-all duration-300"
-                style={{ borderColor: colors.line }}
-              >
-                <span className="text-micro text-gold opacity-80 block mb-6">Service 0{i + 1}</span>
-                <h4 className="font-display text-xl mb-3">{f.title}</h4>
-                <p className="text-sm text-ink/60 leading-relaxed font-light">{f.desc}</p>
+          {/* THE STATS (Huge Typography right below Hero) */}
+          <div className="pt-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {[
+              { val: '20+', label: 'Enterprise Partners' },
+              { val: '500+', label: 'Executives Trained' },
+              { val: '100%', label: 'Custom Curriculums' },
+              { val: '6', label: 'Languages Offered' }
+            ].map((stat, i) => (
+              <motion.div key={i} variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.5 + (i*0.1) }} className="flex flex-col border-l border-white/10 pl-6 md:pl-8">
+                <span className="font-display text-4xl md:text-6xl text-white mb-2">{stat.val}</span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">{stat.label}</span>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process: Timelines */}
-      <section className="py-24 md:py-32 border-b bg-paper relative overflow-hidden" style={{ borderColor: colors.line }}>
-        <div className="container-site relative z-10">
-          <div className="mb-16">
-            <span className="text-micro opacity-50 block mb-3">Execution Roadmap</span>
-            <h2 className="font-display text-3xl md:text-4xl">Our integration workflow</h2>
+      {/* ══ THE FRAMEWORK (Massive Zig-Zag Blocks) ══ */}
+      {/* Replaces the sticky scroll to provide immediate visual scanning */}
+      <section className="py-24 md:py-32 bg-surface text-ink rounded-t-[3rem] md:rounded-t-[5rem] overflow-hidden">
+        <div className="container-site max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20 md:mb-32">
+            <span className="text-[10px] font-mono uppercase tracking-widest block mb-6 text-terracotta">Our Core Pillars</span>
+            <h2 className="font-display text-4xl md:text-6xl leading-tight text-ink tracking-tight">
+              Not a generic language course. We engineer results.
+            </h2>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {d.process.map((p, i) => (
-              <motion.div
-                key={p.step}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative p-8 md:p-10 rounded-3xl bg-surface border flex flex-col justify-between min-h-[320px] hover:bg-paper hover:shadow-card transition-all duration-500 group"
-                style={{ borderColor: colors.line }}
+          
+          <div className="space-y-16 md:space-y-24">
+            {d.features.map((feature, idx) => (
+              <motion.div 
+                key={idx} 
+                variants={fadeUpScale} 
+                initial="hidden" 
+                whileInView="visible" 
+                viewport={{ once: true, margin: '-10%' }}
+                className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
               >
-                <div>
-                  <div className="flex justify-between items-start mb-8">
-                    <span className="text-[10px] uppercase tracking-widest font-bold" style={{ color: colors.gold }}>
-                      Phase 0{i + 1}
-                    </span>
-                    <span className="font-display text-5xl opacity-[0.04] group-hover:opacity-[0.15] group-hover:-translate-y-1 transition-all duration-500" style={{ color: colors.gold }}>
-                      {i + 1}
-                    </span>
-                  </div>
-                  <h4 className="font-display text-2xl mb-4">{p.title}</h4>
-                  <p className="text-ink/60 text-sm leading-relaxed font-light">{p.desc}</p>
+                {/* Visual Number Block */}
+                <div className="w-full md:w-1/2 aspect-video md:aspect-square bg-ink/5 rounded-3xl flex items-center justify-center p-12 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/[0.02] transition-colors duration-500" />
+                  <span className="font-display text-9xl text-ink/10 select-none group-hover:scale-110 transition-transform duration-700">0{idx + 1}</span>
                 </div>
                 
-                {/* Visual node progression */}
-                <div className="w-full h-1 bg-ink/5 rounded-full overflow-hidden mt-10">
-                  <div className="h-full transition-all duration-1000 ease-out origin-left scale-x-0 group-hover:scale-x-100" style={{ backgroundColor: colors.gold }} />
+                {/* Text Block */}
+                <div className="w-full md:w-1/2">
+                  <h3 className="font-display text-3xl md:text-5xl leading-tight mb-6">
+                    {feature.title}
+                  </h3>
+                  <p className="text-xl md:text-2xl font-light text-ink/60 leading-relaxed">
+                    {feature.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Backdrop watermark */}
-        <div 
-          className="absolute top-[30%] right-10 font-display font-bold text-[18rem] md:text-[25rem] leading-none pointer-events-none select-none z-0"
-          style={{ color: colors.gold, opacity: 0.22 }}
-        >
-          社
+      {/* ══ THE PROCESS (Elegant Timeline) ══ */}
+      {/* Scroll-based animations with sticky title */}
+      <section className="py-24 md:py-32 bg-ink text-white border-t border-white/5 relative">
+        <div className="container-site max-w-5xl mx-auto relative">
+          
+          {/* STICKY TITLE BLOCK */}
+          <div className="sticky top-0 pt-24 pb-12 bg-ink z-20 -mt-24 mb-12">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <span className="text-[10px] font-mono uppercase tracking-widest block mb-4 text-gold">Engagement Model</span>
+              <h2 className="font-display text-5xl md:text-7xl">The Process.</h2>
+            </motion.div>
+          </div>
+          
+          <div className="space-y-0 relative border-l border-white/10 ml-6 md:ml-12 pl-8 md:pl-16">
+            {d.process.map((phase, idx) => (
+              <motion.div 
+                key={idx} 
+                data-process-index={idx}
+                variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-10%' }}
+                className="relative pb-24 last:pb-12 group transition-opacity duration-700"
+                style={{ opacity: activeStep === idx ? 1 : 0.3 }}
+              >
+                {/* Timeline Dot (Lights up when active) */}
+                <div 
+                  className="absolute -left-[37px] md:-left-[69px] top-1 w-3 h-3 rounded-full transition-all duration-700"
+                  style={{ 
+                    backgroundColor: activeStep === idx ? colors.gold : 'rgba(255,255,255,0.2)',
+                    transform: activeStep === idx ? 'scale(1.5)' : 'scale(1)',
+                    boxShadow: activeStep === idx ? `0 0 20px ${colors.gold}` : 'none'
+                  }}
+                />
+                
+                <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-start">
+                  <div 
+                    className="font-display text-3xl md:text-4xl shrink-0 w-16 transition-colors duration-700"
+                    style={{ color: activeStep === idx ? colors.gold : 'rgba(255,255,255,0.3)' }}
+                  >
+                    {phase.step}
+                  </div>
+                  <div>
+                    <h4 
+                      className="font-display text-2xl md:text-4xl mb-4 transition-colors duration-700"
+                      style={{ color: activeStep === idx ? colors.gold : 'white' }}
+                    >
+                      {phase.title}
+                    </h4>
+                    <p className="text-lg md:text-xl font-light text-white/80 leading-relaxed max-w-2xl">{phase.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Stats row & CTA */}
-      <section className="py-28 md:py-36 bg-paper relative overflow-hidden">
-        <div className="container-site max-w-prose text-center relative z-10">
-          <span className="text-micro text-gold font-medium block mb-4">Partner with Vishwa</span>
-          <h2 className="font-display text-4xl md:text-5xl mb-6">Coordinate training cohorts.</h2>
-          <p className="font-display italic text-ink/60 text-lg md:text-xl mb-10 leading-relaxed">
-            Get structured curriculum alignment, batch sizes, and progress metrics for your corporate team.
-          </p>
+      {/* ══ GRAND CTA ══ */}
+      <section className="py-32 md:py-48 bg-ink text-center border-t border-white/10">
+        <div className="container-site">
+          <span className="text-[10px] font-mono uppercase tracking-widest block mb-8 text-gold">Corporate Partnerships</span>
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-none tracking-tight text-white mb-12">
+            Align your team.
+          </h2>
           <button 
             onClick={() => onOpenConsultation({ type: 'corporate' })}
-            className="btn-primary mx-auto"
-            style={{ backgroundColor: colors.blue }}
+            className="group relative inline-flex items-center justify-center px-12 py-6 bg-white text-ink rounded-full overflow-hidden"
           >
-            Open Proposal Request <ArrowRight size={16} />
+            <div className="absolute inset-0 bg-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <span className="relative z-10 flex items-center gap-4 text-sm font-bold uppercase tracking-widest">
+              Request a Proposal <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
+            </span>
           </button>
-          
-          <p className="text-[10px] uppercase tracking-wider text-ink/30 mt-8 flex justify-center items-center gap-2">
-            <ShieldCheck size={12} /> Confidential. Corporate coordinator responds within 12 business hours.
-          </p>
         </div>
       </section>
 

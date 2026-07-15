@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Globe2, Target, User, Phone, CheckCircle2, ArrowRight, GraduationCap, Briefcase, Mail, Building2, ShieldCheck } from 'lucide-react';
+import { X, Globe2, Target, User, Phone, CheckCircle2, ArrowRight, GraduationCap, Briefcase, Mail, Building2, ShieldCheck, MessageCircle } from 'lucide-react';
 import { modalEntrance } from '@/animations/motion';
-import { submitLead } from '@/lib/leadService';
+import { submitLead, openEmailFollowUp } from '@/lib/leadService';
 import { site } from '@/data/site';
 import { languageCatalogue } from '@/data/languages';
-import { colors } from '@/lib/tokens';
+import { colors, healthcareColors } from '@/lib/tokens';
 
 /**
  * ConsultationModal — primary lead capture mechanism.
@@ -15,11 +15,17 @@ import { colors } from '@/lib/tokens';
  * - 'interpretation': Language combination & event mode
  * - 'language': Level & batch preferences
  * - 'general': General inquiry selection
+ *
+ * On submit: sends prefilled WhatsApp message + offers email follow-up.
  */
 export function ConsultationModal({ isOpen, onClose, context = { type: 'general' } }) {
   const [submitted, setSubmitted]   = useState(false);
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState('');
+  const [mailtoURL, setMailtoURL]   = useState('');
+
+  const isHealthcare = context.type === 'healthcare';
+  const accentColor = isHealthcare ? healthcareColors.primary : colors.gold;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +39,9 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
       payload = {
         name: `${formData.get('contactName')} (${formData.get('orgName')})`,
         phone: formData.get('phone'),
+        email: formData.get('email'),
         language: formData.get('targetLanguage'),
-        goal: `Corp Training | Focus: ${formData.get('focus')} | Size: ${formData.get('batchSize')} | Email: ${formData.get('email')}`,
+        goal: `Corp Training | Focus: ${formData.get('focus')} | Size: ${formData.get('batchSize')}`,
         serviceType: 'corporate',
         source: '/corporate-training',
       };
@@ -81,6 +88,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
     setLoading(false);
     if (result.success) {
       setSubmitted(true);
+      setMailtoURL(result.mailtoURL || '');
     } else {
       setError(result.message);
     }
@@ -88,7 +96,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
 
   const handleClose = () => {
     onClose();
-    setTimeout(() => { setSubmitted(false); setError(''); }, 400);
+    setTimeout(() => { setSubmitted(false); setError(''); setMailtoURL(''); }, 400);
   };
 
   // Helper to determine headings
@@ -163,13 +171,16 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
             {/* Left — Editorial Brand Panel */}
             <div
               className="hidden md:flex md:col-span-2 relative p-12 flex-col justify-between overflow-hidden"
-              style={{ backgroundColor: colors.ink }}
+              style={{ backgroundColor: isHealthcare ? '#0F4F3E' : colors.ink }}
             >
               <div className="absolute -bottom-16 -right-10 font-display text-[13rem] text-white/5 leading-none select-none pointer-events-none">
-                言
+                {isHealthcare ? '⚕' : '言'}
               </div>
               <div className="relative z-10">
-                <span className="font-display text-[10px] uppercase tracking-micro text-gold block mb-6">
+                <span
+                  className="font-display text-[10px] uppercase tracking-micro block mb-6"
+                  style={{ color: accentColor }}
+                >
                   {header.eyebrow}
                 </span>
                 <h3 className="font-display italic text-3xl md:text-4xl text-white leading-tight">
@@ -203,11 +214,23 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                   <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-green-50">
                     <CheckCircle2 size={32} className="text-green-600" />
                   </div>
-                  <h4 className="font-display text-3xl mb-4">Request received.</h4>
-                  <p className="text-sm opacity-60 max-w-xs leading-relaxed">
-                    An advisor will reach out on WhatsApp shortly with customized syllabus, timings, and program parameters.
+                  <h4 className="font-display text-3xl mb-4">Sent via WhatsApp!</h4>
+                  <p className="text-sm opacity-60 max-w-xs leading-relaxed mb-6">
+                    Your inquiry has been sent. An advisor will respond on WhatsApp shortly with customized details.
                   </p>
-                  <button onClick={handleClose} className="mt-8 btn-ghost">
+
+                  {/* Email follow-up option */}
+                  {mailtoURL && (
+                    <button
+                      onClick={() => openEmailFollowUp(mailtoURL)}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-ink/15 text-ink text-[11px] uppercase tracking-wide font-medium hover:bg-surface transition-all mb-4"
+                    >
+                      <Mail size={14} />
+                      Also send via Email
+                    </button>
+                  )}
+
+                  <button onClick={handleClose} className="mt-4 btn-ghost">
                     Close Window
                   </button>
                 </motion.div>
@@ -534,13 +557,15 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                     type="submit"
                     disabled={loading}
                     className="btn-primary w-full justify-center mt-2 disabled:opacity-60"
+                    style={isHealthcare ? { backgroundColor: healthcareColors.primary } : undefined}
                   >
-                    {loading ? 'Submitting…' : 'Submit Request'}
+                    <MessageCircle size={16} />
+                    {loading ? 'Sending…' : 'Send via WhatsApp'}
                     {!loading && <ArrowRight size={16} />}
                   </button>
 
                   <p className="text-[10px] uppercase tracking-micro opacity-30 text-center flex justify-center items-center gap-2">
-                    <ShieldCheck size={12} /> Confidential inquiry. No spam.
+                    <ShieldCheck size={12} /> Confidential inquiry. Sent directly to our team.
                   </p>
                 </form>
               )}

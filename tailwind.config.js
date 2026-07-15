@@ -13,8 +13,14 @@ export default {
         terracotta: '#B85C38',
         sage:       '#6E7D64',
         'vw-blue':  '#4C6478',
+        blue:       '#4C6478',
         clay:       '#E4D5C4',
         gold:       '#D9A98A',
+        // Healthcare palette
+        'health':       '#1B8A6B',
+        'health-dark':  '#14705A',
+        'health-light': '#E8F5F0',
+        'health-accent': '#2CB88A',
       },
 
       // --- Typography ---
@@ -64,12 +70,15 @@ export default {
         'modal':   '0 40px 80px -20px rgba(23,21,18,0.25)',
         'tile-glass': '0 15px 35px rgba(23,21,18,0.06), inset 0 1px 0 rgba(255,255,255,0.7)',
         'tile-solid': '0 18px 36px -10px rgba(23,21,18,0.16), inset 0 2px 4px rgba(255,255,255,0.35)',
+        'glow-health': '0 12px 32px -8px rgba(27,138,107,0.25)',
       },
 
       // --- Custom Animation ---
       animation: {
         'marquee': 'marquee 40s linear infinite',
         'float':   'float 7s ease-in-out infinite',
+        'glow':    'glow-breathe 8s ease-in-out infinite',
+        'shimmer': 'shimmer 2s ease-in-out infinite',
       },
       keyframes: {
         marquee: {
@@ -80,6 +89,14 @@ export default {
           '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
           '50%':      { transform: 'translateY(-15px) rotate(4deg)' },
         },
+        'glow-breathe': {
+          '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+          '50%':      { opacity: '0.5', transform: 'scale(1.08)' },
+        },
+        shimmer: {
+          '0%':   { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
 
       // --- Letter Spacing ---
@@ -87,6 +104,12 @@ export default {
         'micro': '0.2em',
         'wide':  '0.15em',
         'wider': '0.12em',
+      },
+
+      // --- Screen breakpoints (explicit for responsive design) ---
+      screens: {
+        'xs': '475px',
+        '3xl': '1920px',
       },
     },
   },

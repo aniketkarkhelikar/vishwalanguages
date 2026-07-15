@@ -1,8 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Users, Target, Globe2 } from 'lucide-react';
-import { fadeUp, staggerContainer } from '@/animations/motion';
+import { fadeUp, fadeUpScale, staggerContainer, lineGrow } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
+import { useRef } from 'react';
 
 // Moments from the field — landscape image marquee
 const MOMENT_IMAGES = [
@@ -14,7 +15,7 @@ const MOMENT_IMAGES = [
 ];
 
 /**
- * MomentsStrip — redesigned: continuous scrolling landscape images with edge pills.
+ * MomentsStrip — continuous scrolling landscape images with edge pills.
  */
 export function MomentsStrip() {
   return (
@@ -40,12 +41,17 @@ export function MomentsStrip() {
           {[...MOMENT_IMAGES, ...MOMENT_IMAGES, ...MOMENT_IMAGES].map((m, i) => (
             <div
               key={i}
-              className="relative flex-shrink-0 w-80 h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
+              className="relative flex-shrink-0 w-72 sm:w-80 h-44 sm:h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
-              <img src={m.img} alt={m.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <img
+                src={m.img}
+                alt={m.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                <span className="font-display text-white text-xl">{m.title}</span>
+                <span className="font-display text-white text-lg sm:text-xl">{m.title}</span>
                 <span className="text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded-full bg-white/20 text-white backdrop-blur-md">
                   {m.pill}
                 </span>
@@ -60,13 +66,29 @@ export function MomentsStrip() {
 
 /**
  * WhyVishwaSection — Asymmetrical, premium grid with imagery and deep contrast.
+ * Enhanced with scroll-driven parallax and richer animations.
  */
 export function WhyVishwaSection() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+
   return (
-    <section className="py-24 md:py-32 bg-paper overflow-hidden relative" style={{ borderTop: `1px solid ${colors.line}` }}>
-      {/* Ambient background blur */}
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#E4D5C4] rounded-full blur-[120px] opacity-30 -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#6E7D64] rounded-full blur-[140px] opacity-20 -z-10 pointer-events-none" />
+    <section ref={sectionRef} className="py-24 md:py-32 bg-paper overflow-hidden relative" style={{ borderTop: `1px solid ${colors.line}` }}>
+      {/* Ambient background blur — with breathing animation */}
+      <motion.div
+        animate={{ scale: [1, 1.06, 1], opacity: [0.25, 0.35, 0.25] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#E4D5C4] rounded-full blur-[120px] -z-10 pointer-events-none"
+      />
+      <motion.div
+        animate={{ scale: [1, 1.04, 1], opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+        className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#6E7D64] rounded-full blur-[140px] -z-10 pointer-events-none"
+      />
 
       <div className="container-site max-w-7xl mx-auto">
         <motion.div 
@@ -83,60 +105,72 @@ export function WhyVishwaSection() {
             </h2>
           </div>
           <p className="text-ink/65 font-light max-w-sm text-sm md:text-base leading-relaxed">
-            Language is the bridge, but your career is the destination. Our methodology is strictly designed to prepare you for the global professional stage.
+            Language is the bridge, but your career is the destination. Our methodology is designed to prepare you for the global professional stage.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {/* Card 1 - Large Image Card */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="lg:col-span-2 relative h-[380px] md:h-[460px] rounded-3xl overflow-hidden group shadow-sm border border-ink/5">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Students in discussion" />
+          <motion.div
+            variants={fadeUpScale}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-2 relative h-[320px] sm:h-[380px] md:h-[460px] rounded-3xl overflow-hidden group shadow-sm border border-ink/5"
+          >
+            <motion.img
+              style={{ y: bgY }}
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+              alt="Students in discussion"
+              loading="lazy"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent opacity-90" />
-            <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
+            <div className="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10 w-full">
               <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-3 block">01 / Methodology</span>
-              <h3 className="text-white font-display text-3xl md:text-4xl mb-3 tracking-tight">Career-First Curriculum</h3>
-              <p className="text-white/80 font-light max-w-md text-sm leading-relaxed">Every syllabus is mapped to a real professional outcome, not just a generic certificate. Learn what actually matters in the workspace.</p>
+              <h3 className="text-white font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight">Career-First Curriculum</h3>
+              <p className="text-white/80 font-light max-w-md text-sm leading-relaxed">Every syllabus is mapped to a real professional outcome, not just a generic certificate.</p>
             </div>
           </motion.div>
 
           {/* Card 2 - Accent Color Card */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-[#6E7D64] text-white rounded-3xl p-8 md:p-10 flex flex-col justify-between h-[380px] md:h-[460px] relative overflow-hidden shadow-sm">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-[#6E7D64] text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between h-[320px] sm:h-[380px] md:h-[460px] relative overflow-hidden shadow-sm group">
             <div className="absolute top-0 right-0 p-8 opacity-[0.15]">
               <span className="font-display text-8xl">15</span>
             </div>
             <div className="relative z-10">
-              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
+              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition-colors">
                 <Users size={20} />
               </div>
             </div>
             <div className="relative z-10">
               <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-3 block">02 / Focus</span>
-              <h3 className="font-display text-3xl md:text-4xl mb-3 tracking-tight">Intimate Batches</h3>
-              <p className="font-light text-white/80 text-sm leading-relaxed">Max 15 students per batch. Unmatched personalized attention from expert faculties ensures you are actively speaking.</p>
+              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight">Intimate Batches</h3>
+              <p className="font-light text-white/80 text-sm leading-relaxed">Max 15 students per batch. Personalized attention ensures you are actively speaking from day one.</p>
             </div>
           </motion.div>
 
           {/* Card 3 - Minimal Card */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface border border-ink/5 rounded-3xl p-8 md:p-10 flex flex-col justify-between h-[380px] md:h-[460px] group shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-[#4C6478]/10 text-[#4C6478] flex items-center justify-center">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface border border-ink/5 rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between h-[320px] sm:h-[380px] md:h-[460px] group shadow-sm">
+            <div className="w-12 h-12 rounded-full bg-[#4C6478]/10 text-[#4C6478] flex items-center justify-center group-hover:scale-110 transition-transform">
               <Target size={20} />
             </div>
             <div>
               <span className="text-[10px] uppercase font-mono tracking-widest text-ink/40 mb-3 block">03 / Precision</span>
-              <h3 className="font-display text-3xl md:text-4xl text-ink mb-3 tracking-tight">Industry Tracks</h3>
-              <p className="font-light text-ink/65 text-sm leading-relaxed">Engineering German. Healthcare Japanese. We teach exact vocabulary and etiquette specific to your profession.</p>
+              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-ink mb-3 tracking-tight">Industry Tracks</h3>
+              <p className="font-light text-ink/65 text-sm leading-relaxed">Engineering German. Healthcare Japanese. We teach exact vocabulary specific to your profession.</p>
             </div>
           </motion.div>
 
           {/* Card 4 - Large Text Card */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-ink text-white rounded-3xl p-8 md:p-12 flex flex-col justify-center h-[380px] md:h-[460px] relative overflow-hidden shadow-sm">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-ink text-white rounded-3xl p-6 sm:p-8 md:p-12 flex flex-col justify-center h-[320px] sm:h-[380px] md:h-[460px] relative overflow-hidden shadow-sm">
             <div className="absolute -bottom-20 -right-20 opacity-[0.02] pointer-events-none">
               <Globe2 size={500} />
             </div>
             <div className="max-w-xl relative z-10">
               <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 mb-5 block">04 / Ecosystem</span>
-              <h3 className="font-display text-4xl md:text-5xl mb-6 leading-[1.1] tracking-tight">Beyond the classroom walls.</h3>
-              <p className="font-light text-white/60 text-base md:text-lg leading-relaxed">We don't stop at teaching. We provide robust placement support, strong alumni networks across Europe and Japan, and deep cultural immersion.</p>
+              <h3 className="font-display text-3xl sm:text-4xl md:text-5xl mb-6 leading-[1.1] tracking-tight">Beyond the classroom walls.</h3>
+              <p className="font-light text-white/60 text-sm sm:text-base md:text-lg leading-relaxed">Placement support, alumni networks across Europe and Japan, and deep cultural immersion programs.</p>
             </div>
           </motion.div>
         </div>
@@ -153,7 +187,15 @@ export function BookCTASection({ onOpenConsultation }) {
     <section className="relative py-32 md:py-40 bg-ink overflow-hidden">
       {/* Giant background text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <span className="font-display text-[20vw] text-white/[0.03] leading-none">始める</span>
+        <motion.span
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-[20vw] text-white/[0.03] leading-none"
+        >
+          始める
+        </motion.span>
       </div>
 
       {/* Grid texture */}
@@ -178,8 +220,8 @@ export function BookCTASection({ onOpenConsultation }) {
         <p className="font-display italic text-white/50 text-xl max-w-md mx-auto mb-12 leading-relaxed">
           A program advisor will personally respond within one business day.
         </p>
-        <button onClick={onOpenConsultation} className="btn-primary mx-auto">
-          Book Free Consultation <ArrowRight size={16} />
+        <button onClick={onOpenConsultation} className="btn-primary mx-auto group">
+          Book Free Consultation <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </button>
       </motion.div>
     </section>

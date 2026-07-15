@@ -1,18 +1,18 @@
 import { motion } from 'framer-motion';
-import { Building, Users, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Building, Users, CheckCircle2, ArrowRight, BarChart3, Handshake } from 'lucide-react';
 import { corporateTraining } from '@/data/services/corporate';
-import { fadeUp, staggerContainer } from '@/animations/motion';
+import { fadeUp, fadeUpScale, staggerContainer } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 
 /**
  * CorporateSection — homepage preview of Corporate Training.
- * Dark section with grid pattern — preserved from original.
+ * Dark section with grid pattern — redesigned with proper container and improved content.
  */
 export function CorporateSection({ onOpenConsultation }) {
   const d = corporateTraining;
 
   return (
-    <section id="corporate-section" className="py-24 bg-ink text-white relative overflow-hidden scroll-m-10">
+    <section id="corporate-section" className="py-24 md:py-32 bg-ink text-white relative overflow-hidden scroll-m-10">
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -25,61 +25,75 @@ export function CorporateSection({ onOpenConsultation }) {
         </svg>
       </div>
 
-      <div className="max-w-prose mx-auto px-container md:px-container-md relative z-10 grid md:grid-cols-2 gap-16 items-center">
-        {/* Left — copy */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-        >
-          <span className="text-micro font-medium opacity-50 block mb-6" style={{ color: colors.gold }}>
-            {d.hero.eyebrow}
-          </span>
-          <h2 className="font-display text-h2 leading-tight mb-8">{d.hero.title}</h2>
-          <p className="text-white/60 text-lg font-light leading-relaxed mb-10">{d.tagline}</p>
-
-          <ul className="space-y-4 mb-12 text-sm text-white/80">
-            {d.features.slice(0, 3).map((f) => (
-              <li key={f.title} className="flex items-start gap-3">
-                <CheckCircle2 size={16} style={{ color: colors.gold }} className="mt-1 shrink-0" />
-                <div className="leading-relaxed">
-                  <span className="font-medium text-white">{f.title}</span> — <span className="opacity-70">{f.desc}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <button
-            onClick={() => onOpenConsultation({ type: 'corporate' })}
-            className="btn-corporate"
+      <div className="container-site relative z-10">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left — copy */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
           >
-            Request Corporate Proposal
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </button>
-        </motion.div>
+            <span className="text-micro font-medium opacity-50 block mb-6" style={{ color: colors.gold }}>
+              {d.hero.eyebrow}
+            </span>
+            <h2 className="font-display text-h2 leading-tight mb-6">
+              Equip your teams with<br />
+              <span className="italic" style={{ color: colors.gold }}>language fluency.</span>
+            </h2>
+            <p className="text-white/55 text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg">
+              We partner with HR leaders and L&D teams to deliver structured, measurable language programs — from expatriate preparation to business communication in Japanese, German, French, and Spanish.
+            </p>
 
-        {/* Right — stat cards */}
-        <motion.div
-          variants={staggerContainer(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 gap-4"
-        >
-          {d.stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              variants={fadeUp}
-              className={`card-stat ${i === 1 ? 'mt-8' : ''}`}
+            <ul className="space-y-5 mb-12 text-sm">
+              {[
+                { icon: <BarChart3 size={16} style={{ color: colors.gold }} />, title: 'Measurable ROI', desc: 'Pre/post assessments with monthly progress reports to stakeholders.' },
+                { icon: <Users size={16} style={{ color: colors.gold }} />, title: 'Flexible Cohorts', desc: 'On-site, remote, or hybrid. Any batch size, any schedule.' },
+                { icon: <Handshake size={16} style={{ color: colors.gold }} />, title: 'Dedicated Manager', desc: 'Single point of contact for curriculum alignment and logistics.' },
+              ].map((item) => (
+                <li key={item.title} className="flex items-start gap-4 group">
+                  <div className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center shrink-0 bg-white/5 group-hover:bg-white/10 transition-colors">
+                    {item.icon}
+                  </div>
+                  <div className="leading-relaxed">
+                    <span className="font-medium text-white">{item.title}</span>
+                    <span className="text-white/50 ml-1">— {item.desc}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <button
+              onClick={() => onOpenConsultation({ type: 'corporate' })}
+              className="btn-corporate group"
             >
-              {i === 0 ? <Building className="mb-6 opacity-80" size={32} style={{ color: colors.gold }} />
-                       : <Users    className="mb-6 opacity-80" size={32} style={{ color: colors.gold }} />}
-              <h4 className="font-display text-3xl mb-2">{stat.value}</h4>
-              <p className="text-xs uppercase tracking-wider opacity-50">{stat.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+              Request Corporate Proposal
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </motion.div>
+
+          {/* Right — stat cards */}
+          <motion.div
+            variants={staggerContainer(0.12)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 gap-4"
+          >
+            {d.stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                variants={fadeUpScale}
+                className={`card-stat ${i === 1 ? 'mt-8' : ''} group hover:bg-white/10 transition-colors duration-500`}
+              >
+                {i === 0 ? <Building className="mb-6 opacity-80 group-hover:scale-110 transition-transform" size={32} style={{ color: colors.gold }} />
+                         : <Users    className="mb-6 opacity-80 group-hover:scale-110 transition-transform" size={32} style={{ color: colors.gold }} />}
+                <h4 className="font-display text-3xl mb-2">{stat.value}</h4>
+                <p className="text-xs uppercase tracking-wider opacity-50">{stat.label}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

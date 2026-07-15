@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { colors } from '@/lib/tokens';
 
-// Floating character tiles — preserved exactly from original
 // Floating character tiles — glassmorphic
 const TILES = [
   { char: 'あ', bg: 'rgba(240,230,225,0.4)', color: colors.terracotta, x: '12%', y: '15%', rotate: -12, scale: 1.1, blur: 0,  delay: 0.1, float: -15, isGlass: true },
@@ -34,7 +33,7 @@ function LanguageTile({ tile, mousePos }) {
       initial={{ y: 50, opacity: 0, rotate: tile.rotate - 20 }}
       animate={{ y: 0, opacity: 1, rotate: tile.rotate }}
       transition={{ type: 'spring', damping: 20, stiffness: 40, delay: tile.delay, opacity: { duration: 1 } }}
-      className="absolute z-0 hidden md:flex items-center justify-center font-display shadow-xl"
+      className="absolute z-0 hidden md:flex items-center justify-center font-display shadow-xl gpu-accelerated"
       style={{
         left: tile.x, top: tile.y,
         width: '90px', height: '90px',
@@ -61,30 +60,54 @@ function LanguageTile({ tile, mousePos }) {
 
 /**
  * HeroSection — flagship hero with parallax tiles.
- * Preserved exactly from original visual design.
+ * Enhanced with staggered text reveals, ambient glows, and scroll-driven parallax.
  */
 export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
   const [mousePos, setMousePos] = useState({ x: null, y: null });
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.6]);
+
+  // Throttled mouse tracking for performance
+  const rafRef = useRef(null);
+  const handleMouseMove = useCallback((e) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    });
+  }, []);
 
   useEffect(() => {
-    const onMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', onMove, { passive: true });
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [handleMouseMove]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden bg-gradient-to-b from-surface/40 via-white to-white">
-      {/* Ambient background glows */}
+      {/* Ambient background glows — now with breathing animation */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[15%] left-[20%] w-[500px] h-[500px] rounded-full blur-[140px] opacity-[0.04] bg-terracotta" />
-        <div className="absolute bottom-[20%] right-[15%] w-[600px] h-[600px] rounded-full blur-[160px] opacity-[0.06] bg-blue" />
-        <div className="absolute top-[40%] right-[30%] w-[400px] h-[400px] rounded-full blur-[120px] opacity-[0.03] bg-sage" />
+        <motion.div
+          animate={{ scale: [1, 1.05, 1], opacity: [0.04, 0.07, 0.04] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-[15%] left-[20%] w-[500px] h-[500px] rounded-full blur-[140px] bg-terracotta"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.08, 1], opacity: [0.06, 0.09, 0.06] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          className="absolute bottom-[20%] right-[15%] w-[600px] h-[600px] rounded-full blur-[160px] bg-blue"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.04, 1], opacity: [0.03, 0.05, 0.03] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+          className="absolute top-[40%] right-[30%] w-[400px] h-[400px] rounded-full blur-[120px] bg-sage"
+        />
       </div>
 
       {/* Parallax tile layer */}
-      <motion.div style={{ y: heroY }} className="absolute inset-0 overflow-visible pointer-events-none">
+      <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 overflow-visible pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/95 z-10" />
         {TILES.map((tile, i) => (
           <LanguageTile key={i} tile={tile} mousePos={mousePos} />
@@ -99,38 +122,67 @@ export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
           transition={{ duration: 1, delay: 0.2 }}
           className="font-display text-[10px] uppercase tracking-micro mb-8 text-brown flex items-center gap-3"
         >
-          <span className="w-8 h-px bg-brown/30" /> Vasudhaiva Kutumbakam <span className="w-8 h-px bg-brown/30" />
+          <motion.span
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="w-8 h-px bg-brown/30 origin-right"
+          />
+          Vasudhaiva Kutumbakam
+          <motion.span
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="w-8 h-px bg-brown/30 origin-left"
+          />
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          className="text-hero font-display leading-[0.95] tracking-[-0.02em] text-ink"
-        >
-          A language is a<br />
-          <span className="italic" style={{ color: colors.brown }}>mirror of its culture.</span>
-        </motion.h1>
+        {/* Staggered heading reveal */}
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="text-hero font-display leading-[0.95] tracking-[-0.02em] text-ink"
+          >
+            A language is a<br />
+            <span className="italic" style={{ color: colors.brown }}>mirror of its culture.</span>
+          </motion.h1>
+        </div>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-8 font-display italic text-xl md:text-2xl text-ink/60 max-w-xl mx-auto leading-relaxed"
         >
           Connect with the world. Open doors to endless possibilities.
         </motion.p>
 
         <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
           onClick={onScrollToPrograms}
           className="mt-16 btn-ghost group"
         >
           Explore Programs
           <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
         </motion.button>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="absolute -bottom-8 md:bottom-[-4rem]"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-px h-12 bg-gradient-to-b from-ink/20 to-transparent"
+          />
+        </motion.div>
       </div>
     </section>
   );

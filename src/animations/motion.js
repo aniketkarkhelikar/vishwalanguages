@@ -12,6 +12,8 @@ export const ease = {
   smooth: [0.4, 0, 0.2, 1],
   /** Sharp entrance */
   in:     [0.4, 0, 1, 1],
+  /** Bounce-free elastic */
+  elastic: [0.22, 1, 0.36, 1],
 };
 
 // --- Duration Scale ---
@@ -21,6 +23,7 @@ export const duration = {
   moderate: 0.5,
   slow:     0.7,
   page:     0.6,
+  cinematic: 1.2,
 };
 
 // --- Spring Configs ---
@@ -31,6 +34,8 @@ export const spring = {
   snappy: { type: 'spring', damping: 25, stiffness: 200 },
   /** Modal — smooth arrival */
   modal:  { type: 'spring', damping: 30, stiffness: 150 },
+  /** Gentle float — for ambient elements */
+  gentle: { type: 'spring', damping: 15, stiffness: 25 },
 };
 
 // --- Reusable Variants ---
@@ -45,6 +50,18 @@ export const fadeUp = {
 export const fadeIn = {
   hidden:  { opacity: 0 },
   visible: { opacity: 1, transition: { duration: duration.moderate } },
+};
+
+/** Fade up with scale — premium entrance */
+export const fadeUpScale = {
+  hidden:  { opacity: 0, y: 40, scale: 0.96 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: ease.out } },
+};
+
+/** Fade up with blur — cinematic reveal */
+export const fadeUpBlur = {
+  hidden:  { opacity: 0, y: 30, filter: 'blur(8px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: ease.out } },
 };
 
 /** Hero entrance — large vertical lift */
@@ -109,6 +126,13 @@ export const slideInLeft = {
              transition: { duration: duration.base, ease: ease.out } },
 };
 
+/** Slide in from right */
+export const slideInRight = {
+  hidden:  { opacity: 0, x: 20 },
+  visible: { opacity: 1, x: 0,
+             transition: { duration: duration.base, ease: ease.out } },
+};
+
 /** Image drift (parallax-like) */
 export const imageDrift = {
   rest:  { scale: 1 },
@@ -125,4 +149,43 @@ export const borderReveal = {
 export const arrowNudge = {
   rest:  { x: 0 },
   hover: { x: 4, transition: { duration: duration.fast } },
+};
+
+/** Parallax scroll — for background elements */
+export const parallaxSlow = {
+  hidden: { y: 0 },
+  visible: { y: -30, transition: { duration: 0 } },
+};
+
+/** Glow pulse — for ambient visual effects */
+export const glowPulse = {
+  animate: {
+    scale: [1, 1.05, 1],
+    opacity: [0.3, 0.5, 0.3],
+    transition: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
+  },
+};
+
+/** Line draw — for decorative borders */
+export const lineGrow = {
+  hidden:  { scaleX: 0, originX: 0 },
+  visible: { scaleX: 1, transition: { duration: 1.2, ease: ease.out, delay: 0.3 } },
+};
+
+/** Stagger text lines — for heading reveals */
+export const staggerLines = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+};
+
+/** Individual line reveal */
+export const lineReveal = {
+  hidden:  { opacity: 0, y: '100%' },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: ease.out } },
+};
+
+/** Scale in — for badges, icons */
+export const scaleIn = {
+  hidden:  { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: duration.moderate, ease: ease.elastic } },
 };
