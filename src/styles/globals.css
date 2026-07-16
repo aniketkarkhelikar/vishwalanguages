@@ -156,10 +156,10 @@
   }
 
   .field-input {
-    @apply w-full bg-paper border border-ink/[0.09] rounded-xl
+    @apply w-full bg-white border border-ink/20 rounded-xl
            py-3.5 font-body text-[15px] text-ink outline-none
            transition-all duration-200 appearance-none
-           placeholder:text-ink/35
+           placeholder:text-ink/35 shadow-sm
            focus:border-terracotta focus:shadow-[0_0_0_4px_rgba(184,92,56,0.12)];
     padding-left: 2.75rem;  /* Icon clearance — always explicit */
     padding-right: 1rem;
@@ -193,11 +193,21 @@
   .hide-scrollbar::-webkit-scrollbar { display: none; }
 
   /* --- Marquee --- */
-  .marquee-track { animation: marquee 35s linear infinite; }
+  .marquee-track { 
+    display: flex;
+    width: max-content;
+    flex-shrink: 0;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    animation: marquee 45s linear infinite; 
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
 
   @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
   }
 
   /* --- Divider Line --- */
@@ -251,8 +261,8 @@
   }
 
   @keyframes glow-breathe {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.08); }
+    0%, 100% { opacity: 0.3; transform: translate3d(0,0,0) scale(1); }
+    50% { opacity: 0.5; transform: translate3d(0,0,0) scale(1.08); }
   }
 
   /* --- Line Draw --- */

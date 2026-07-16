@@ -71,95 +71,49 @@ function LanguageExplorer({ onShowToast }) {
   const scrollingLangs = [...languageCatalogue, ...languageCatalogue, ...languageCatalogue, ...languageCatalogue];
   
   return (
-    <div className="border-y py-6 bg-surface overflow-hidden w-full flex" style={{ borderColor: colors.line }}>
-      <motion.div
-        className="flex shrink-0 min-w-max gap-4 pr-4 items-center"
-        animate={{ x: "-100%" }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
-      >
-        {languageCatalogue.map((lang, idx) => {
-          const isReady = !lang.comingSoon;
-          return (
-            <button
-              key={`a-${lang.slug}-${idx}`}
-              onClick={() => {
-                if (isReady) window.location.href = `/languages/${lang.slug}`;
-                else onShowToast?.(`${lang.card.title} program is launching soon.`);
-              }}
-              className={`group relative flex-shrink-0 flex items-center gap-4 px-6 py-3.5 rounded-full bg-paper border transition-all duration-300
-                ${isReady
-                  ? 'cursor-pointer hover:shadow-sm hover:border-vw-blue hover:-translate-y-0.5'
-                  : 'cursor-not-allowed opacity-50'
-                }`}
-              style={{ borderColor: 'rgba(0,0,0,0.08)' }}
-            >
-              {!isReady && (
-                <span className="absolute -top-2 right-4 text-[7px] uppercase tracking-wide font-bold px-1.5 py-0.5 rounded-full bg-tile text-ink/40">
-                  Soon
-                </span>
-              )}
-              <span
-                className={`font-display text-2xl transition-colors ${isReady ? 'text-ink group-hover:text-vw-blue' : 'text-ink/30'}`}
+    <div className="border-y py-6 bg-surface overflow-hidden" style={{ borderColor: colors.line }}>
+      <div className="marquee-row overflow-hidden">
+        <div className="marquee-track flex gap-4 px-4">
+          {scrollingLangs.map((lang, idx) => {
+            const isReady = !lang.comingSoon;
+            return (
+              <button
+                key={`${lang.slug}-${idx}`}
+                onClick={() => {
+                  if (isReady) window.location.href = `/languages/${lang.slug}`;
+                  else onShowToast?.(`${lang.card.title} program is launching soon.`);
+                }}
+                className={`group relative flex-shrink-0 flex items-center gap-4 px-6 py-3.5 rounded-full bg-paper border transition-all duration-300
+                  ${isReady
+                    ? 'cursor-pointer hover:shadow-sm hover:border-terracotta/25 hover:-translate-y-0.5'
+                    : 'cursor-not-allowed opacity-50'
+                  }`}
+                style={{ borderColor: colors.line }}
               >
-                {lang.nativeName}
-              </span>
-              <span className="text-sm font-medium opacity-60 tracking-tight">
-                {lang.card.title}
-              </span>
-              {isReady && (
-                <ArrowRight
-                  size={14}
-                  className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-vw-blue ml-1"
-                />
-              )}
-            </button>
-          );
-        })}
-      </motion.div>
-      <motion.div
-        className="flex shrink-0 min-w-max gap-4 pr-4 items-center"
-        animate={{ x: "-100%" }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
-      >
-        {languageCatalogue.map((lang, idx) => {
-          const isReady = !lang.comingSoon;
-          return (
-            <button
-              key={`b-${lang.slug}-${idx}`}
-              onClick={() => {
-                if (isReady) window.location.href = `/languages/${lang.slug}`;
-                else onShowToast?.(`${lang.card.title} program is launching soon.`);
-              }}
-              className={`group relative flex-shrink-0 flex items-center gap-4 px-6 py-3.5 rounded-full bg-paper border transition-all duration-300
-                ${isReady
-                  ? 'cursor-pointer hover:shadow-sm hover:border-vw-blue hover:-translate-y-0.5'
-                  : 'cursor-not-allowed opacity-50'
-                }`}
-              style={{ borderColor: 'rgba(0,0,0,0.08)' }}
-            >
-              {!isReady && (
-                <span className="absolute -top-2 right-4 text-[7px] uppercase tracking-wide font-bold px-1.5 py-0.5 rounded-full bg-tile text-ink/40">
-                  Soon
+                {!isReady && (
+                  <span className="absolute -top-2 right-4 text-[7px] uppercase tracking-wide font-bold px-1.5 py-0.5 rounded-full bg-tile text-ink/40">
+                    Soon
+                  </span>
+                )}
+                <span
+                  className={`font-display text-2xl transition-colors ${isReady ? 'text-ink group-hover:text-terracotta' : 'text-ink/30'}`}
+                >
+                  {lang.nativeName}
                 </span>
-              )}
-              <span
-                className={`font-display text-2xl transition-colors ${isReady ? 'text-ink group-hover:text-vw-blue' : 'text-ink/30'}`}
-              >
-                {lang.nativeName}
-              </span>
-              <span className="text-sm font-medium opacity-60 tracking-tight">
-                {lang.card.title}
-              </span>
-              {isReady && (
-                <ArrowRight
-                  size={14}
-                  className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-vw-blue ml-1"
-                />
-              )}
-            </button>
-          );
-        })}
-      </motion.div>
+                <span className="text-sm font-medium opacity-60">
+                  {lang.card.title}
+                </span>
+                {isReady && (
+                  <ArrowRight
+                    size={14}
+                    className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-terracotta ml-1"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
@@ -167,79 +121,85 @@ function LanguageExplorer({ onShowToast }) {
 // --- Other Services We Provide ---
 function OtherServicesSection() {
   return (
-    <section className="py-32 md:py-48 bg-surface border-t" style={{ borderColor: colors.line }}>
+    <section className="py-16 md:py-20 bg-surface border-t" style={{ borderColor: colors.line }}>
       <div className="container-site max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-24 md:mb-32 text-center"
+          className="mb-10 md:mb-12 text-center"
         >
-          <span className="text-[10px] font-mono uppercase tracking-widest text-brown block mb-6">Beyond Language Courses</span>
-          <h2 className="font-display text-5xl md:text-7xl leading-tight">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-brown block mb-4">Beyond Language Courses</span>
+          <h2 className="font-display text-4xl md:text-5xl leading-tight">
             Specialized solutions.
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-          {/* Interpretation Card - Massive Typographic Block */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          {/* Interpretation Card - Cinematic Image Feature */}
           <motion.div
             variants={fadeUpScale}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="group relative bg-ink border border-ink/10 rounded-[3rem] p-12 md:p-16 flex flex-col justify-between min-h-[500px] hover:-translate-y-2 transition-transform duration-700 overflow-hidden"
+            className="group relative rounded-[2rem] overflow-hidden min-h-[320px] md:min-h-[380px] flex flex-col justify-end shadow-lg"
           >
-            <div className="relative z-10 text-white">
-              <span className="text-[10px] font-mono uppercase tracking-widest opacity-50 block mb-12">Translation & Interpretation</span>
-              <h3 className="font-display text-4xl md:text-5xl leading-[1.1] mb-6">
-                Precision communication for high-stakes environments.
+            <img 
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" 
+              alt="Interpretation Services" 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent mix-blend-multiply opacity-90" />
+            
+            <div className="relative z-10 p-8 md:p-10 text-white">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-white/60 block mb-3 drop-shadow-md">Translation & Interpretation</span>
+              <h3 className="font-display text-3xl leading-[1.1] mb-3 drop-shadow-lg">
+                Precision communication<br />for high-stakes environments.
               </h3>
-              <p className="text-white/50 font-light text-lg md:text-xl leading-relaxed max-w-sm">
+              <p className="text-white/80 font-light text-xs md:text-sm leading-relaxed max-w-sm mb-6 drop-shadow-sm">
                 Legal, medical, and corporate specialists in Japanese, German, French, and Spanish.
               </p>
+              <Link
+                to="/interpretation-services"
+                className="inline-flex items-center gap-4 text-xs uppercase font-bold tracking-widest text-white/90 hover:text-white transition-colors group/btn bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20"
+              >
+                Request Quote <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+              </Link>
             </div>
-            <Link
-              to="/interpretation-services"
-              className="relative z-10 mt-12 inline-flex items-center gap-4 text-sm uppercase font-bold tracking-widest text-white hover:text-sage transition-colors"
-            >
-              Request Quote <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
-            </Link>
-            {/* Abstract Graphic */}
-            <div className="absolute -bottom-10 -right-10 w-[300px] h-[300px] rounded-full blur-[80px] opacity-30 mix-blend-overlay" style={{ background: `radial-gradient(circle, ${colors.sage} 0%, transparent 70%)` }} />
-            <div className="absolute -bottom-10 -right-6 font-display text-[15rem] leading-none opacity-[0.05] pointer-events-none select-none text-white">言</div>
           </motion.div>
 
-          {/* Healthcare Card - Massive Typographic Block */}
+          {/* Healthcare Card - Cinematic Image Feature */}
           <motion.div
             variants={fadeUpScale}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="group relative border rounded-[3rem] p-12 md:p-16 flex flex-col justify-between min-h-[500px] hover:-translate-y-2 transition-transform duration-700 overflow-hidden"
-            style={{ borderColor: `${healthcareColors.primary}20`, backgroundColor: healthcareColors.light }}
+            className="group relative rounded-[2rem] overflow-hidden min-h-[320px] md:min-h-[380px] flex flex-col justify-end shadow-lg"
           >
-            <div className="relative z-10">
-              <span className="text-[10px] font-mono uppercase tracking-widest block mb-12" style={{ color: healthcareColors.primary }}>Healthcare Placements</span>
-              <h3 className="font-display text-4xl md:text-5xl leading-[1.1] text-ink mb-6">
-                An exclusive pathway from India to Germany.
+            <img 
+              src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop" 
+              alt="Healthcare Placements" 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2c3e50] via-[#2c3e50]/40 to-transparent mix-blend-multiply opacity-90" />
+            
+            <div className="relative z-10 p-8 md:p-10 text-white">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-white/60 block mb-3 drop-shadow-md">Healthcare Placements</span>
+              <h3 className="font-display text-3xl leading-[1.1] mb-3 drop-shadow-lg">
+                An exclusive pathway<br />from India to Germany.
               </h3>
-              <p className="text-ink/60 font-light text-lg md:text-xl leading-relaxed max-w-sm">
+              <p className="text-white/80 font-light text-xs md:text-sm leading-relaxed max-w-sm mb-6 drop-shadow-sm">
                 For nursing graduates: We handle A1-B2 language training, credential recognition, and hospital matching.
               </p>
+              <Link
+                to="/healthcare-placement"
+                className="inline-flex items-center gap-4 text-xs uppercase font-bold tracking-widest text-white/90 hover:text-white transition-colors group/btn bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/20"
+              >
+                Check Eligibility <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+              </Link>
             </div>
-            <Link
-              to="/healthcare-placement"
-              className="relative z-10 mt-12 inline-flex items-center gap-4 text-sm uppercase font-bold tracking-widest hover:opacity-70 transition-opacity"
-              style={{ color: healthcareColors.primary }}
-            >
-              Check Eligibility <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-500" />
-            </Link>
-            {/* Abstract Graphic */}
-            <div className="absolute -bottom-10 -right-10 w-[300px] h-[300px] rounded-full blur-[80px] opacity-[0.15] mix-blend-overlay" style={{ background: `radial-gradient(circle, ${healthcareColors.primary} 0%, transparent 70%)` }} />
-            <div className="absolute -bottom-10 -right-6 font-display text-[15rem] leading-none opacity-[0.05] pointer-events-none select-none" style={{ color: healthcareColors.primary }}>⚕</div>
           </motion.div>
         </div>
       </div>

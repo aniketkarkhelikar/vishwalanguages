@@ -40,10 +40,10 @@ export const spring = {
 
 // --- Reusable Variants ---
 
-/** Section reveal from below */
+/** Section reveal from below with cinematic blur */
 export const fadeUp = {
-  hidden:  { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: duration.slow, ease: ease.out } },
+  hidden:  { opacity: 0, y: 30, filter: 'blur(10px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
 };
 
 /** Fade in only */
@@ -52,10 +52,10 @@ export const fadeIn = {
   visible: { opacity: 1, transition: { duration: duration.moderate } },
 };
 
-/** Fade up with scale — premium entrance */
+/** Fade up with scale — premium entrance with blur */
 export const fadeUpScale = {
-  hidden:  { opacity: 0, y: 40, scale: 0.96 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: ease.out } },
+  hidden:  { opacity: 0, y: 40, scale: 0.96, filter: 'blur(12px)' },
+  visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] } },
 };
 
 /** Fade up with blur — cinematic reveal */

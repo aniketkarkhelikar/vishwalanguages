@@ -29,47 +29,50 @@ const CONTACT_EMAIL = 'hello@vishwalanguages.com';
  */
 
 /**
- * Build a clean, readable WhatsApp message from the lead payload.
+ * Build a highly professional, user-facing WhatsApp message.
+ * This is the message the USER sends to VISHWA.
  */
 function buildWhatsAppMessage(payload) {
-  const lines = [`*New Inquiry — Vishwa Languages*`];
-  lines.push(`━━━━━━━━━━━━━━━━━━`);
+  const typeLabels = {
+    general: 'a general inquiry',
+    language: 'a Language Program',
+    corporate: 'Corporate Training',
+    interpretation: 'Interpretation Services',
+    healthcare: 'Healthcare Placement in Germany',
+  };
 
-  if (payload.serviceType) {
-    const typeLabels = {
-      general: '📋 General Inquiry',
-      language: '🎌 Language Program',
-      corporate: '🏢 Corporate Training',
-      interpretation: '🗣️ Interpretation Services',
-      healthcare: '🏥 Healthcare Placement',
-    };
-    lines.push(typeLabels[payload.serviceType] || `Type: ${payload.serviceType}`);
-  }
+  const service = typeLabels[payload.serviceType] || 'your services';
 
-  lines.push('');
-  lines.push(`👤 *Name:* ${payload.name}`);
-  lines.push(`📱 *Phone:* ${payload.phone}`);
+  const lines = [
+    `Hello Vishwa Languages Team,`,
+    ``,
+    `I am reaching out to inquire about ${service}. Please find my details below:`,
+    ``,
+    `*Name:* ${payload.name}`,
+    `*Contact Number:* ${payload.phone}`
+  ];
 
-  if (payload.email) lines.push(`📧 *Email:* ${payload.email}`);
-  if (payload.language) lines.push(`🌍 *Language:* ${payload.language}`);
-  if (payload.goal) lines.push(`🎯 *Details:* ${payload.goal}`);
-  if (payload.source) lines.push(`📍 *Source:* ${payload.source}`);
-
-  lines.push('');
-  lines.push(`🕐 ${new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}`);
+  if (payload.language) lines.push(`*Target Language/Area:* ${payload.language}`);
+  if (payload.goal) lines.push(`*Primary Goal:* ${payload.goal}`);
+  
+  lines.push(``);
+  lines.push(`I look forward to discussing how we can work together.`);
+  lines.push(``);
+  lines.push(`Best regards,`);
+  lines.push(payload.name);
 
   return lines.join('\n');
 }
 
 /**
- * Build a prefilled mailto URL for email follow-up.
+ * Build a highly professional prefilled mailto URL for email follow-up.
  */
 function buildMailtoURL(payload) {
   const typeLabels = {
     general: 'General Inquiry',
     language: 'Language Program Inquiry',
-    corporate: 'Corporate Training Proposal',
-    interpretation: 'Interpretation Services Request',
+    corporate: 'Corporate Training Inquiry',
+    interpretation: 'Interpretation Services Inquiry',
     healthcare: 'Healthcare Placement Inquiry',
   };
 
@@ -77,19 +80,21 @@ function buildMailtoURL(payload) {
     `${typeLabels[payload.serviceType] || 'Inquiry'} — ${payload.name}`
   );
 
+  const service = typeLabels[payload.serviceType]?.toLowerCase() || 'your services';
+
   const bodyLines = [
-    `Dear Vishwa Languages Team,`,
+    `Hello Vishwa Languages Team,`,
     ``,
-    `I would like to inquire about your services.`,
+    `I am reaching out to formally inquire about ${service}. Please find my details below:`,
     ``,
     `Name: ${payload.name}`,
-    `Phone: ${payload.phone}`,
+    `Contact Number: ${payload.phone}`,
   ];
-  if (payload.email) bodyLines.push(`Email: ${payload.email}`);
-  if (payload.language) bodyLines.push(`Language: ${payload.language}`);
-  if (payload.goal) bodyLines.push(`Details: ${payload.goal}`);
-  if (payload.source) bodyLines.push(`Referred from: ${payload.source}`);
-  bodyLines.push('', 'Looking forward to hearing from you.', '', `Best regards,`, payload.name);
+  
+  if (payload.language) bodyLines.push(`Target Language/Area: ${payload.language}`);
+  if (payload.goal) bodyLines.push(`Primary Goal: ${payload.goal}`);
+  
+  bodyLines.push(``, `I look forward to speaking with an advisor soon.`, ``, `Best regards,`, payload.name);
 
   const body = encodeURIComponent(bodyLines.join('\n'));
   return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;

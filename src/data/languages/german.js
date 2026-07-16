@@ -8,7 +8,7 @@ export const german = {
   slug:       'german',
   title:      'German Language Program',
   nativeName: 'Deutsch',
-  displayChar: '德',
+  displayChar: 'D',
   subtitle:   'Master the precision of German. Engineer your future in Europe.',
   tagline:    'Attain the linguistic precision required for Europe\'s leading engineering and business hubs.',
 

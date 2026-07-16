@@ -15,7 +15,7 @@ const MOMENT_IMAGES = [
 ];
 
 /**
- * MomentsStrip — continuous scrolling landscape images with edge pills.
+ * MomentsStrip — redesigned: continuous scrolling landscape images with edge pills.
  */
 export function MomentsStrip() {
   return (
@@ -36,59 +36,24 @@ export function MomentsStrip() {
         </Link>
       </motion.div>
 
-      <div className="flex overflow-hidden w-full">
-        <motion.div
-          className="flex shrink-0 gap-5 pr-5 min-w-max"
-          animate={{ x: "-100%" }}
-          transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-        >
-          {MOMENT_IMAGES.map((m, i) => (
+      <div className="marquee-row overflow-hidden">
+        <div className="marquee-track flex gap-5 px-6">
+          {[...MOMENT_IMAGES, ...MOMENT_IMAGES, ...MOMENT_IMAGES, ...MOMENT_IMAGES].map((m, i) => (
             <div
-              key={`a-${i}`}
-              className="relative w-72 sm:w-80 h-44 sm:h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
+              key={i}
+              className="relative flex-shrink-0 w-80 h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
-              <img
-                src={m.img}
-                alt={m.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
+              <img src={m.img} alt={m.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                <span className="font-display text-white text-lg sm:text-xl">{m.title}</span>
+                <span className="font-display text-white text-xl">{m.title}</span>
                 <span className="text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded-full bg-white/20 text-white backdrop-blur-md">
                   {m.pill}
                 </span>
               </div>
             </div>
           ))}
-        </motion.div>
-        <motion.div
-          className="flex shrink-0 gap-5 pr-5 min-w-max"
-          animate={{ x: "-100%" }}
-          transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
-        >
-          {MOMENT_IMAGES.map((m, i) => (
-            <div
-              key={`b-${i}`}
-              className="relative w-72 sm:w-80 h-44 sm:h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
-            >
-              <img
-                src={m.img}
-                alt={m.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                <span className="font-display text-white text-lg sm:text-xl">{m.title}</span>
-                <span className="text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded-full bg-white/20 text-white backdrop-blur-md">
-                  {m.pill}
-                </span>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -107,29 +72,27 @@ export function WhyVishwaSection() {
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 bg-paper overflow-hidden relative" style={{ borderTop: `1px solid ${colors.line}` }}>
-      {/* Ambient background blur — with breathing animation */}
-      <motion.div
-        animate={{ scale: [1, 1.06, 1], opacity: [0.25, 0.35, 0.25] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#E4D5C4] rounded-full blur-[120px] -z-10 pointer-events-none"
+    <section ref={sectionRef} className="py-16 md:py-20 bg-paper overflow-hidden relative" style={{ borderTop: `1px solid ${colors.line}` }}>
+      {/* Ambient background blur — soulful vibrant mesh gradient (GPU Optimized) */}
+      <div
+        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full -z-10 pointer-events-none mix-blend-multiply opacity-20"
+        style={{ background: 'radial-gradient(circle, #60A5FA 0%, transparent 60%)' }}
       />
-      <motion.div
-        animate={{ scale: [1, 1.04, 1], opacity: [0.15, 0.25, 0.15] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#6E7D64] rounded-full blur-[140px] -z-10 pointer-events-none"
+      <div
+        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full -z-10 pointer-events-none mix-blend-multiply opacity-20"
+        style={{ background: 'radial-gradient(circle, #A855F7 0%, transparent 60%)' }}
       />
 
       <div className="container-site max-w-7xl mx-auto">
         <motion.div 
           variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
-          className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12"
+          className="mb-10 md:mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12"
         >
           <div className="max-w-2xl">
-            <span className="text-[10px] font-mono tracking-widest uppercase mb-6 block text-terracotta">
+            <span className="text-[10px] font-mono tracking-widest uppercase mb-4 block text-terracotta">
               The Vishwa Difference
             </span>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-ink tracking-tight">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink tracking-tight">
               We don't just teach.<br />
               <span className="italic text-terracotta">We build careers.</span>
             </h2>
@@ -146,7 +109,7 @@ export function WhyVishwaSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:col-span-2 relative h-[320px] sm:h-[380px] md:h-[460px] rounded-3xl overflow-hidden group shadow-sm border border-ink/5"
+            className="lg:col-span-2 relative h-[280px] sm:h-[320px] md:h-[380px] rounded-3xl overflow-hidden group shadow-sm border border-ink/5"
           >
             <motion.img
               style={{ y: bgY }}
@@ -156,51 +119,51 @@ export function WhyVishwaSection() {
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent opacity-90" />
-            <div className="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10 w-full">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-3 block">01 / Methodology</span>
-              <h3 className="text-white font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight">Career-First Curriculum</h3>
-              <p className="text-white/80 font-light max-w-md text-sm leading-relaxed">Every syllabus is mapped to a real professional outcome, not just a generic certificate.</p>
+            <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
+              <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-2 block">01 / Methodology</span>
+              <h3 className="text-white font-display text-xl sm:text-2xl md:text-3xl mb-2 tracking-tight">Career-First Curriculum</h3>
+              <p className="text-white/80 font-light max-w-md text-xs leading-relaxed">Every syllabus is mapped to a real professional outcome, not just a generic certificate.</p>
             </div>
           </motion.div>
 
           {/* Card 2 - Accent Color Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-[#6E7D64] text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between h-[320px] sm:h-[380px] md:h-[460px] relative overflow-hidden shadow-sm group">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-[#6E7D64] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm group">
             <div className="absolute top-0 right-0 p-8 opacity-[0.15]">
               <span className="font-display text-8xl">15</span>
             </div>
             <div className="relative z-10">
-              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition-colors">
-                <Users size={20} />
+              <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition-colors">
+                <Users size={18} />
               </div>
             </div>
             <div className="relative z-10">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-3 block">02 / Focus</span>
-              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight">Intimate Batches</h3>
-              <p className="font-light text-white/80 text-sm leading-relaxed">Max 15 students per batch. Personalized attention ensures you are actively speaking from day one.</p>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-2 block">02 / Focus</span>
+              <h3 className="font-display text-xl sm:text-2xl md:text-3xl mb-2 tracking-tight">Intimate Batches</h3>
+              <p className="font-light text-white/80 text-xs leading-relaxed">Max 15 students per batch. Personalized attention ensures you are actively speaking from day one.</p>
             </div>
           </motion.div>
 
           {/* Card 3 - Minimal Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface border border-ink/5 rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-between h-[320px] sm:h-[380px] md:h-[460px] group shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-[#4C6478]/10 text-[#4C6478] flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Target size={20} />
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface border border-ink/5 rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-[280px] sm:h-[320px] md:h-[380px] group shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-[#4C6478]/10 text-[#4C6478] flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Target size={18} />
             </div>
             <div>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-ink/40 mb-3 block">03 / Precision</span>
-              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-ink mb-3 tracking-tight">Industry Tracks</h3>
-              <p className="font-light text-ink/65 text-sm leading-relaxed">Engineering German. Healthcare Japanese. We teach exact vocabulary specific to your profession.</p>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-ink/40 mb-2 block">03 / Precision</span>
+              <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-ink mb-2 tracking-tight">Industry Tracks</h3>
+              <p className="font-light text-ink/65 text-xs leading-relaxed">Engineering German. Healthcare Japanese. We teach exact vocabulary specific to your profession.</p>
             </div>
           </motion.div>
 
           {/* Card 4 - Large Text Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-ink text-white rounded-3xl p-6 sm:p-8 md:p-12 flex flex-col justify-center h-[320px] sm:h-[380px] md:h-[460px] relative overflow-hidden shadow-sm">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-ink text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-center h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm">
             <div className="absolute -bottom-20 -right-20 opacity-[0.02] pointer-events-none">
-              <Globe2 size={500} />
+              <Globe2 size={400} />
             </div>
             <div className="max-w-xl relative z-10">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 mb-5 block">04 / Ecosystem</span>
-              <h3 className="font-display text-3xl sm:text-4xl md:text-5xl mb-6 leading-[1.1] tracking-tight">Beyond the classroom walls.</h3>
-              <p className="font-light text-white/60 text-sm sm:text-base md:text-lg leading-relaxed">Placement support, alumni networks across Europe and Japan, and deep cultural immersion programs.</p>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 mb-4 block">04 / Ecosystem</span>
+              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 leading-[1.1] tracking-tight">Beyond the classroom walls.</h3>
+              <p className="font-light text-white/60 text-xs sm:text-sm leading-relaxed">Placement support, alumni networks across Europe and Japan, and deep cultural immersion programs.</p>
             </div>
           </motion.div>
         </div>

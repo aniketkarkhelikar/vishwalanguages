@@ -35,7 +35,7 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
     >
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section
-        className="relative pt-40 pb-0 overflow-hidden"
+        className="relative pt-28 md:pt-32 pb-0 overflow-hidden"
         style={{ backgroundColor: lang.bgTint }}
       >
         {/* Back link */}
@@ -104,12 +104,12 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
           </motion.div>
 
           {/* Right: cinematic native script as visual anchor */}
-          <div className="hidden md:flex md:col-span-5 items-end justify-end pb-0 overflow-hidden relative h-full">
+          <div className="hidden md:flex absolute inset-y-0 right-0 w-[45%] items-center justify-end pr-8 md:pr-16 overflow-hidden pointer-events-none">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="font-display leading-[1.1] select-none pointer-events-none whitespace-pre-line text-right"
+              className="font-display leading-[1.1] select-none whitespace-pre-line text-right"
               style={{
                 fontSize: 'clamp(2.5rem, 4vw, 4.5rem)',
                 color: lang.color,

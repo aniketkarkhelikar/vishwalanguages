@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { RootLayout } from '@/components/layout/RootLayout';
@@ -35,6 +35,11 @@ export function App() {
   const [consultationContext, setConsultationContext] = useState({ type: 'general' });
   const [toastMsg, setToastMsg]                   = useState('');
   const location = useLocation();
+
+  // Scroll to top of page on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const openConsultation = (context = { type: 'general' }) => {
     setConsultationContext(context);

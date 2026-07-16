@@ -33,11 +33,11 @@ function LanguageTile({ tile, mousePos }) {
       initial={{ y: 50, opacity: 0, rotate: tile.rotate - 20 }}
       animate={{ y: 0, opacity: 1, rotate: tile.rotate }}
       transition={{ type: 'spring', damping: 20, stiffness: 40, delay: tile.delay, opacity: { duration: 1 } }}
-      className="absolute z-0 hidden md:flex items-center justify-center font-display shadow-xl gpu-accelerated"
+      className="absolute z-0 flex items-center justify-center font-display shadow-xl gpu-accelerated"
       style={{
         left: tile.x, top: tile.y,
-        width: '90px', height: '90px',
-        fontSize: '2.75rem', borderRadius: '20px',
+        width: 'clamp(60px, 8vw, 90px)', height: 'clamp(60px, 8vw, 90px)',
+        fontSize: 'clamp(1.75rem, 3vw, 2.75rem)', borderRadius: '20px',
         backgroundColor: tile.bg, color: tile.color,
         filter: `blur(${tile.blur}px)`,
         transform: `scale(${tile.scale}) translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
@@ -86,23 +86,20 @@ export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
   }, [handleMouseMove]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden bg-gradient-to-b from-surface/40 via-white to-white">
-      {/* Ambient background glows — now with breathing animation */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.05, 1], opacity: [0.04, 0.07, 0.04] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-[15%] left-[20%] w-[500px] h-[500px] rounded-full blur-[140px] bg-terracotta"
+    <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden bg-white">
+      {/* Ambient background glows — soulful Apple-style mesh gradient (GPU Optimized) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden mix-blend-multiply">
+        <div
+          className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full opacity-[0.2]"
+          style={{ background: 'radial-gradient(circle, #3B82F6 0%, transparent 60%)' }}
         />
-        <motion.div
-          animate={{ scale: [1, 1.08, 1], opacity: [0.06, 0.09, 0.06] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          className="absolute bottom-[20%] right-[15%] w-[600px] h-[600px] rounded-full blur-[160px] bg-blue"
+        <div
+          className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full opacity-[0.15]"
+          style={{ background: 'radial-gradient(circle, #A855F7 0%, transparent 60%)' }}
         />
-        <motion.div
-          animate={{ scale: [1, 1.04, 1], opacity: [0.03, 0.05, 0.03] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-          className="absolute top-[40%] right-[30%] w-[400px] h-[400px] rounded-full blur-[120px] bg-sage"
+        <div
+          className="absolute top-[30%] left-[60%] w-[40vw] h-[40vw] rounded-full opacity-[0.12]"
+          style={{ background: 'radial-gradient(circle, #818CF8 0%, transparent 60%)' }}
         />
       </div>
 

@@ -36,7 +36,10 @@ export function Navbar({ onOpenConsultation }) {
   };
 
   // Detect dark hero pages
-  const isDarkHeroPage = location.pathname === '/corporate-training' || location.pathname === '/healthcare-placement';
+  const isDarkHeroPage = 
+    location.pathname === '/corporate-training' || 
+    location.pathname === '/healthcare-placement' || 
+    location.pathname === '/interpretation-services';
   
   // Decide navbar text colors dynamically
   const textClass = scrolled 

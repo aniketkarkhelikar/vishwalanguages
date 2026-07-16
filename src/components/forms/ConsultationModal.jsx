@@ -33,56 +33,14 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
     setLoading(true);
 
     const formData = new FormData(e.target);
-    let payload = {};
-
-    if (context.type === 'corporate') {
-      payload = {
-        name: `${formData.get('contactName')} (${formData.get('orgName')})`,
-        phone: formData.get('phone'),
-        email: formData.get('email'),
-        language: formData.get('targetLanguage'),
-        goal: `Corp Training | Focus: ${formData.get('focus')} | Size: ${formData.get('batchSize')}`,
-        serviceType: 'corporate',
-        source: '/corporate-training',
-      };
-    } else if (context.type === 'healthcare') {
-      payload = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        language: 'german',
-        goal: `Nurse Placement | Level: ${formData.get('germanLevel')} | Degree: ${formData.get('degree')}`,
-        serviceType: 'healthcare',
-        source: '/healthcare-placement',
-      };
-    } else if (context.type === 'interpretation') {
-      payload = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        language: formData.get('languagePair'),
-        goal: `Mode: ${formData.get('mode')} | Client: ${formData.get('clientType')}`,
-        serviceType: 'interpretation',
-        source: '/interpretation-services',
-      };
-    } else if (context.type === 'language') {
-      payload = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        language: context.data?.slug || '',
-        goal: `Level: ${formData.get('level')} | Batch: ${formData.get('batchType')}`,
-        serviceType: 'language',
-        source: `/languages/${context.data?.slug || ''}`,
-      };
-    } else {
-      // General
-      payload = {
-        name:        formData.get('name'),
-        phone:       formData.get('phone'),
-        language:    formData.get('language'),
-        goal:        formData.get('goal'),
-        serviceType: 'general',
-        source:      window.location.pathname,
-      };
-    }
+    const payload = {
+      name:        formData.get('name'),
+      phone:       formData.get('phone'),
+      language:    formData.get('language'),
+      goal:        formData.get('goal'),
+      serviceType: context.type || 'general',
+      source:      window.location.pathname,
+    };
 
     const result = await submitLead(payload);
     setLoading(false);
@@ -136,6 +94,22 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
   };
 
   const header = getHeaderInfo();
+
+  let defaultLanguage = '';
+  let defaultGoal = '';
+
+  if (context.type === 'corporate') {
+    defaultLanguage = 'corporate';
+    defaultGoal = 'corporate';
+  } else if (context.type === 'healthcare') {
+    defaultLanguage = 'healthcare';
+    defaultGoal = 'healthcare';
+  } else if (context.type === 'interpretation') {
+    defaultLanguage = 'interpretation';
+    defaultGoal = 'work';
+  } else if (context.type === 'language') {
+    defaultLanguage = context.data?.slug || '';
+  }
 
   return (
     <AnimatePresence>
@@ -204,7 +178,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
             </div>
 
             {/* Right — Dynamic Context Form */}
-            <div className="col-span-5 md:col-span-3 p-8 md:p-12 overflow-y-auto hide-scrollbar">
+            <div className="col-span-5 md:col-span-3 p-6 md:p-12 overflow-y-auto flex-1 min-h-0 pb-12">
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -241,315 +215,54 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                     <p className="text-xs opacity-50">{header.desc}</p>
                   </div>
 
-                  {/* 1. CORPORATE FORM */}
-                  {context.type === 'corporate' && (
-                    <>
-                      <div>
-                        <label className="field-label" htmlFor="orgName">Organization Name</label>
-                        <div className="field-wrap">
-                          <Building2 size={18} className="field-icon" />
-                          <input id="orgName" name="orgName" type="text" required placeholder="Company Name" className="field-input" />
-                        </div>
+                  {/* UNIFIED FORM TEMPLATE */}
+                  <div>
+                    <label className="field-label" htmlFor="language">Target Area</label>
+                    <div className="field-wrap">
+                      <Globe2 size={18} className="field-icon" />
+                      <select id="language" name="language" className="field-select" required defaultValue={defaultLanguage}>
+                        <option value="" disabled>Select language / service</option>
+                        {languageCatalogue.map((lang) => (
+                          <option key={lang.slug} value={lang.slug}>{lang.card.title}</option>
+                        ))}
+                        <option value="corporate">Corporate Training</option>
+                        <option value="interpretation">Interpretation Services</option>
+                        <option value="healthcare">German Healthcare Pathway</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="field-label" htmlFor="goal">Primary Goal</label>
+                    <div className="field-wrap">
+                      <Target size={18} className="field-icon" />
+                      <select id="goal" name="goal" className="field-select" required defaultValue={defaultGoal}>
+                        <option value="" disabled>What are you working towards?</option>
+                        <option value="work">Work internationally (Placement)</option>
+                        <option value="study">Study abroad</option>
+                        <option value="corporate">Train my corporate team</option>
+                        <option value="healthcare">German nurse program</option>
+                        <option value="culture">Personal culture & communication</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="field-label" htmlFor="name">Full Name</label>
+                      <div className="field-wrap">
+                        <User size={18} className="field-icon" />
+                        <input id="name" name="name" type="text" required placeholder="Your Name" className="field-input" />
                       </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="targetLanguage">Language Needed</label>
-                          <div className="field-wrap">
-                            <Globe2 size={18} className="field-icon" />
-                            <select id="targetLanguage" name="targetLanguage" className="field-select" required defaultValue="">
-                              <option value="" disabled>Select language</option>
-                              <option value="japanese">Japanese</option>
-                              <option value="german">German</option>
-                              <option value="french">French</option>
-                              <option value="spanish">Spanish</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="field-label" htmlFor="batchSize">Cohort Size</label>
-                          <div className="field-wrap">
-                            <User size={18} className="field-icon" />
-                            <select id="batchSize" name="batchSize" className="field-select" required defaultValue="">
-                              <option value="" disabled>Cohort size</option>
-                              <option value="under-10">Fewer than 10</option>
-                              <option value="10-30">10 to 30</option>
-                              <option value="30-plus">More than 30</option>
-                            </select>
-                          </div>
-                        </div>
+                    </div>
+                    <div>
+                      <label className="field-label" htmlFor="phone">Phone / WhatsApp</label>
+                      <div className="field-wrap">
+                        <Phone size={18} className="field-icon" />
+                        <input id="phone" name="phone" type="tel" required placeholder="Contact Number" className="field-input" />
                       </div>
-
-                      <div>
-                        <label className="field-label" htmlFor="focus">Training Objective</label>
-                        <div className="field-wrap">
-                          <Briefcase size={18} className="field-icon" />
-                          <select id="focus" name="focus" className="field-select" required defaultValue="">
-                            <option value="" disabled>Select training objective</option>
-                            <option value="expatriate">Expatriate Preparation (Relocation)</option>
-                            <option value="business-comm">Business Communication</option>
-                            <option value="cultural">Client Relations & Nuances</option>
-                            <option value="technical">Technical Terminology</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="contactName">Your Name</label>
-                          <div className="field-wrap">
-                            <User size={18} className="field-icon" />
-                            <input id="contactName" name="contactName" type="text" required placeholder="Name" className="field-input" />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="field-label" htmlFor="email">Work Email</label>
-                          <div className="field-wrap">
-                            <Mail size={18} className="field-icon" />
-                            <input id="email" name="email" type="email" required placeholder="work@company.com" className="field-input" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="field-label" htmlFor="phone">Phone / WhatsApp</label>
-                        <div className="field-wrap">
-                          <Phone size={18} className="field-icon" />
-                          <input id="phone" name="phone" type="tel" required placeholder="Contact Number" className="field-input" />
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* 2. HEALTHCARE FORM */}
-                  {context.type === 'healthcare' && (
-                    <>
-                      <div>
-                        <label className="field-label" htmlFor="degree">Nursing Qualification</label>
-                        <div className="field-wrap">
-                          <GraduationCap size={18} className="field-icon" />
-                          <select id="degree" name="degree" className="field-select" required defaultValue="">
-                            <option value="" disabled>Select qualification</option>
-                            <option value="bsc-nursing">B.Sc Nursing</option>
-                            <option value="gnm">GNM Diploma</option>
-                            <option value="msc-nursing">M.Sc Nursing</option>
-                            <option value="other">Other healthcare degree</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="field-label" htmlFor="germanLevel">Current German Level</label>
-                        <div className="field-wrap">
-                          <User size={18} className="field-icon" />
-                          <select id="germanLevel" name="germanLevel" className="field-select" required defaultValue="">
-                            <option value="" disabled>Select German level</option>
-                            <option value="beginner">Beginner / No Knowledge</option>
-                            <option value="a1-a2">A1 / A2 Completed</option>
-                            <option value="b1">B1 Completed</option>
-                            <option value="b2">B2 or Higher Completed</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="name">Full Name</label>
-                          <div className="field-wrap">
-                            <User size={18} className="field-icon" />
-                            <input id="name" name="name" type="text" required placeholder="Your Name" className="field-input" />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="field-label" htmlFor="phone">WhatsApp / Phone</label>
-                          <div className="field-wrap">
-                            <Phone size={18} className="field-icon" />
-                            <input id="phone" name="phone" type="tel" required placeholder="WhatsApp Number" className="field-input" />
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* 3. INTERPRETATION FORM */}
-                  {context.type === 'interpretation' && (
-                    <>
-                      <div>
-                        <label className="field-label" htmlFor="clientType">Client Type</label>
-                        <div className="field-wrap">
-                          <User size={18} className="field-icon" />
-                          <select id="clientType" name="clientType" className="field-select" required defaultValue="">
-                            <option value="" disabled>Select client profile</option>
-                            <option value="corporate">Corporate / Company</option>
-                            <option value="embassy">Consulate / Embassy</option>
-                            <option value="legal">Law Firm / Court</option>
-                            <option value="individual">Individual</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="languagePair">Language Combination</label>
-                          <div className="field-wrap">
-                            <Globe2 size={18} className="field-icon" />
-                            <select id="languagePair" name="languagePair" className="field-select" required defaultValue="">
-                              <option value="" disabled>Select language combination</option>
-                              <option value="japanese-english">Japanese ↔ English / Hindi</option>
-                              <option value="german-english">German ↔ English</option>
-                              <option value="french-english">French ↔ English</option>
-                              <option value="spanish-english">Spanish ↔ English</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="field-label" htmlFor="mode">Event Mode</label>
-                          <div className="field-wrap">
-                            <Target size={18} className="field-icon" />
-                            <select id="mode" name="mode" className="field-select" required defaultValue="">
-                              <option value="" disabled>Select event mode</option>
-                              <option value="onsite">On-Site / In-Person</option>
-                              <option value="remote">Remote Video Translation</option>
-                              <option value="simultaneous">Simultaneous (Conference)</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="name">Full Name / Org</label>
-                          <div className="field-wrap">
-                            <User size={18} className="field-icon" />
-                            <input id="name" name="name" type="text" required placeholder="Name or Company" className="field-input" />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="field-label" htmlFor="phone">Phone / WhatsApp</label>
-                          <div className="field-wrap">
-                            <Phone size={18} className="field-icon" />
-                            <input id="phone" name="phone" type="tel" required placeholder="Contact Number" className="field-input" />
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* 4. LANGUAGE FORM */}
-                  {context.type === 'language' && (
-                    <>
-                      <div>
-                        <label className="field-label">Target Language</label>
-                        <div className="field-wrap">
-                          <Globe2 size={18} className="field-icon opacity-60" />
-                          <input type="text" readOnly value={context.data?.card?.title} className="field-input bg-ink/5 cursor-not-allowed font-medium" />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="level">Target Level</label>
-                          <div className="field-wrap">
-                            <Target size={18} className="field-icon" />
-                            <select id="level" name="level" className="field-select" required defaultValue="">
-                              <option value="" disabled>Select target level</option>
-                              {context.data?.levels?.map((lvl) => (
-                                <option key={lvl.level} value={lvl.level}>
-                                  {lvl.level} — {lvl.title}
-                                </option>
-                              ))}
-                              <option value="all">Full Curriculum (Beginner to Advanced)</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="field-label" htmlFor="batchType">Preferred Batch</label>
-                          <div className="field-wrap">
-                            <Target size={18} className="field-icon" />
-                            <select id="batchType" name="batchType" className="field-select" required defaultValue="">
-                              <option value="" disabled>Select batch mode</option>
-                              <option value="weekend">Weekend (Sat & Sun)</option>
-                              <option value="weekday">Weekday (Mon to Fri)</option>
-                              <option value="one-on-one">One-on-One Custom</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="name">Full Name</label>
-                          <div className="field-wrap">
-                            <User size={18} className="field-icon" />
-                            <input id="name" name="name" type="text" required placeholder="Your Name" className="field-input" />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="field-label" htmlFor="phone">Phone / WhatsApp</label>
-                          <div className="field-wrap">
-                            <Phone size={18} className="field-icon" />
-                            <input id="phone" name="phone" type="tel" required placeholder="Contact Number" className="field-input" />
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* 5. GENERAL FORM */}
-                  {context.type === 'general' && (
-                    <>
-                      <div>
-                        <label className="field-label" htmlFor="language">Target Area</label>
-                        <div className="field-wrap">
-                          <Globe2 size={18} className="field-icon" />
-                          <select id="language" name="language" className="field-select" required defaultValue="">
-                            <option value="" disabled>Select language / service</option>
-                            {languageCatalogue.map((lang) => (
-                              <option key={lang.slug} value={lang.slug}>{lang.card.title}</option>
-                            ))}
-                            <option value="corporate">Corporate Training</option>
-                            <option value="interpretation">Interpretation Services</option>
-                            <option value="healthcare">German Healthcare Pathway</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="field-label" htmlFor="goal">Primary Goal</label>
-                        <div className="field-wrap">
-                          <Target size={18} className="field-icon" />
-                          <select id="goal" name="goal" className="field-select" required defaultValue="">
-                            <option value="" disabled>What are you working towards?</option>
-                            <option value="work">Work internationally (Placement)</option>
-                            <option value="study">Study abroad</option>
-                            <option value="corporate">Train my corporate team</option>
-                            <option value="healthcare">German nurse program</option>
-                            <option value="culture">Personal culture & communication</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="field-label" htmlFor="name">Full Name</label>
-                          <div className="field-wrap">
-                            <User size={18} className="field-icon" />
-                            <input id="name" name="name" type="text" required placeholder="Name" className="field-input" />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="field-label" htmlFor="phone">Phone / WhatsApp</label>
-                          <div className="field-wrap">
-                            <Phone size={18} className="field-icon" />
-                            <input id="phone" name="phone" type="tel" required placeholder="Number" className="field-input" />
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                    </div>
+                  </div>
 
                   {error && <p className="text-red-500 text-sm">{error}</p>}
 

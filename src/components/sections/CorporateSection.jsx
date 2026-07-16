@@ -12,20 +12,13 @@ export function CorporateSection({ onOpenConsultation }) {
   const d = corporateTraining;
 
   return (
-    <section id="corporate-section" className="py-24 md:py-32 bg-ink text-white relative overflow-hidden scroll-m-10">
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="corp-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#corp-grid)" />
-        </svg>
+    <section id="corporate-section" className="py-16 md:py-20 bg-paper text-ink relative overflow-hidden scroll-m-10 border-t border-ink/5">
+      {/* Subtle background glow instead of grid */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-[0.03]" style={{ background: `radial-gradient(circle, ${colors.terracotta} 0%, transparent 70%)` }} />
       </div>
 
-      <div className="container-site relative z-10">
+      <div className="container-site relative z-10 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left — copy */}
           <motion.div
@@ -34,30 +27,30 @@ export function CorporateSection({ onOpenConsultation }) {
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
           >
-            <span className="text-micro font-medium opacity-50 block mb-6" style={{ color: colors.gold }}>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-terracotta mb-6 block">
               {d.hero.eyebrow}
             </span>
-            <h2 className="font-display text-h2 leading-tight mb-6">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6 tracking-tight">
               Equip your teams with<br />
-              <span className="italic" style={{ color: colors.gold }}>language fluency.</span>
+              <span className="italic text-terracotta">language fluency.</span>
             </h2>
-            <p className="text-white/55 text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg">
+            <p className="text-ink/60 text-base md:text-lg font-light leading-relaxed mb-10 max-w-lg">
               We partner with HR leaders and L&D teams to deliver structured, measurable language programs — from expatriate preparation to business communication in Japanese, German, French, and Spanish.
             </p>
 
             <ul className="space-y-5 mb-12 text-sm">
               {[
-                { icon: <BarChart3 size={16} style={{ color: colors.gold }} />, title: 'Measurable ROI', desc: 'Pre/post assessments with monthly progress reports to stakeholders.' },
-                { icon: <Users size={16} style={{ color: colors.gold }} />, title: 'Flexible Cohorts', desc: 'On-site, remote, or hybrid. Any batch size, any schedule.' },
-                { icon: <Handshake size={16} style={{ color: colors.gold }} />, title: 'Dedicated Manager', desc: 'Single point of contact for curriculum alignment and logistics.' },
+                { icon: <BarChart3 size={16} className="text-terracotta" />, title: 'Measurable ROI', desc: 'Pre/post assessments with monthly progress reports to stakeholders.' },
+                { icon: <Users size={16} className="text-terracotta" />, title: 'Flexible Cohorts', desc: 'On-site, remote, or hybrid. Any batch size, any schedule.' },
+                { icon: <Handshake size={16} className="text-terracotta" />, title: 'Dedicated Manager', desc: 'Single point of contact for curriculum alignment and logistics.' },
               ].map((item) => (
                 <li key={item.title} className="flex items-start gap-4 group">
-                  <div className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center shrink-0 bg-white/5 group-hover:bg-white/10 transition-colors">
+                  <div className="w-8 h-8 rounded-full border border-ink/10 flex items-center justify-center shrink-0 bg-surface group-hover:border-terracotta/30 transition-colors">
                     {item.icon}
                   </div>
                   <div className="leading-relaxed">
-                    <span className="font-medium text-white">{item.title}</span>
-                    <span className="text-white/50 ml-1">— {item.desc}</span>
+                    <span className="font-medium text-ink">{item.title}</span>
+                    <span className="text-ink/50 ml-1">— {item.desc}</span>
                   </div>
                 </li>
               ))}
@@ -65,33 +58,50 @@ export function CorporateSection({ onOpenConsultation }) {
 
             <button
               onClick={() => onOpenConsultation({ type: 'corporate' })}
-              className="btn-corporate group"
+              className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-ink text-white rounded-full overflow-hidden hover:opacity-90 transition-opacity text-sm font-semibold tracking-tight shadow-md"
             >
               Request Corporate Proposal
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
           </motion.div>
 
-          {/* Right — stat cards */}
+          {/* Right — Stunning image layout */}
           <motion.div
-            variants={staggerContainer(0.12)}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
+            className="relative h-[400px] md:h-[450px] w-full"
           >
-            {d.stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                variants={fadeUpScale}
-                className={`card-stat ${i === 1 ? 'mt-8' : ''} group hover:bg-white/10 transition-colors duration-500`}
-              >
-                {i === 0 ? <Building className="mb-6 opacity-80 group-hover:scale-110 transition-transform" size={32} style={{ color: colors.gold }} />
-                         : <Users    className="mb-6 opacity-80 group-hover:scale-110 transition-transform" size={32} style={{ color: colors.gold }} />}
-                <h4 className="font-display text-3xl mb-2">{stat.value}</h4>
-                <p className="text-xs uppercase tracking-wider opacity-50">{stat.label}</p>
-              </motion.div>
-            ))}
+            {/* Primary large image */}
+            <div className="absolute top-0 right-0 w-4/5 h-4/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop" 
+                alt="Corporate Training" 
+                className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-ink/10 mix-blend-overlay" />
+            </div>
+
+            {/* Secondary overlapping image */}
+            <div className="absolute bottom-10 left-0 w-3/5 h-2/5 rounded-[2rem] overflow-hidden shadow-xl border-4 border-paper">
+              <img 
+                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop" 
+                alt="Professional Team" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Floating Glassmorphism Stat Card */}
+            <div className="absolute top-1/2 -translate-y-1/2 -left-8 bg-white/70 backdrop-blur-xl border border-white/40 p-6 rounded-2xl shadow-xl z-20 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-terracotta flex items-center justify-center text-white shrink-0 shadow-md">
+                <Building size={20} />
+              </div>
+              <div>
+                <div className="font-display text-2xl text-ink font-bold leading-none mb-1">50+</div>
+                <div className="text-[9px] uppercase tracking-widest text-ink/60 font-mono">Enterprise Partners</div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

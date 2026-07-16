@@ -5,6 +5,13 @@ import { pageSlideUp, fadeUp, staggerContainer, fadeUpScale } from '@/animations
 import { corporateTraining } from '@/data/services/corporate';
 import { colors } from '@/lib/tokens';
 
+const PILLAR_IMAGES = [
+  'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop'
+];
+
 /**
  * CorporateTrainingPage — Apple-inspired Enterprise Design.
  * Reimagined with a dark, high-contrast, non-sticky layout.
@@ -49,7 +56,7 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
         {/* Subtle grid and glows */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <svg width="100%" height="100%" className="opacity-[0.03]"><defs><pattern id="c-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#c-grid)" /></svg>
-          <div className="absolute top-[20%] left-[20%] w-[50vw] h-[50vw] rounded-full blur-[120px] opacity-20" style={{ background: `radial-gradient(circle, ${colors.gold} 0%, transparent 70%)` }} />
+          <div className="absolute top-[20%] left-[20%] w-[50vw] h-[50vw] rounded-full opacity-20" style={{ background: `radial-gradient(circle, ${colors.gold} 0%, transparent 60%)` }} />
         </div>
 
         <div className="container-site relative z-10 max-w-7xl mx-auto w-full">
@@ -104,7 +111,6 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
       </section>
 
       {/* ══ THE FRAMEWORK (Massive Zig-Zag Blocks) ══ */}
-      {/* Replaces the sticky scroll to provide immediate visual scanning */}
       <section className="py-24 md:py-32 bg-surface text-ink rounded-t-[3rem] md:rounded-t-[5rem] overflow-hidden">
         <div className="container-site max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20 md:mb-32">
@@ -114,7 +120,7 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
             </h2>
           </div>
           
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-24 md:space-y-32">
             {d.features.map((feature, idx) => (
               <motion.div 
                 key={idx} 
@@ -124,18 +130,41 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
                 viewport={{ once: true, margin: '-10%' }}
                 className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
               >
-                {/* Visual Number Block */}
-                <div className="w-full md:w-1/2 aspect-video md:aspect-square bg-ink/5 rounded-3xl flex items-center justify-center p-12 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/[0.02] transition-colors duration-500" />
-                  <span className="font-display text-9xl text-ink/10 select-none group-hover:scale-110 transition-transform duration-700">0{idx + 1}</span>
+                {/* Visual Image Block with Soulful Typography */}
+                <div className="w-full md:w-1/2 relative">
+                  <div className="aspect-[4/5] md:aspect-square rounded-[2.5rem] overflow-hidden relative group shadow-2xl border border-ink/5">
+                    <img 
+                      src={PILLAR_IMAGES[idx % PILLAR_IMAGES.length]} 
+                      alt={feature.title} 
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" 
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-ink/20 mix-blend-overlay transition-colors duration-700 group-hover:bg-transparent" />
+                    
+                    {/* Atmospheric Glow */}
+                    <motion.div 
+                      animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }} 
+                      transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                      className="absolute -bottom-20 -right-20 w-[300px] h-[300px] rounded-full blur-[100px] mix-blend-multiply pointer-events-none gpu-accelerated"
+                      style={{ backgroundColor: colors.gold }}
+                    />
+                  </div>
+                  
+                  {/* Overlapping Glass Number */}
+                  <div 
+                    className={`absolute top-1/2 -translate-y-1/2 ${idx % 2 !== 0 ? '-right-6 md:-right-16' : '-left-6 md:-left-16'} font-display text-[10rem] md:text-[16rem] leading-none text-white opacity-95 drop-shadow-2xl z-10 pointer-events-none select-none mix-blend-exclusion`}
+                  >
+                    0{idx + 1}
+                  </div>
                 </div>
                 
                 {/* Text Block */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 relative z-20">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-gold block mb-4">Pillar 0{idx + 1}</span>
                   <h3 className="font-display text-3xl md:text-5xl leading-tight mb-6">
                     {feature.title}
                   </h3>
-                  <p className="text-xl md:text-2xl font-light text-ink/60 leading-relaxed">
+                  <p className="text-xl md:text-2xl font-light text-ink/65 leading-relaxed">
                     {feature.desc}
                   </p>
                 </div>
