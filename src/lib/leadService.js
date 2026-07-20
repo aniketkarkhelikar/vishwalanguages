@@ -52,6 +52,7 @@ function buildWhatsAppMessage(payload) {
     `*Contact Number:* ${payload.phone}`
   ];
 
+  if (payload.email) lines.push(`*Email:* ${payload.email}`);
   if (payload.language) lines.push(`*Target Language/Area:* ${payload.language}`);
   if (payload.goal) lines.push(`*Primary Goal:* ${payload.goal}`);
   
@@ -91,6 +92,7 @@ function buildMailtoURL(payload) {
     `Contact Number: ${payload.phone}`,
   ];
   
+  if (payload.email) bodyLines.push(`Email: ${payload.email}`);
   if (payload.language) bodyLines.push(`Target Language/Area: ${payload.language}`);
   if (payload.goal) bodyLines.push(`Primary Goal: ${payload.goal}`);
   

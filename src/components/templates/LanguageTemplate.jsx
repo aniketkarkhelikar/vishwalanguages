@@ -243,7 +243,7 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
                   className="btn-ghost group mt-6"
                   style={{ color: lang.color, borderColor: lang.color }}
                 >
-                  Get detailed syllabus
+                  Book free session
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </motion.div>
@@ -446,17 +446,17 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
               Study with Us
             </span>
             <h2 className="font-display text-4xl md:text-6xl text-white mb-6 leading-tight">
-              Request syllabus<br />&amp; cohorts.
+              Book free session<br />&amp; cohorts.
             </h2>
             <p className="font-display italic text-white/65 text-xl md:text-2xl mb-10 leading-relaxed max-w-lg">
-              Get program timelines, fee structure, and batch dates for {lang.card.title}.
+              Book a free demo session, get curriculum, and view batch dates for {lang.card.title}.
             </p>
             <button
               onClick={() => onOpenConsultation({ type: 'language', data: lang })}
               className="inline-flex items-center gap-3 px-8 py-4 rounded-xl text-[11px] uppercase tracking-wide font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
               style={{ backgroundColor: 'white', color: lang.color }}
             >
-              Get Class Details <ArrowRight size={16} />
+              Book Free Session <ArrowRight size={16} />
             </button>
           </div>
         </motion.div>

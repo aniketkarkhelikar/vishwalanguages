@@ -203,7 +203,7 @@ export function WhyVishwaSection() {
             </div>
             <div className="relative z-10">
               <span className="text-[10px] uppercase font-mono tracking-widest text-white/60 mb-2 block">02 / Focus</span>
-              <h3 className="font-display text-xl sm:text-2xl md:text-3xl mb-2 tracking-tight">Intimate Batches</h3>
+              <h3 className="font-display text-xl sm:text-2xl md:text-3xl mb-2 tracking-tight">Small Batches</h3>
               <p className="font-light text-white/80 text-xs leading-relaxed">Max 15 students per batch. Personalized attention ensures you are actively speaking from day one.</p>
             </div>
           </motion.div>

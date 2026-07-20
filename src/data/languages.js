@@ -41,7 +41,7 @@ const imageMap = {
 };
 
 // Ordered catalogue for display
-export const languageCatalogue = [japanese, german, french, spanish, mandarin, korean, english, ielts, sanskrit].map(lang => ({
+export const languageCatalogue = [german, spanish, french, japanese, mandarin, korean, english, ielts, sanskrit].map(lang => ({
   ...lang,
   countryImage: imageMap[lang.slug]
 }));
