@@ -23,7 +23,7 @@ export const mandarin = {
     eyebrow:  'Language Program',
     title:    'Mandarin Chinese\nProgram',
     subtitle: 'From HSK 1 to HSK 6. Connect with over 1.1 billion speakers across the globe.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'HSK (Hanyu Shuiping Kaoshi)',

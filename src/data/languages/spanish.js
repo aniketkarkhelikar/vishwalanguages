@@ -26,7 +26,7 @@ export const spanish = {
     eyebrow:  'Language Program',
     title:    'Spanish Language\nProgram',
     subtitle: 'From A1 to B2. Connect with 460 million native speakers across 21 countries.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'DELE (Diplomas de Español como Lengua Extranjera)',

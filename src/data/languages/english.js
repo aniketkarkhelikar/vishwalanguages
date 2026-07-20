@@ -23,7 +23,7 @@ export const english = {
     eyebrow:  'Language Program',
     title:    'Spoken & Business\nEnglish',
     subtitle: 'From basic fluency to advanced corporate negotiations. Speak with absolute authority.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'Vishwa Spoken English Certificate',

@@ -23,7 +23,7 @@ export const sanskrit = {
     eyebrow:  'Language Program',
     title:    'Sanskrit Language\nProgram',
     subtitle: 'From Devanagari script to Indology. Reconnect with India\'s heritage and classical philosophy.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'Saral Sanskrit Examinations',

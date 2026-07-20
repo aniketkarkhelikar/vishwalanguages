@@ -23,7 +23,7 @@ export const korean = {
     eyebrow:  'Language Program',
     title:    'Korean Language\nProgram',
     subtitle: 'From TOPIK I to TOPIK II. Connect with the global wave of culture and industry.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'TOPIK (Test of Proficiency in Korean)',

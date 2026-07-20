@@ -26,7 +26,7 @@ export const french = {
     eyebrow:  'Language Program',
     title:    'French Language\nProgram',
     subtitle: 'From A1 to B2. Master the language of diplomacy, culture, and global business.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'DELF / DALF',

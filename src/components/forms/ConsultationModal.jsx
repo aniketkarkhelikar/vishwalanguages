@@ -44,7 +44,7 @@ const FORM_SCHEMAS = {
       { value: 'beginner', label: 'Beginner / No Knowledge' }, { value: 'a1-a2', label: 'A1 / A2 Completed' }, { value: 'b1', label: 'B1 Completed' }, { value: 'b2', label: 'B2 or Higher Completed' }
     ]},
     { name: 'name', label: 'Full Name', type: 'text', icon: User, placeholder: 'Your Name', required: true },
-    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'your@email.com', required: true },
+    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'name@email.com', required: true, fullWidth: true },
     { name: 'phone', label: 'WhatsApp / Phone', type: 'tel', icon: Phone, placeholder: 'WhatsApp Number', required: true },
   ],
   interpretation: [
@@ -59,7 +59,7 @@ const FORM_SCHEMAS = {
       { value: 'onsite', label: 'On-Site / In-Person' }, { value: 'remote', label: 'Remote Video Translation' }, { value: 'simultaneous', label: 'Simultaneous (Conference)' }
     ]},
     { name: 'name', label: 'Full Name / Org', type: 'text', icon: User, placeholder: 'Name or Company', required: true },
-    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'your@email.com', required: true },
+    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'name@email.com', required: true, fullWidth: true },
     { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', icon: Phone, placeholder: 'Contact Number', required: true },
   ],
   language: [
@@ -69,7 +69,7 @@ const FORM_SCHEMAS = {
       { value: 'weekend', label: 'Weekend (Sat & Sun)' }, { value: 'weekday', label: 'Weekday (Mon to Fri)' }, { value: 'one-on-one', label: 'One-on-One Custom' }
     ]},
     { name: 'name', label: 'Full Name', type: 'text', icon: User, placeholder: 'Your Name', required: true },
-    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'your@email.com', required: true },
+    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'name@email.com', required: true, fullWidth: true },
     { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', icon: Phone, placeholder: 'Contact Number', required: true },
   ],
   general: [
@@ -82,7 +82,7 @@ const FORM_SCHEMAS = {
       { value: 'healthcare', label: 'German nurse program' }, { value: 'culture', label: 'Personal culture & communication' }
     ]},
     { name: 'name', label: 'Full Name', type: 'text', icon: User, placeholder: 'Name', required: true },
-    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'your@email.com', required: true },
+    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'name@email.com', required: true, fullWidth: true },
     { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', icon: Phone, placeholder: 'Number', required: true },
   ]
 };
@@ -115,41 +115,40 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
     setError('');
     setLoading(true);
 
-    let payload = { serviceType: context.type || 'general', source: window.location.pathname };
+    let payload = { 
+      serviceType: context.type || 'general', 
+      source: window.location.pathname,
+      email: formData.email
+    };
 
     switch (context.type) {
       case 'corporate':
         payload.name = `${formData.contactName} (${formData.orgName})`;
         payload.phone = formData.phone;
-        payload.email = formData.email;
         payload.language = formData.targetLanguage;
         payload.goal = `Corp Training | Focus: ${formData.focus} | Size: ${formData.batchSize} | Email: ${formData.email}`;
         break;
       case 'healthcare':
         payload.name = formData.name;
         payload.phone = formData.phone;
-        payload.email = formData.email;
         payload.language = 'german';
         payload.goal = `Nurse Placement | Level: ${formData.germanLevel} | Degree: ${formData.degree}`;
         break;
       case 'interpretation':
         payload.name = formData.name;
         payload.phone = formData.phone;
-        payload.email = formData.email;
         payload.language = formData.languagePair;
         payload.goal = `Mode: ${formData.mode} | Client: ${formData.clientType}`;
         break;
       case 'language':
         payload.name = formData.name;
         payload.phone = formData.phone;
-        payload.email = formData.email;
         payload.language = context.data?.slug || formData.targetLanguage;
         payload.goal = `Level: ${formData.level} | Batch: ${formData.batchType}`;
         break;
       default:
         payload.name = formData.name;
         payload.phone = formData.phone;
-        payload.email = formData.email;
         payload.language = formData.language;
         payload.goal = formData.goal;
         break;
@@ -178,7 +177,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
       case 'interpretation':
         return { eyebrow: 'Interpretation Services', title: 'Book interpreter.', desc: 'Simultaneous or consecutive interpretation.' };
       case 'language':
-        return { eyebrow: `${context.data?.card?.title} Program`, title: 'Book free session.', desc: `Book a free demo session and custom consultation for ${context.data?.card?.title}.` };
+        return { eyebrow: `${context.data?.card?.title} Program`, title: 'Book free session.', desc: `Course modules and batch timings for ${context.data?.card?.title}.` };
       default:
         return { eyebrow: 'Begin Journey', title: 'Book consultation.', desc: 'Discuss your goals with a language advisor.' };
     }
@@ -293,7 +292,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                   </div>
                   <h4 className="font-display text-3xl mb-4 text-ink">Request received.</h4>
                   <p className="text-sm opacity-60 max-w-xs leading-relaxed text-ink">
-                    An advisor will reach out on WhatsApp shortly with customized syllabus, timings, and program parameters.
+                    An advisor will reach out on WhatsApp shortly with customized session details, timings, and program parameters.
                   </p>
                   <button onClick={handleClose} className="mt-8 px-6 py-2.5 rounded-full border border-ink/20 text-xs uppercase font-bold tracking-widest hover:bg-ink hover:text-white transition-colors text-ink">
                     Close Window

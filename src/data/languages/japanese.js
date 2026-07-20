@@ -31,7 +31,7 @@ export const japanese = {
     eyebrow:  'Language Program',
     title:    'Japanese Language\nProgram',
     subtitle: 'Structured JLPT training from N5 to N2, designed for engineers and healthcare professionals.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   certificateName: 'JLPT (Japanese-Language Proficiency Test)',
 

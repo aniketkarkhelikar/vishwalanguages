@@ -23,7 +23,7 @@ export const ielts = {
     eyebrow:  'Exam Preparation',
     title:    'IELTS Exam\nPreparation',
     subtitle: 'Academic & General Training. Specialized strategies to secure Band 7.5+ and study/work abroad.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   
   certificateName: 'IELTS Academic / General Training',

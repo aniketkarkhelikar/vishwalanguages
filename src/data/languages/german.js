@@ -25,7 +25,7 @@ export const german = {
     eyebrow:  'Language Program',
     title:    'German Language\nProgram',
     subtitle: 'CEFR-aligned training from A1 to B2, focused on engineering and healthcare placements.',
-    cta:      'View Syllabus',
+    cta:      'Book Free Session',
   },
   certificateName: 'Goethe-Zertifikat / ÖSD',
 
