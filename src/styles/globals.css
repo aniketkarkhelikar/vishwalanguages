@@ -193,12 +193,17 @@
   .hide-scrollbar::-webkit-scrollbar { display: none; }
 
   /* --- Marquee --- */
+  .marquee-row {
+    overflow: hidden;
+    display: flex;
+    white-space: nowrap;
+    width: 100vw;
+  }
   .marquee-track { 
     display: flex;
     width: max-content;
     flex-shrink: 0;
     will-change: transform;
-    transform: translate3d(0, 0, 0);
     animation: marquee 45s linear infinite; 
   }
   .marquee-track:hover {
@@ -206,8 +211,8 @@
   }
 
   @keyframes marquee {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, 0, 0); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* --- Divider Line --- */

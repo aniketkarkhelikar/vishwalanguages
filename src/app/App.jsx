@@ -10,11 +10,11 @@ const HomePage              = lazy(() => import('@/pages/HomePage').then((m) => 
 const LanguagesIndexPage    = lazy(() => import('@/pages/LanguagesIndexPage').then((m) => ({ default: m.LanguagesIndexPage })));
 const LanguagePage          = lazy(() => import('@/pages/LanguagePage').then((m) => ({ default: m.LanguagePage })));
 const CorporateTrainingPage = lazy(() => import('@/pages/CorporateTrainingPage').then((m) => ({ default: m.CorporateTrainingPage })));
-const InterpretationPage    = lazy(() => import('@/pages/InterpretationPage').then((m) => ({ default: m.InterpretationPage })));
-const HealthcarePlacementPage = lazy(() => import('@/pages/HealthcarePlacementPage').then((m) => ({ default: m.HealthcarePlacementPage })));
+const ServicesPage          = lazy(() => import('@/pages/ServicesPage').then((m) => ({ default: m.ServicesPage })));
 const ComingSoonPage        = lazy(() => import('@/pages/UtilityPages').then((m) => ({ default: m.ComingSoonPage })));
 const NotFoundPage          = lazy(() => import('@/pages/UtilityPages').then((m) => ({ default: m.NotFoundPage })));
 const AboutPage             = lazy(() => import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })));
+const ContactPage           = lazy(() => import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })));
 
 // Minimal page loader
 function PageLoader() {
@@ -69,17 +69,17 @@ export function App() {
               <Route path="/corporate-training"
                 element={<CorporateTrainingPage onOpenConsultation={openConsultation} />}
               />
-              <Route path="/interpretation-services"
-                element={<InterpretationPage onOpenConsultation={openConsultation} />}
-              />
-              <Route path="/healthcare-placement"
-                element={<HealthcarePlacementPage onOpenConsultation={openConsultation} />}
+              <Route path="/services"
+                element={<ServicesPage onOpenConsultation={openConsultation} />}
               />
               <Route path="/coming-soon"
                 element={<ComingSoonPage />}
               />
               <Route path="/about"
-                element={<AboutPage />}
+                element={<AboutPage onOpenConsultation={openConsultation} />}
+              />
+              <Route path="/contact"
+                element={<ContactPage onOpenConsultation={openConsultation} />}
               />
               <Route path="*"
                 element={<NotFoundPage />}

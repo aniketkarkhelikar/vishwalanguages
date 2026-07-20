@@ -303,16 +303,61 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
                 </li>
               </ul>
             </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex justify-center md:justify-end">
-              <div className="relative w-full max-w-sm rounded-[2rem] bg-paper p-10 border shadow-card flex flex-col items-center text-center group hover:-translate-y-1 transition-transform duration-500" style={{ borderColor: colors.line }}>
-                <Trophy size={56} className="mb-6 opacity-80 group-hover:scale-110 transition-transform duration-500" style={{ color: lang.color }} />
-                <h4 className="font-display text-2xl mb-2">{lang.certificateName || "Proficiency Certificate"}</h4>
-                <p className="text-[10px] uppercase tracking-widest font-bold mb-8" style={{ color: lang.color }}>Globally Validated</p>
-                <div className="w-full h-px mb-8" style={{ backgroundColor: colors.line }} />
-                <p className="text-sm italic text-ink/50 leading-relaxed font-display">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-col gap-6">
+
+              <div className="relative w-full rounded-[2rem] bg-paper p-8 border shadow-card flex flex-col items-center text-center group hover:-translate-y-1 transition-transform duration-500" style={{ borderColor: colors.line }}>
+                <Trophy size={48} className="mb-4 opacity-80 group-hover:scale-110 transition-transform duration-500" style={{ color: lang.color }} />
+                <h4 className="font-display text-xl mb-2">{lang.certificateName || "Proficiency Certificate"}</h4>
+                <p className="text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: lang.color }}>Globally Validated</p>
+                <p className="text-xs italic text-ink/50 leading-relaxed font-display">
                   "This certification is the gold standard for proving your proficiency to international employers."
                  </p>
               </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scrolling gallery of certificates */}
+        <div className="mt-20 overflow-hidden relative">
+          {/* Edge fades */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none"></div>
+          
+          <div className="marquee-row overflow-hidden">
+            <motion.div 
+              className="flex gap-4 px-4 items-center w-max"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+            >
+              {[
+                "lang-0029.jpg", "lang-0030.jpg", "lang-0033.jpg",
+                "lang-0034.jpg", "lang-0035.jpg", "lang-0039.jpg",
+                "lang-0040.jpg", "lang-0041.jpg", "lang-0045.jpg",
+                "lang-0052.jpg", "lang-0053.jpg", "lang-0054.jpg"
+              ].map((img, i) => (
+                <div key={i} className="flex-shrink-0 w-64 md:w-80 h-48 md:h-56 rounded-2xl overflow-hidden border shadow-sm" style={{ borderColor: colors.line }}>
+                  <img 
+                    src={`/images/languages/${img}`}
+                    alt="Certificate"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+              {/* Duplicate for infinite effect */}
+              {[
+                "lang-0029.jpg", "lang-0030.jpg", "lang-0033.jpg",
+                "lang-0034.jpg", "lang-0035.jpg", "lang-0039.jpg",
+                "lang-0040.jpg", "lang-0041.jpg", "lang-0045.jpg",
+                "lang-0052.jpg", "lang-0053.jpg", "lang-0054.jpg"
+              ].map((img, i) => (
+                <div key={`dup-${i}`} className="flex-shrink-0 w-64 md:w-80 h-48 md:h-56 rounded-2xl overflow-hidden border shadow-sm" style={{ borderColor: colors.line }}>
+                  <img 
+                    src={`/images/languages/${img}`}
+                    alt="Certificate"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>

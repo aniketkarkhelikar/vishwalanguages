@@ -5,18 +5,57 @@ import { fadeUp, fadeUpScale, staggerContainer, lineGrow } from '@/animations/mo
 import { colors } from '@/lib/tokens';
 import { useRef } from 'react';
 
-// Moments from the field — landscape image marquee
-const MOMENT_IMAGES = [
-  { img: 'https://images.unsplash.com/photo-1542051812-be2069b61db0?q=80&w=600&auto=format&fit=crop', title: 'Tokyo Placements', pill: 'Japan' },
-  { img: 'https://images.unsplash.com/photo-1587330979470-3595ac045ab0?q=80&w=600&auto=format&fit=crop', title: 'Munich Engineers', pill: 'Germany' },
-  { img: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=600&auto=format&fit=crop', title: 'Paris Network', pill: 'France' },
-  { img: 'https://images.unsplash.com/photo-1539037116277-4db20202d084?q=80&w=600&auto=format&fit=crop', title: 'Madrid Cohort', pill: 'Spain' },
-  { img: 'https://images.unsplash.com/photo-1522850655385-06beedbc5c92?q=80&w=600&auto=format&fit=crop', title: 'Cultural Exchange', pill: 'Global' },
+const ALL_MOMENTS = [
+  '/images/corporate/corporate-1.jpg',
+  '/images/corporate/corporate-2.jpg',
+  '/images/corporate/corporate-3.jpg',
+  '/images/corporate/corporate-4.jpg',
+  '/images/corporate/corporate-5.jpg',
+  '/images/corporate/IMG_20220323_194021_465.webp',
+  '/images/corporate/IMG_20220429_140223_660.webp',
+  '/images/healthcare/healthcare-1.jpg',
+  '/images/healthcare/healthcare-2.jpg',
+  '/images/healthcare/healthcare-3.jpg',
+  '/images/healthcare/healthcare-4.jpg',
+  '/images/healthcare/healthcare-5.jpg',
+  '/images/homepage/home-0001.jpg',
+  '/images/homepage/home-0003.jpg',
+  '/images/homepage/home-0004.jpg',
+  '/images/homepage/home-0007.jpg',
+  '/images/homepage/home-0011.jpg',
+  '/images/homepage/home-0013.jpg',
+  '/images/homepage/home-0014.jpg',
+  '/images/homepage/home-0016.jpg',
+  '/images/homepage/home-0018.jpg',
+  '/images/homepage/home-0019.jpg',
+  '/images/homepage/home-0023.jpg',
+  '/images/homepage/home-0025.jpg',
+  '/images/homepage/home-0027.jpg',
+  '/images/homepage/home-0032.jpg',
+  '/images/homepage/home-0044.jpg',
+  '/images/homepage/home-0048.jpg',
+  '/images/homepage/home-0051.jpg',
+  '/images/interpretation/interp-1.jpg',
+  '/images/interpretation/interp-2.jpg',
+  '/images/interpretation/interp-3.jpg',
+  '/images/interpretation/interp-4.jpg',
+  '/images/languages/lang-0029.jpg',
+  '/images/languages/lang-0030.jpg',
+  '/images/languages/lang-0033.jpg',
+  '/images/languages/lang-0034.jpg',
+  '/images/languages/lang-0035.jpg',
+  '/images/languages/lang-0039.jpg',
+  '/images/languages/lang-0040.jpg',
+  '/images/languages/lang-0041.jpg',
+  '/images/languages/lang-0045.jpg',
+  '/images/languages/lang-0052.jpg',
+  '/images/languages/lang-0053.jpg',
+  '/images/languages/lang-0054.jpg'
 ];
+const ROW1 = ALL_MOMENTS.slice(0, 15);
+const ROW2 = ALL_MOMENTS.slice(15, 30);
+const ROW3 = ALL_MOMENTS.slice(30, 45);
 
-/**
- * MomentsStrip — redesigned: continuous scrolling landscape images with edge pills.
- */
 export function MomentsStrip() {
   return (
     <section className="py-20 overflow-hidden" style={{ borderTop: `1px solid ${colors.line}`, backgroundColor: colors.surface }}>
@@ -29,31 +68,56 @@ export function MomentsStrip() {
       >
         <div>
           <span className="text-micro opacity-40 block mb-2">From our cohorts</span>
-          <h3 className="font-display text-3xl md:text-4xl">Moments from the field.</h3>
+          <h3 className="font-display text-3xl md:text-4xl">Life at Vishwa.</h3>
         </div>
         <Link to="/languages" className="hidden md:flex items-center gap-2 text-micro opacity-50 hover:opacity-100 transition-opacity group">
           See all programs <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
         </Link>
       </motion.div>
 
-      <div className="marquee-row overflow-hidden">
-        <div className="marquee-track flex gap-5 px-6">
-          {[...MOMENT_IMAGES, ...MOMENT_IMAGES, ...MOMENT_IMAGES, ...MOMENT_IMAGES].map((m, i) => (
-            <div
-              key={i}
-              className="relative flex-shrink-0 w-80 h-48 rounded-2xl overflow-hidden group cursor-default shadow-sm hover:shadow-lg transition-shadow duration-300"
-            >
-              <img src={m.img} alt={m.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                <span className="font-display text-white text-xl">{m.title}</span>
-                <span className="text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded-full bg-white/20 text-white backdrop-blur-md">
-                  {m.pill}
-                </span>
-              </div>
-            </div>
+      <div className="relative overflow-hidden w-full space-y-6">
+        {/* Blur Edges */}
+        <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none" />
+
+        {/* Line 1 - Moving Left */}
+        <motion.div 
+          className="flex gap-4 px-4 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 70 }}
+        >
+          {[...ROW1, ...ROW1, ...ROW1].map((src, i) => (
+             <div key={`r1-${i}`} className="flex-shrink-0 w-48 md:w-72 h-32 md:h-48 rounded-[2rem] overflow-hidden shadow-sm border border-ink/5">
+                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" />
+             </div>
           ))}
-        </div>
+        </motion.div>
+
+        {/* Line 2 - Moving Right */}
+        <motion.div 
+          className="flex gap-4 px-4 w-max"
+          animate={{ x: ["-50%", "0%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 80 }}
+        >
+          {[...ROW2, ...ROW2, ...ROW2].map((src, i) => (
+             <div key={`r2-${i}`} className="flex-shrink-0 w-48 md:w-72 h-32 md:h-48 rounded-[2rem] overflow-hidden shadow-sm border border-ink/5">
+                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" />
+             </div>
+          ))}
+        </motion.div>
+
+        {/* Line 3 - Moving Left */}
+        <motion.div 
+          className="flex gap-4 px-4 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 65 }}
+        >
+          {[...ROW3, ...ROW3, ...ROW3].map((src, i) => (
+             <div key={`r3-${i}`} className="flex-shrink-0 w-48 md:w-72 h-32 md:h-48 rounded-[2rem] overflow-hidden shadow-sm border border-ink/5">
+                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" />
+             </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
@@ -73,14 +137,14 @@ export function WhyVishwaSection() {
 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 bg-paper overflow-hidden relative" style={{ borderTop: `1px solid ${colors.line}` }}>
-      {/* Ambient background blur — soulful vibrant mesh gradient (GPU Optimized) */}
+      {/* Ambient background blur — warm mesh gradient */}
       <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full -z-10 pointer-events-none mix-blend-multiply opacity-20"
-        style={{ background: 'radial-gradient(circle, #60A5FA 0%, transparent 60%)' }}
+        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full -z-10 pointer-events-none opacity-[0.06]"
+        style={{ background: `radial-gradient(circle, ${colors.blue} 0%, transparent 60%)` }}
       />
       <div
-        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full -z-10 pointer-events-none mix-blend-multiply opacity-20"
-        style={{ background: 'radial-gradient(circle, #A855F7 0%, transparent 60%)' }}
+        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full -z-10 pointer-events-none opacity-[0.04]"
+        style={{ background: `radial-gradient(circle, ${colors.teal} 0%, transparent 60%)` }}
       />
 
       <div className="container-site max-w-7xl mx-auto">
@@ -113,7 +177,7 @@ export function WhyVishwaSection() {
           >
             <motion.img
               style={{ y: bgY }}
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+              src="/images/homepage/home-0004.jpg"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               alt="Students in discussion"
               loading="lazy"
@@ -127,8 +191,9 @@ export function WhyVishwaSection() {
           </motion.div>
 
           {/* Card 2 - Accent Color Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-[#6E7D64] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm group">
-            <div className="absolute top-0 right-0 p-8 opacity-[0.15]">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm group" style={{ backgroundColor: colors.sage }}>
+            <img src="/images/homepage/home-0019.jpg" className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700" alt="Small batch" />
+            <div className="absolute top-0 right-0 p-8 opacity-[0.25]">
               <span className="font-display text-8xl">15</span>
             </div>
             <div className="relative z-10">
@@ -144,11 +209,12 @@ export function WhyVishwaSection() {
           </motion.div>
 
           {/* Card 3 - Minimal Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface border border-ink/5 rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-[280px] sm:h-[320px] md:h-[380px] group shadow-sm">
-            <div className="w-10 h-10 rounded-full bg-[#4C6478]/10 text-[#4C6478] flex items-center justify-center group-hover:scale-110 transition-transform">
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface border border-ink/5 rounded-3xl p-6 sm:p-8 flex flex-col justify-between h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden group shadow-sm">
+            <img src="/images/corporate/corporate-2.jpg" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-multiply group-hover:scale-105 group-hover:opacity-40 transition-all duration-700" alt="Corporate" />
+            <div className="relative z-10 w-10 h-10 rounded-full bg-terracotta/10 text-terracotta flex items-center justify-center group-hover:scale-110 transition-transform">
               <Target size={18} />
             </div>
-            <div>
+            <div className="relative z-10">
               <span className="text-[10px] uppercase font-mono tracking-widest text-ink/40 mb-2 block">03 / Precision</span>
               <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-ink mb-2 tracking-tight">Industry Tracks</h3>
               <p className="font-light text-ink/65 text-xs leading-relaxed">Engineering German. Healthcare Japanese. We teach exact vocabulary specific to your profession.</p>
@@ -156,12 +222,12 @@ export function WhyVishwaSection() {
           </motion.div>
 
           {/* Card 4 - Large Text Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 bg-ink text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-center h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm">
-            <div className="absolute -bottom-20 -right-20 opacity-[0.02] pointer-events-none">
-              <Globe2 size={400} />
-            </div>
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-center h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm" style={{ backgroundColor: colors.ink }}>
+            <img src="/images/homepage/home-0011.jpg" className="absolute inset-0 w-full h-full object-cover opacity-[0.25] mix-blend-luminosity group-hover:scale-105 transition-transform duration-1000" alt="Ecosystem" />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-transparent pointer-events-none" />
+            <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-20 pointer-events-none" style={{ background: `radial-gradient(circle, ${colors.gold} 0%, transparent 60%)` }} />
             <div className="max-w-xl relative z-10">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-white/40 mb-4 block">04 / Ecosystem</span>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-gold mb-4 block">04 / Ecosystem</span>
               <h3 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 leading-[1.1] tracking-tight">Beyond the classroom walls.</h3>
               <p className="font-light text-white/60 text-xs sm:text-sm leading-relaxed">Placement support, alumni networks across Europe and Japan, and deep cultural immersion programs.</p>
             </div>
@@ -173,28 +239,70 @@ export function WhyVishwaSection() {
 }
 
 /**
- * BookCTASection — dramatic editorial closing CTA with large background character.
+ * BookCTASection — dramatic editorial closing CTA with warm gradient.
  */
-export function BookCTASection({ onOpenConsultation }) {
+const CINEMATIC_TEXTS = {
+  japanese: "吾輩は猫である。\n名前はまだ無い。\nどこで生れたか\nとんと見当がつかぬ。",
+  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।\nमा कर्मफलहेतुर्भू\nर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+};
+
+export function BookCTASection({ onOpenConsultation, title, subtitle, contextLabel }) {
+  const displayTitle = title || "The right conversation\nstarts with one form.";
+  const displaySubtitle = subtitle || "A program advisor will personally respond within one business day.";
+  const displayLabel = contextLabel || "Begin";
+
   return (
-    <section className="relative py-32 md:py-40 bg-ink overflow-hidden">
-      {/* Giant background text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <motion.span
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[20vw] text-white/[0.03] leading-none"
+    <section className="relative py-32 md:py-40 bg-paper overflow-hidden text-ink border-t border-ink/5">
+      {/* Vibrant background glows */}
+      <div 
+        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.08] blur-[120px]" 
+        style={{ background: `radial-gradient(circle, ${colors.blue} 0%, transparent 70%)` }} 
+      />
+      <div 
+        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.06] blur-[120px]" 
+        style={{ background: `radial-gradient(circle, ${colors.terracotta} 0%, transparent 70%)` }} 
+      />
+
+      {/* Left philosophy script (Sanskrit) in bright terracotta */}
+      <div className="absolute inset-y-0 left-0 w-[35%] hidden md:flex items-center justify-start pl-16 overflow-hidden pointer-events-none select-none">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 0.15, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display leading-[1.3] text-left text-2xl md:text-3xl lg:text-4xl"
+          style={{
+            color: colors.terracotta,
+            maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            whiteSpace: 'pre-line',
+          }}
         >
-          始める
-        </motion.span>
+          {CINEMATIC_TEXTS.sanskrit}
+        </motion.div>
+      </div>
+
+      {/* Right philosophy script (Japanese) in bright brand blue */}
+      <div className="absolute inset-y-0 right-0 w-[35%] hidden md:flex items-center justify-end pr-16 overflow-hidden pointer-events-none select-none">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 0.15, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="font-display leading-[1.3] text-right text-2xl md:text-3xl lg:text-4xl"
+          style={{
+            color: colors.blue,
+            maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {CINEMATIC_TEXTS.japanese}
+        </motion.div>
       </div>
 
       {/* Grid texture */}
-      <div className="absolute inset-0 opacity-[0.07] pointer-events-none">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs><pattern id="cta-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="0.4"/></pattern></defs>
+          <defs><pattern id="cta-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="0.4" className="text-ink"/></pattern></defs>
           <rect width="100%" height="100%" fill="url(#cta-grid)" />
         </svg>
       </div>
@@ -206,15 +314,15 @@ export function BookCTASection({ onOpenConsultation }) {
         viewport={{ once: true }}
         className="container-site text-center relative z-10"
       >
-        <span className="text-micro font-medium block mb-6" style={{ color: colors.gold }}>Begin</span>
-        <h2 className="font-display text-h2 leading-tight mb-8 max-w-3xl mx-auto text-white">
-          The right conversation<br />starts with one form.
+        <span className="text-[10px] uppercase font-mono tracking-widest font-bold block mb-6 text-terracotta">{displayLabel}</span>
+        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-8 max-w-3xl mx-auto tracking-tight whitespace-pre-line text-ink">
+          {displayTitle}
         </h2>
-        <p className="font-display italic text-white/50 text-xl max-w-md mx-auto mb-12 leading-relaxed">
-          A program advisor will personally respond within one business day.
+        <p className="font-display italic text-ink/75 text-xl max-w-xl mx-auto mb-12 leading-relaxed">
+          {displaySubtitle}
         </p>
-        <button onClick={onOpenConsultation} className="btn-primary mx-auto group">
-          Book Free Consultation <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+        <button onClick={onOpenConsultation} className="group inline-flex items-center gap-3 px-8 py-4 bg-terracotta text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-ink hover:text-white transition-all shadow-lg hover:shadow-xl mx-auto">
+          Start Your Journey <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </button>
       </motion.div>
     </section>

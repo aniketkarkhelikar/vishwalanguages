@@ -5,38 +5,38 @@ export default {
     extend: {
       // --- Brand Colors ---
       colors: {
-        paper:      '#FFFFFF',
-        surface:    '#F5F5F7', // Apple-like subtle gray
-        tile:       '#F5F5F7',
-        ink:        '#000000', // Solid black for contrast
-        brown:      '#8A5A44',
-        terracotta: '#0066CC', // Apple-like blue accent instead of terracotta
-        sage:       '#86868B', // Apple-like gray text
-        'vw-blue':  '#0066CC',
-        blue:       '#0066CC',
-        clay:       '#E5E5EA',
-        gold:       '#F5F5F7', // Changed to match surface for simplicity
+        paper:      '#FDFCFB',
+        surface:    '#F4F1ED',
+        tile:       '#E8E3DD',
+        ink:        '#18181A',
+        brown:      '#8C7355',
+        terracotta: '#B85C38',
+        sage:       '#6E7D64',
+        'vw-blue':  '#004B87',
+        blue:       '#004B87',
+        clay:       '#D4C5B9',
+        gold:       '#D4AF37',
         // Healthcare palette
-        'health':       '#0066CC',
-        'health-dark':  '#004C99',
-        'health-light': '#F0F8FF',
-        'health-accent': '#3385D6',
+        'health':       '#0284C7', // Medical Blue
+        'health-dark':  '#0369A1',
+        'health-light': '#F0F9FF',
+        'health-accent': '#0EA5E9',
       },
 
       // --- Typography ---
       fontFamily: {
-        display: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
-        body:    ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
+        body:    ['"Inter"', 'system-ui', 'sans-serif'],
       },
 
       // --- Font Sizes ---
       fontSize: {
-        'hero':  ['clamp(3rem, 7vw, 7rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '600' }],
-        'h1':    ['clamp(2.5rem, 5vw, 5rem)',   { lineHeight: '1.1',  letterSpacing: '-0.03em', fontWeight: '600' }],
-        'h2':    ['clamp(2rem, 4vw, 3.5rem)',   { lineHeight: '1.15', letterSpacing: '-0.02em', fontWeight: '600' }],
+        'hero':  ['clamp(3rem, 7vw, 7.5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '600' }],
+        'h1':    ['clamp(2.5rem, 5vw, 5rem)',   { lineHeight: '1.1',  letterSpacing: '-0.02em', fontWeight: '600' }],
+        'h2':    ['clamp(2rem, 4vw, 3.5rem)',   { lineHeight: '1.15', letterSpacing: '-0.01em', fontWeight: '500' }],
         'h3':    ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.2', fontWeight: '500' }],
-        'micro': ['0.75rem', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '500' }],
-        'label': ['0.625rem', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '500' }],
+        'micro': ['0.75rem', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '600' }],
+        'label': ['0.625rem', { lineHeight: '1', letterSpacing: '0.05em', fontWeight: '600' }],
       },
 
       // --- Spacing Scale ---
@@ -65,12 +65,12 @@ export default {
 
       // --- Custom Shadows ---
       boxShadow: {
-        'lift':    '0 20px 40px -12px rgba(23,21,18,0.12)',
-        'card':    '0 4px 24px rgba(23,21,18,0.06)',
-        'modal':   '0 40px 80px -20px rgba(23,21,18,0.25)',
-        'tile-glass': '0 15px 35px rgba(23,21,18,0.06), inset 0 1px 0 rgba(255,255,255,0.7)',
-        'tile-solid': '0 18px 36px -10px rgba(23,21,18,0.16), inset 0 2px 4px rgba(255,255,255,0.35)',
-        'glow-health': '0 12px 32px -8px rgba(27,138,107,0.25)',
+        'lift':    '0 20px 40px -12px rgba(15,23,42,0.12)',
+        'card':    '0 4px 24px rgba(15,23,42,0.06)',
+        'modal':   '0 40px 80px -20px rgba(15,23,42,0.25)',
+        'tile-glass': '0 15px 35px rgba(15,23,42,0.06), inset 0 1px 0 rgba(255,255,255,0.7)',
+        'tile-solid': '0 18px 36px -10px rgba(15,23,42,0.16), inset 0 2px 4px rgba(255,255,255,0.35)',
+        'glow-health': '0 12px 32px -8px rgba(13,148,136,0.25)',
       },
 
       // --- Custom Animation ---

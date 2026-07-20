@@ -1,136 +1,147 @@
-import { motion } from 'framer-motion';
-import { fadeUp, staggerContainer, fadeUpScale, pageSlideUp } from '@/animations/motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { ArrowRight, Globe, Users, HeartHandshake, BookOpen } from 'lucide-react';
+import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
-import { Globe2, GraduationCap, Building2, Users2 } from 'lucide-react';
+import { BookCTASection } from '@/components/sections/HomeSections';
 
-/**
- * AboutPage — "Vasudhaiva Kutumbakam"
- * Redesigned to be highly visual, avoiding text-walls.
- * Follows the grand, Apple-inspired editorial principles.
- */
-export function AboutPage() {
+export function AboutPage({ onOpenConsultation }) {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const heroImgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+
   return (
-    <motion.div variants={pageSlideUp} initial="hidden" animate="visible" exit="exit" className="bg-paper">
-      
-      {/* ══ MASSIVE HERO ══ */}
-      <section className="relative min-h-[85vh] flex flex-col justify-center pt-32 pb-24 px-6 overflow-hidden bg-surface">
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-        <div className="absolute top-[20%] right-[-5%] font-display text-[40vw] text-terracotta opacity-[0.02] leading-none select-none pointer-events-none">
-          विश्व
-        </div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink overflow-hidden">
 
-        <div className="container-site relative z-10 max-w-6xl mx-auto">
-          <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="flex flex-col gap-8">
-            <motion.span variants={fadeUp} className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-terracotta block">
-              The Vishwa Story
-            </motion.span>
-            
-            <motion.h1 variants={fadeUp} className="font-display text-5xl md:text-7xl lg:text-[8rem] text-ink leading-[0.9] tracking-tight">
-              The world is<br />
-              <span className="italic" style={{ color: colors.terracotta }}>one family.</span>
-            </motion.h1>
-            
-            <motion.p variants={fadeUp} className="text-xl md:text-3xl font-light text-ink/60 max-w-3xl leading-relaxed mt-6">
-              "Vasudhaiva Kutumbakam." We believe languages are the ultimate bridge between cultures, opening doors to endless global possibilities.
-            </motion.p>
+      {/* ──────────────────────────── HERO ──────────────────────────── */}
+      <section ref={heroRef} className="relative min-h-[85vh] flex items-end overflow-hidden">
+        {/* Full-bleed cinematic background */}
+        <motion.img
+          style={{ y: heroImgY }}
+          src="/images/homepage/home-0001.jpg"
+          alt="Vishwa Institute"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-surface/20" />
+
+        {/* Warm ambient glow */}
+        <div className="absolute top-0 right-0 w-[40vw] h-[40vw] rounded-full pointer-events-none opacity-[0.06]" style={{ background: `radial-gradient(circle, ${colors.terracotta} 0%, transparent 60%)` }} />
+
+        <div className="relative z-10 container-site max-w-7xl mx-auto pb-16 md:pb-24 pt-40 md:pt-48 text-center">
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-4xl mx-auto">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] block font-bold mb-6 text-terracotta">
+              Our Story
+            </span>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-[6.5rem] leading-[1.05] tracking-tighter text-ink mb-6">
+              Connecting Cultures,<br />
+              <span className="italic text-terracotta">Empowering Voices.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-ink/70 font-light leading-relaxed max-w-2xl mx-auto">
+              We started with a simple mission: bringing language experts and students together on one platform to break down the barriers of global communication.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* ══ THE MISSION (Massive Typography blocks) ══ */}
-      <section className="py-24 md:py-32 bg-ink text-white overflow-hidden rounded-t-[3rem] md:rounded-t-[5rem] -mt-10 relative z-20">
+      {/* ──────────────────────────── PHILOSOPHY (Vasudhaiva Kutumbakam) ──────────────────────────── */}
+      <section className="py-20 md:py-28 bg-surface relative">
+        <div className="absolute left-0 bottom-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.04]" style={{ background: `radial-gradient(circle, ${colors.sky} 0%, transparent 60%)` }} />
+
         <div className="container-site max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 md:gap-32 items-center">
-            
+          <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative">
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] md:h-[600px]">
+                <img
+                  src="/images/homepage/home-0011.jpg"
+                  alt="Cultural Exchange"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]"
+                />
+                <div className="absolute inset-0 bg-ink/10 mix-blend-overlay" />
+              </div>
+
+              {/* Floating quote card */}
+              <div className="absolute -right-8 -bottom-8 bg-paper p-8 rounded-3xl shadow-xl max-w-[280px] hidden md:block">
+                <Globe className="text-gold mb-4" size={24} />
+                <p className="font-display italic text-ink/80 leading-relaxed text-lg">
+                  "The world is one huge family, and cultural diversity makes it beautiful."
+                </p>
+              </div>
+            </motion.div>
+
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 block mb-6">Our Mission</span>
-              <h2 className="font-display text-4xl md:text-6xl leading-tight mb-8">
-                Removing language barriers.
+              <span className="text-[10px] font-mono uppercase tracking-widest text-gold block mb-4">Our Philosophy</span>
+              <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8">
+                Vasudhaiva <br />
+                <span className="italic text-terracotta">Kutumbakam.</span>
               </h2>
-              <p className="text-xl font-light text-white/60 leading-relaxed mb-12">
-                We started with a simple vision: to bring world-class language experts and dedicated students onto one unified platform. We don't just teach grammar; we empower global communication.
-              </p>
-              <div className="grid grid-cols-2 gap-8">
-                <div className="border-l border-white/20 pl-6">
-                  <span className="font-display text-4xl block text-terracotta mb-2">6+</span>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/50">Languages</span>
-                </div>
-                <div className="border-l border-white/20 pl-6">
-                  <span className="font-display text-4xl block text-terracotta mb-2">100%</span>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/50">Cultural Immersion</span>
-                </div>
+              <div className="space-y-6 text-ink/70 font-light text-lg leading-relaxed">
+                <p>
+                  We believe that a language is a mirror of its culture. It is the greatest way to explore the world and connect with people on a profound level.
+                </p>
+                <p>
+                  We come from a land which has taught us the ideals of <strong>"Vasudhaiva Kutumbakam"</strong> (the world is one family). We believe that languages are the connectors between cultures, countries, and people, and learning a new language opens doors to endless possibilities.
+                </p>
+                <p>
+                  At Vishwa, we provide expertly designed courses to meet your specific requirements, helping students prepare for international certification exams and giving them the best possible learning experience.
+                </p>
               </div>
-            </motion.div>
-
-            <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative h-[60vh] bg-white/[0.03] rounded-3xl border border-white/10 overflow-hidden flex items-center justify-center">
-              <div className="absolute inset-0 bg-noise opacity-20" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-terracotta/20 via-transparent to-transparent opacity-30" />
-              <Globe2 size={120} className="text-white/10" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <p className="font-display italic text-2xl text-white/80">"A language is a mirror of its culture."</p>
-              </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ══ WHAT WE DO (Bento Grid / Icons) ══ */}
-      <section className="py-24 md:py-32 bg-paper">
-        <div className="container-site max-w-7xl mx-auto">
-          <div className="text-center mb-20 md:mb-24">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-ink/40 block mb-4">Ecosystem</span>
-            <h2 className="font-display text-4xl md:text-6xl text-ink">How we connect the world.</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-surface p-10 rounded-3xl border border-ink/5 hover:-translate-y-1 transition-transform duration-500">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-terracotta mb-8 shadow-sm">
-                <GraduationCap size={28} />
-              </div>
-              <h3 className="font-display text-2xl mb-4">Language Academics</h3>
-              <p className="text-ink/60 font-light leading-relaxed">
-                Expert-led courses designed to clear official international certification exams like JLPT and Goethe-Zertifikat.
-              </p>
-            </motion.div>
-
-            <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-surface p-10 rounded-3xl border border-ink/5 hover:-translate-y-1 transition-transform duration-500">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-terracotta mb-8 shadow-sm">
-                <Building2 size={28} />
-              </div>
-              <h3 className="font-display text-2xl mb-4">Enterprise & Corporate</h3>
-              <p className="text-ink/60 font-light leading-relaxed">
-                Bespoke language training for global workforces, alongside precision interpretation services for high-stakes environments.
-              </p>
-            </motion.div>
-
-            <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-surface p-10 rounded-3xl border border-ink/5 hover:-translate-y-1 transition-transform duration-500">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-terracotta mb-8 shadow-sm">
-                <Users2 size={28} />
-              </div>
-              <h3 className="font-display text-2xl mb-4">Global Placements</h3>
-              <p className="text-ink/60 font-light leading-relaxed">
-                End-to-end pathways assisting qualified professionals in relocating and integrating into industries like German Healthcare.
-              </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ══ THE VISION (Massive closing block) ══ */}
-      <section className="py-32 md:py-48 bg-surface border-t border-ink/5 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] rounded-full blur-[100px] bg-terracotta/5 pointer-events-none" />
-        <div className="container-site max-w-4xl mx-auto text-center relative z-10">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Globe2 size={48} className="mx-auto text-terracotta opacity-40 mb-10" />
-            <h2 className="font-display text-4xl md:text-5xl lg:text-7xl leading-tight text-ink mb-12">
-              Learning a language opens doors to <span className="italic" style={{ color: colors.terracotta }}>endless possibilities.</span>
-            </h2>
-            <div className="w-12 h-px bg-ink/20 mx-auto" />
+
+      {/* ──────────────────────────── FOUNDER SECTION ──────────────────────────── */ }
+      <section className="py-20 md:py-32 relative overflow-hidden bg-paper text-ink">
+        <div className="absolute top-0 left-0 w-[40vw] h-[40vw] rounded-full pointer-events-none opacity-[0.05]" style={{ background: `radial-gradient(circle, ${colors.terracotta} 0%, transparent 60%)` }} />
+        
+        <div className="container-site max-w-6xl mx-auto relative z-10">
+          <motion.div 
+            variants={fadeUpScale} 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }}
+            className="bg-white/5 backdrop-blur-md rounded-[3rem] p-10 md:p-16 lg:p-20 border border-white/10 shadow-2xl grid md:grid-cols-5 gap-12 lg:gap-16 items-center"
+          >
+            <div className="md:col-span-2 relative">
+               <div className="aspect-square rounded-full overflow-hidden shadow-2xl border-4 border-white/10">
+                  <img 
+                    src="/images/homepage/home-0032.jpg" 
+                    alt="Founder" 
+                    className="w-full h-full object-cover"
+                  />
+               </div>
+               <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-paper flex items-center justify-center shadow-xl">
+                 <div className="w-20 h-20 rounded-full border border-ink/10 flex flex-col items-center justify-center text-ink text-center p-2">
+                    <span className="font-display font-bold text-sm leading-none block">Est.</span>
+                    <span className="text-[10px] uppercase font-mono tracking-widest mt-1 opacity-50">2021</span>
+                 </div>
+               </div>
+            </div>
+            
+            <div className="md:col-span-3 text-ink">
+               <span className="text-[10px] font-mono uppercase tracking-widest text-terracotta block mb-4">Leadership</span>
+               <h3 className="font-display text-4xl lg:text-5xl mb-6">A Message from the Founder</h3>
+               
+               <blockquote className="text-xl lg:text-2xl font-display italic text-ink/80 leading-relaxed mb-8">
+                 "Language is not just about words; it's about the connection between souls across borders. Our vision at Vishwa is to build bridges that foster understanding and endless opportunities."
+               </blockquote>
+               
+               <div>
+                 <p className="font-bold text-lg mb-1 text-ink">Ketki Gorhe</p>
+                 <p className="text-xs uppercase tracking-widest text-ink/50">Founder, Vishwa Languages</p>
+               </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-    </motion.div>
+      <BookCTASection 
+        onOpenConsultation={onOpenConsultation}
+        contextLabel="Contact Us"
+        title="Ready to join our&#10;global family?"
+        subtitle="Reach out to us for any inquiries about our language programs or corporate services."
+      />
+    </motion.div >
   );
 }

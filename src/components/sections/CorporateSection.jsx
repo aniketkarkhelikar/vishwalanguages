@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Building, Users, CheckCircle2, ArrowRight, BarChart3, Handshake } from 'lucide-react';
-import { corporateTraining } from '@/data/services/corporate';
 import { fadeUp, fadeUpScale, staggerContainer } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 
@@ -9,8 +8,6 @@ import { colors } from '@/lib/tokens';
  * Dark section with grid pattern — redesigned with proper container and improved content.
  */
 export function CorporateSection({ onOpenConsultation }) {
-  const d = corporateTraining;
-
   return (
     <section id="corporate-section" className="py-16 md:py-20 bg-paper text-ink relative overflow-hidden scroll-m-10 border-t border-ink/5">
       {/* Subtle background glow instead of grid */}
@@ -28,7 +25,7 @@ export function CorporateSection({ onOpenConsultation }) {
             viewport={{ once: true, margin: '-80px' }}
           >
             <span className="text-[10px] font-mono uppercase tracking-widest text-terracotta mb-6 block">
-              {d.hero.eyebrow}
+              Corporate Training
             </span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6 tracking-tight">
               Equip your teams with<br />
@@ -58,7 +55,7 @@ export function CorporateSection({ onOpenConsultation }) {
 
             <button
               onClick={() => onOpenConsultation({ type: 'corporate' })}
-              className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-ink text-white rounded-full overflow-hidden hover:opacity-90 transition-opacity text-sm font-semibold tracking-tight shadow-md"
+              className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-terracotta text-white rounded-full overflow-hidden hover:opacity-90 transition-opacity text-sm font-semibold tracking-tight shadow-md"
             >
               Request Corporate Proposal
               <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -76,7 +73,7 @@ export function CorporateSection({ onOpenConsultation }) {
             {/* Primary large image */}
             <div className="absolute top-0 right-0 w-4/5 h-4/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop" 
+                src="/images/corporate/corporate-4.jpg" 
                 alt="Corporate Training" 
                 className="w-full h-full object-cover transition-transform duration-[2s] hover:scale-105"
               />
@@ -86,7 +83,7 @@ export function CorporateSection({ onOpenConsultation }) {
             {/* Secondary overlapping image */}
             <div className="absolute bottom-10 left-0 w-3/5 h-2/5 rounded-[2rem] overflow-hidden shadow-xl border-4 border-paper">
               <img 
-                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop" 
+                src="/images/corporate/IMG_20220323_194021_465.webp" 
                 alt="Professional Team" 
                 className="w-full h-full object-cover"
               />

@@ -7,28 +7,28 @@
 
 // --- Color Palette ---
 export const colors = {
-  paper:      '#FFFFFF',
-  surface:    '#FAFAF8',
-  tile:       '#F5F2EC',
-  ink:        '#171512',
-  inkSoft:    'rgba(23,21,18,0.55)',
-  line:       'rgba(23,21,18,0.09)',
-  brown:      '#8A5A44',
-  terracotta: '#B85C38',
+  paper:      '#FDFCFB',
+  surface:    '#F4F1ED',
+  tile:       '#E8E3DD',
+  ink:        '#18181A',
+  inkSoft:    'rgba(24,24,26,0.6)',
+  line:       'rgba(24,24,26,0.1)',
+  brown:      '#8C7355',
+  terracotta: '#B85C38', // Brand Warm Accent
   sage:       '#6E7D64',
-  blue:       '#4C6478',
-  clay:       '#E4D5C4',
-  gold:       '#D9A98A',
+  blue:       '#004B87', // Brand Primary Blue
+  clay:       '#D4C5B9',
+  gold:       '#D4AF37',
 };
 
 // --- Healthcare Palette (distinct from corporate) ---
 export const healthcareColors = {
-  primary:    '#1B8A6B',   // Teal — trust, healing, medical
-  secondary:  '#14705A',   // Deeper teal
-  accent:     '#2CB88A',   // Bright green — growth, new beginnings
-  light:      '#E8F5F0',   // Very light mint
-  bgTint:     'rgba(27,138,107,0.06)',
-  gold:       '#D4A44C',   // Warm gold for Germany references
+  primary:    '#0284C7',   // Medical Blue
+  secondary:  '#0369A1',   // Deeper Medical Blue
+  accent:     '#0EA5E9',   // Bright Blue
+  light:      '#F0F9FF',   // Very light blue
+  bgTint:     'rgba(2,132,199,0.06)',
+  gold:       '#D4AF37',   // Warm gold
 };
 
 // --- Typography ---
