@@ -85,10 +85,11 @@ export function MomentsStrip() {
           className="flex gap-4 px-4 w-max"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 70 }}
+          style={{ willChange: "transform" }}
         >
-          {[...ROW1, ...ROW1, ...ROW1].map((src, i) => (
+          {[...ROW1, ...ROW1].map((src, i) => (
              <div key={`r1-${i}`} className="flex-shrink-0 w-48 md:w-72 h-32 md:h-48 rounded-[2rem] overflow-hidden shadow-sm border border-ink/5">
-                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" />
+                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" loading="lazy" />
              </div>
           ))}
         </motion.div>
@@ -98,10 +99,11 @@ export function MomentsStrip() {
           className="flex gap-4 px-4 w-max"
           animate={{ x: ["-50%", "0%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 80 }}
+          style={{ willChange: "transform" }}
         >
-          {[...ROW2, ...ROW2, ...ROW2].map((src, i) => (
+          {[...ROW2, ...ROW2].map((src, i) => (
              <div key={`r2-${i}`} className="flex-shrink-0 w-48 md:w-72 h-32 md:h-48 rounded-[2rem] overflow-hidden shadow-sm border border-ink/5">
-                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" />
+                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" loading="lazy" />
              </div>
           ))}
         </motion.div>
@@ -111,10 +113,11 @@ export function MomentsStrip() {
           className="flex gap-4 px-4 w-max"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 65 }}
+          style={{ willChange: "transform" }}
         >
-          {[...ROW3, ...ROW3, ...ROW3].map((src, i) => (
+          {[...ROW3, ...ROW3].map((src, i) => (
              <div key={`r3-${i}`} className="flex-shrink-0 w-48 md:w-72 h-32 md:h-48 rounded-[2rem] overflow-hidden shadow-sm border border-ink/5">
-                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" />
+                <img src={src} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="" loading="lazy" />
              </div>
           ))}
         </motion.div>
@@ -242,8 +245,11 @@ export function WhyVishwaSection() {
  * BookCTASection — dramatic editorial closing CTA with warm gradient.
  */
 const CINEMATIC_TEXTS = {
-  japanese: "吾輩は猫である。\n名前はまだ無い。\nどこで生れたか\nとんと見当がつかぬ。",
-  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।\nमा कर्मफलहेतुर्भू\nर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+  japanese: "吾輩は猫である。\n名前はまだ無い。",
+  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।",
+  german: "Habe nun, ach!\nPhilosophie",
+  french: "Longtemps, je me\nsuis couché",
+  mandarin: "道可道，非常道。\n名可名，非常名。",
 };
 
 export function BookCTASection({ onOpenConsultation, title, subtitle, contextLabel }) {
@@ -263,17 +269,17 @@ export function BookCTASection({ onOpenConsultation, title, subtitle, contextLab
         style={{ background: `radial-gradient(circle, ${colors.terracotta} 0%, transparent 70%)` }} 
       />
 
-      {/* Left philosophy script (Sanskrit) in bright terracotta */}
-      <div className="absolute inset-y-0 left-0 w-[35%] hidden md:flex items-center justify-start pl-16 overflow-hidden pointer-events-none select-none">
+      {/* Left philosophy script (Sanskrit) */}
+      <div className="absolute top-10 left-0 w-[40%] hidden md:flex items-center justify-start pl-8 overflow-hidden pointer-events-none select-none">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 0.15, x: 0 }}
+          whileInView={{ opacity: 0.25, x: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display leading-[1.3] text-left text-2xl md:text-3xl lg:text-4xl"
+          className="font-display leading-[1.3] text-left text-3xl md:text-5xl lg:text-6xl"
           style={{
             color: colors.terracotta,
-            maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
             whiteSpace: 'pre-line',
           }}
         >
@@ -281,21 +287,57 @@ export function BookCTASection({ onOpenConsultation, title, subtitle, contextLab
         </motion.div>
       </div>
 
-      {/* Right philosophy script (Japanese) in bright brand blue */}
-      <div className="absolute inset-y-0 right-0 w-[35%] hidden md:flex items-center justify-end pr-16 overflow-hidden pointer-events-none select-none">
+      {/* Right philosophy script (Japanese) */}
+      <div className="absolute top-10 right-0 w-[40%] hidden md:flex items-center justify-end pr-8 overflow-hidden pointer-events-none select-none">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 0.15, x: 0 }}
+          whileInView={{ opacity: 0.25, x: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="font-display leading-[1.3] text-right text-2xl md:text-3xl lg:text-4xl"
+          className="font-display leading-[1.3] text-right text-3xl md:text-5xl lg:text-6xl"
           style={{
             color: colors.blue,
-            maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
             whiteSpace: 'pre-line',
           }}
         >
           {CINEMATIC_TEXTS.japanese}
+        </motion.div>
+      </div>
+
+      {/* Bottom Left script (German) */}
+      <div className="absolute bottom-10 left-0 w-[40%] hidden md:flex items-center justify-start pl-8 overflow-hidden pointer-events-none select-none">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 0.25, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="font-display leading-[1.3] text-left text-3xl md:text-5xl lg:text-6xl"
+          style={{
+            color: colors.gold,
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {CINEMATIC_TEXTS.german}
+        </motion.div>
+      </div>
+
+      {/* Bottom Right script (Mandarin) */}
+      <div className="absolute bottom-10 right-0 w-[40%] hidden md:flex items-center justify-end pr-8 overflow-hidden pointer-events-none select-none">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 0.25, x: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="font-display leading-[1.3] text-right text-3xl md:text-5xl lg:text-6xl"
+          style={{
+            color: colors.brown,
+            maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {CINEMATIC_TEXTS.mandarin}
         </motion.div>
       </div>
 

@@ -50,12 +50,12 @@ export function ProgramsSection({ onShowToast }) {
         </motion.div>
 
         {/* Mobile/Tablet Tab Bar */}
-        <div className="flex lg:hidden overflow-x-auto gap-2 pb-4 mb-4 scrollbar-none w-full snap-x">
+        <div className="flex lg:hidden overflow-x-auto gap-2 pb-4 mb-4 scrollbar-none w-full snap-x snap-mandatory">
           {languageCatalogue.map((lang) => (
             <button
               key={lang.slug}
               onClick={() => setHoveredLang(lang)}
-              className={`px-5 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap snap-align-center border transition-all duration-300
+              className={`px-5 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap snap-start border transition-all duration-300
                 ${hoveredLang.slug === lang.slug
                   ? 'bg-terracotta text-white border-terracotta shadow-md'
                   : 'bg-white text-ink/60 border-ink/10'
@@ -67,7 +67,7 @@ export function ProgramsSection({ onShowToast }) {
         </div>
 
         {/* Interactive Split Layout */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 relative min-h-[420px] items-start">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 relative min-h-auto lg:min-h-[420px] items-start">
           
           {/* Left Column: Vertical Menu (Desktop Only) */}
           <div className="hidden lg:flex w-full lg:w-1/3 flex-col gap-1 relative pt-6">
@@ -108,7 +108,7 @@ export function ProgramsSection({ onShowToast }) {
                 transition={{ duration: 0.22, ease: 'easeOut' }}
                 className="w-full"
               >
-                <div className="flex flex-col md:flex-row bg-white rounded-[2rem] overflow-hidden shadow-xl border border-ink/5 w-full min-h-[460px]">
+                <div className="flex flex-col md:flex-row bg-white rounded-[2rem] overflow-hidden shadow-xl border border-ink/5 w-full min-h-auto md:min-h-[460px]">
                   {/* Image Side */}
                   <div className="w-full md:w-5/12 relative min-h-[260px] md:min-h-auto">
                     <img 

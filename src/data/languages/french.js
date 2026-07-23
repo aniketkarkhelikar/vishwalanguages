@@ -12,8 +12,8 @@ export const french = {
   subtitle:   'The language of diplomacy, culture, and global opportunity.',
   tagline:    'Open doors across 29 countries where French is the official language.',
 
-  color:  colors.sage,
-  bgTint: 'rgba(110,125,100,0.05)',
+  color:  colors.ruby,
+  bgTint: 'rgba(200,16,46,0.05)',
   comingSoon: false,
 
   seo: {

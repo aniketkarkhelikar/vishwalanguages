@@ -15,6 +15,9 @@ const ComingSoonPage        = lazy(() => import('@/pages/UtilityPages').then((m)
 const NotFoundPage          = lazy(() => import('@/pages/UtilityPages').then((m) => ({ default: m.NotFoundPage })));
 const AboutPage             = lazy(() => import('@/pages/AboutPage').then((m) => ({ default: m.AboutPage })));
 const ContactPage           = lazy(() => import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })));
+const HealthcarePlacementPage = lazy(() => import('@/pages/HealthcarePlacementPage').then((m) => ({ default: m.HealthcarePlacementPage })));
+const InterpretationPage    = lazy(() => import('@/pages/InterpretationPage').then((m) => ({ default: m.InterpretationPage })));
+const TranslationPage       = lazy(() => import('@/pages/TranslationPage').then((m) => ({ default: m.TranslationPage })));
 
 // Minimal page loader
 function PageLoader() {
@@ -80,6 +83,15 @@ export function App() {
               />
               <Route path="/contact"
                 element={<ContactPage onOpenConsultation={openConsultation} />}
+              />
+              <Route path="/healthcare-placement"
+                element={<HealthcarePlacementPage onOpenConsultation={openConsultation} />}
+              />
+              <Route path="/interpretation-services"
+                element={<InterpretationPage onOpenConsultation={openConsultation} />}
+              />
+              <Route path="/translation-services"
+                element={<TranslationPage onOpenConsultation={openConsultation} />}
               />
               <Route path="*"
                 element={<NotFoundPage />}

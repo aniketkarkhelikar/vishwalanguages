@@ -104,14 +104,14 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
           </motion.div>
 
           {/* Right: cinematic native script as visual anchor */}
-          <div className="hidden md:flex absolute inset-y-0 right-0 w-[45%] items-center justify-end pr-8 md:pr-16 overflow-hidden pointer-events-none">
+          <div className="absolute inset-y-0 right-0 w-[80%] md:w-[45%] flex items-center justify-end pr-4 md:pr-16 overflow-hidden pointer-events-none opacity-40 md:opacity-100 z-0">
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
               className="font-display leading-[1.1] select-none whitespace-pre-line text-right"
               style={{
-                fontSize: 'clamp(2.5rem, 4vw, 4.5rem)',
+                fontSize: 'clamp(3.5rem, 5vw, 4.5rem)',
                 color: lang.color,
                 opacity: 0.15,
                 maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',

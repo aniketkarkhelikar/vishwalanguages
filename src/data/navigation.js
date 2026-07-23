@@ -41,8 +41,8 @@ export const footerLinks = [
     heading: 'Services',
     links: [
       { label: 'Corporate Training',     href: '/corporate-training' },
-      { label: 'Translation & Interpretation', href: '/services' },
-      { label: 'Healthcare Placement',   href: '/services' },
+      { label: 'Translation & Interpretation', href: '/interpretation-services' },
+      { label: 'Healthcare Placement',   href: '/healthcare-placement' },
       { label: 'Self-Paced (Coming Soon)', href: '/coming-soon' },
     ],
   },

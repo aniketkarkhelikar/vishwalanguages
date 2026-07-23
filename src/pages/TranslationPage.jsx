@@ -156,7 +156,7 @@ export function TranslationPage({ onOpenConsultation }) {
       </section>
 
       {/* ──────────────────────────── WHY CHOOSE US ──────────────────────────── */}
-      <section className="py-20 md:py-28 relative overflow-hidden bg-paper text-ink">
+      <section className="py-20 md:py-28 relative overflow-hidden bg-ink text-white">
         <div className="absolute top-0 right-0 w-[30vw] h-[30vw] rounded-full pointer-events-none opacity-[0.05]" style={{ background: `radial-gradient(circle, ${colors.gold} 0%, transparent 60%)` }} />
         <div className="absolute bottom-0 left-0 w-[25vw] h-[25vw] rounded-full pointer-events-none opacity-[0.04]" style={{ background: `radial-gradient(circle, ${colors.terracotta} 0%, transparent 60%)` }} />
 

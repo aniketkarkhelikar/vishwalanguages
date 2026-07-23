@@ -262,13 +262,13 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                 <motion.div
                   key={context.type === 'language' ? context.data?.slug : 'sanskrit'}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 0.15, x: 0 }}
+                  animate={{ opacity: 0.25, x: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="font-display leading-[1.2] text-right text-xl md:text-2xl"
+                  className="font-display leading-[1.2] text-right text-3xl md:text-5xl"
                   style={{
                     color: (context.type === 'language' && context.data?.color) || colors.terracotta,
-                    maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
-                    WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+                    maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)',
+                    WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)',
                     whiteSpace: 'pre-line',
                   }}
                 >
@@ -301,7 +301,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
             </div>
 
             {/* Right Panel (Form) */}
-            <div className="col-span-5 md:col-span-3 p-8 md:p-12 overflow-y-auto hide-scrollbar">
+            <div className="col-span-5 md:col-span-3 p-6 md:p-12 overflow-y-auto hide-scrollbar">
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}

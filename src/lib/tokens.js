@@ -19,6 +19,9 @@ export const colors = {
   blue:       '#004B87', // Brand Primary Blue
   clay:       '#D4C5B9',
   gold:       '#D4AF37',
+  ruby:       '#C8102E', // Vibrant Red for French/Spanish
+  saffron:    '#FF671F', // Vibrant Orange for Sanskrit
+  teal:       '#0D9488', // Professional Teal for IELTS
 };
 
 // --- Healthcare Palette (distinct from corporate) ---
@@ -42,8 +45,8 @@ export const fonts = {
 export const languageColors = {
   japanese: { primary: colors.terracotta, bgTint: 'rgba(184,92,56,0.05)' },
   german:   { primary: colors.blue,       bgTint: 'rgba(76,100,120,0.05)' },
-  french:   { primary: colors.sage,       bgTint: 'rgba(110,125,100,0.05)' },
-  spanish:  { primary: colors.brown,      bgTint: 'rgba(138,90,68,0.05)' },
+  french:   { primary: colors.ruby,       bgTint: 'rgba(200,16,46,0.05)' },
+  spanish:  { primary: colors.gold,       bgTint: 'rgba(212,175,55,0.05)' },
 };
 
 // --- Breakpoints (mirrors Tailwind defaults) ---

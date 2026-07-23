@@ -90,13 +90,13 @@ export function CorporateSection({ onOpenConsultation }) {
             </div>
 
             {/* Floating Glassmorphism Stat Card */}
-            <div className="absolute top-1/2 -translate-y-1/2 -left-8 bg-white/70 backdrop-blur-xl border border-white/40 p-6 rounded-2xl shadow-xl z-20 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-terracotta flex items-center justify-center text-white shrink-0 shadow-md">
+            <div className="absolute top-1/2 -translate-y-1/2 left-4 md:-left-8 bg-white/70 backdrop-blur-xl border border-white/40 p-4 md:p-6 rounded-2xl shadow-xl z-20 flex items-center gap-3 md:gap-4 max-w-[calc(100%-2rem)] md:max-w-none">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-terracotta flex items-center justify-center text-white shrink-0 shadow-md">
                 <Building size={20} />
               </div>
               <div>
-                <div className="font-display text-2xl text-ink font-bold leading-none mb-1">50+</div>
-                <div className="text-[9px] uppercase tracking-widest text-ink/60 font-mono">Enterprise Partners</div>
+                <div className="font-display text-xl md:text-2xl text-ink font-bold leading-none mb-1">50+</div>
+                <div className="text-[8px] md:text-[9px] uppercase tracking-widest text-ink/60 font-mono">Enterprise Partners</div>
               </div>
             </div>
           </motion.div>

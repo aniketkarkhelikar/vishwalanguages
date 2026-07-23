@@ -124,7 +124,7 @@ export function Navbar({ onOpenConsultation }) {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="absolute left-1/2 -translate-x-1/2 mt-4 w-[640px] bg-white/95 backdrop-blur-2xl border border-ink/[0.06] rounded-3xl shadow-[0_20px_40px_-12px_rgba(23,21,18,0.12)] p-4 grid grid-cols-2 gap-x-4 gap-y-1 z-50 text-ink"
+                            className="absolute left-1/2 -translate-x-1/2 mt-4 w-max max-w-[90vw] lg:max-w-none lg:w-[640px] bg-white/95 backdrop-blur-2xl border border-ink/[0.06] rounded-3xl shadow-[0_20px_40px_-12px_rgba(23,21,18,0.12)] p-4 grid grid-cols-2 gap-x-4 gap-y-1 z-50 text-ink"
                           >
                             {languageCatalogue.map((lang) => {
                               const isReady = !lang.comingSoon;

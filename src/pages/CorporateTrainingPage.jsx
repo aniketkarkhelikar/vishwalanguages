@@ -38,16 +38,16 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
       <section className="relative min-h-[90vh] flex items-center justify-center pt-24 overflow-hidden bg-surface">
         {/* Floating Collage */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-60">
-           <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 1 }} className="absolute top-[10%] left-[2%] w-[18vw] h-[22vw] rounded-3xl overflow-hidden shadow-2xl">
+           <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 1 }} className="absolute top-[10%] left-[2%] w-[18vw] h-[22vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
               <img src="/images/corporate/corporate-1.jpg" className="w-full h-full object-cover" alt="Corporate training 1" />
            </motion.div>
-           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 1 }} className="absolute bottom-[5%] left-[12%] w-[20vw] h-[16vw] rounded-3xl overflow-hidden shadow-2xl">
+           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 1 }} className="absolute bottom-[5%] left-[12%] w-[20vw] h-[16vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
               <img src="/images/corporate/corporate-2.jpg" className="w-full h-full object-cover" alt="Corporate training 2" />
            </motion.div>
-           <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6, duration: 1 }} className="absolute top-[8%] right-[5%] w-[16vw] h-[24vw] rounded-3xl overflow-hidden shadow-2xl">
+           <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6, duration: 1 }} className="absolute top-[8%] right-[5%] w-[16vw] h-[24vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
               <img src="/images/corporate/corporate-3.jpg" className="w-full h-full object-cover" alt="Corporate training 3" />
            </motion.div>
-           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8, duration: 1 }} className="absolute bottom-[10%] right-[12%] w-[22vw] h-[18vw] rounded-3xl overflow-hidden shadow-2xl">
+           <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8, duration: 1 }} className="absolute bottom-[10%] right-[12%] w-[22vw] h-[18vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
               <img src="/images/corporate/corporate-5.jpg" className="w-full h-full object-cover" alt="Corporate training 5" />
            </motion.div>
            <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 1.0, duration: 1 }} className="absolute top-[45%] left-[2%] w-[12vw] h-[12vw] rounded-full overflow-hidden shadow-2xl hidden md:block border-4 border-surface">

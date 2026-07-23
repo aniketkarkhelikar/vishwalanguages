@@ -16,16 +16,19 @@ const TILES = [
   { char: 'य',  bg: 'rgba(255,252,248,0.15)', color: colors.gold,       x: '95%', y: '75%', rotate: -35, scale: 2.2, blur: 10, delay: 0.8, float: -25 },
 ];
 
-function LanguageTile({ tile, mousePos }) {
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+function LanguageTile({ tile }) {
+  const tileRef = useRef(null);
 
   useEffect(() => {
-    if (mousePos.x !== null) {
-      const x = (mousePos.x - window.innerWidth / 2) * (tile.scale * 0.015);
-      const y = (mousePos.y - window.innerHeight / 2) * (tile.scale * 0.015);
-      setParallax({ x, y });
-    }
-  }, [mousePos, tile.scale]);
+    const handleMouse = (e) => {
+      if (!tileRef.current) return;
+      const x = (e.clientX - window.innerWidth / 2) * (tile.scale * 0.015);
+      const y = (e.clientY - window.innerHeight / 2) * (tile.scale * 0.015);
+      tileRef.current.style.transform = `scale(${tile.scale}) translate3d(${x}px, ${y}px, 0)`;
+    };
+    window.addEventListener('mousemove', handleMouse, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouse);
+  }, [tile.scale]);
 
   return (
     <motion.div
@@ -39,7 +42,6 @@ function LanguageTile({ tile, mousePos }) {
         fontSize: 'clamp(1.75rem, 3vw, 2.75rem)', borderRadius: '20px',
         backgroundColor: tile.bg, color: tile.color,
         filter: `blur(${tile.blur}px)`,
-        transform: `scale(${tile.scale}) translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
         boxShadow: '0 15px 35px rgba(23,21,18,0.06), inset 0 1px 0 rgba(255,255,255,0.4)',
         backdropFilter: 'blur(12px)',
         border: '1px solid rgba(255,255,255,0.5)',
@@ -47,6 +49,7 @@ function LanguageTile({ tile, mousePos }) {
       }}
     >
       <motion.div
+        ref={tileRef}
         animate={{ y: [0, tile.float, 0], rotate: [0, tile.float > 0 ? 4 : -4, 0] }}
         transition={{ duration: 7 + tile.delay * 3, repeat: Infinity, ease: 'easeInOut' }}
         className="w-full h-full flex items-center justify-center"
@@ -58,38 +61,21 @@ function LanguageTile({ tile, mousePos }) {
 }
 
 export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
-  const [mousePos, setMousePos] = useState({ x: null, y: null });
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.6]);
-
-  const rafRef = useRef(null);
-  const handleMouseMove = useCallback((e) => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    });
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [handleMouseMove]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden bg-surface">
       {/* Floating Collage */}
       <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-90">
-         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 1 }} className="absolute top-[8%] left-[2%] w-[35vw] h-[45vw] md:w-[18vw] md:h-[22vw] rounded-3xl overflow-hidden shadow-2xl">
+         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 1 }} className="absolute top-[8%] left-[2%] w-[35vw] h-[45vw] md:w-[18vw] md:h-[22vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
             <img src="/images/homepage/home-0001.jpg" className="w-full h-full object-cover" alt="Student 1" />
          </motion.div>
-         <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 1 }} className="absolute bottom-[5%] left-[5%] md:left-[12%] w-[40vw] h-[35vw] md:w-[20vw] md:h-[16vw] rounded-3xl overflow-hidden shadow-2xl">
+         <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 1 }} className="absolute bottom-[5%] left-[5%] md:left-[12%] w-[40vw] h-[35vw] md:w-[20vw] md:h-[16vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
             <img src="/images/homepage/home-0003.jpg" className="w-full h-full object-cover" alt="Student 2" />
          </motion.div>
-         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6, duration: 1 }} className="absolute top-[10%] right-[2%] md:right-[5%] w-[32vw] h-[48vw] md:w-[16vw] md:h-[24vw] rounded-3xl overflow-hidden shadow-2xl">
+         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6, duration: 1 }} className="absolute top-[10%] right-[2%] md:right-[5%] w-[32vw] h-[48vw] md:w-[16vw] md:h-[24vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
             <img src="/images/homepage/home-0004.jpg" className="w-full h-full object-cover" alt="Student 3" />
          </motion.div>
          <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8, duration: 1 }} className="absolute bottom-[10%] right-[5%] md:right-[12%] w-[45vw] h-[35vw] md:w-[22vw] md:h-[18vw] rounded-3xl overflow-hidden shadow-2xl hidden sm:block">
@@ -108,7 +94,7 @@ export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
       {/* Floating Tiles */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         {TILES.map((tile, i) => (
-          <LanguageTile key={i} tile={tile} mousePos={mousePos} />
+          <LanguageTile key={i} tile={tile} />
         ))}
       </div>
 

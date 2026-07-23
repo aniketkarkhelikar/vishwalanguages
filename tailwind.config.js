@@ -16,6 +16,9 @@ export default {
         blue:       '#004B87',
         clay:       '#D4C5B9',
         gold:       '#D4AF37',
+        ruby:       '#C8102E',
+        saffron:    '#FF671F',
+        teal:       '#0D9488',
         // Healthcare palette
         'health':       '#0284C7', // Medical Blue
         'health-dark':  '#0369A1',

@@ -111,8 +111,8 @@ export function AboutPage({ onOpenConsultation }) {
                     className="w-full h-full object-cover"
                   />
                </div>
-               <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-paper flex items-center justify-center shadow-xl">
-                 <div className="w-20 h-20 rounded-full border border-ink/10 flex flex-col items-center justify-center text-ink text-center p-2">
+               <div className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 w-24 h-24 rounded-full bg-paper flex items-center justify-center shadow-xl z-20">
+                 <div className="w-20 h-20 rounded-full border border-ink/10 flex flex-col items-center justify-center text-ink text-center p-2 bg-paper">
                     <span className="font-display font-bold text-sm leading-none block">Est.</span>
                     <span className="text-[10px] uppercase font-mono tracking-widest mt-1 opacity-50">2021</span>
                  </div>

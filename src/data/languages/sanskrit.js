@@ -8,8 +8,8 @@ export const sanskrit = {
   subtitle:   'Reconnect with your roots. Master Sanskrit, the classical language of ancient wisdom.',
   tagline:    'Learn Devanagari, read ancient scriptures, and discover classical heritage.',
 
-  color:  colors.brown,
-  bgTint: 'rgba(184,92,56,0.05)',
+  color:  colors.saffron,
+  bgTint: 'rgba(255,103,31,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80',
 

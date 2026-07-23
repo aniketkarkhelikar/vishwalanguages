@@ -8,8 +8,8 @@ export const ielts = {
   subtitle:   'Secure your future. Strategic IELTS training to achieve Band 7.5+ and beyond.',
   tagline:    'Targeted preparation for Academic and General Training IELTS tracks.',
 
-  color:  colors.terracotta,
-  bgTint: 'rgba(166,43,43,0.05)',
+  color:  colors.teal,
+  bgTint: 'rgba(13,148,136,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
 

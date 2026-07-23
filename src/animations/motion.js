@@ -40,10 +40,10 @@ export const spring = {
 
 // --- Reusable Variants ---
 
-/** Section reveal from below with cinematic blur */
+/** Section reveal from below without blur for better mobile performance */
 export const fadeUp = {
-  hidden:  { opacity: 0, y: 30, filter: 'blur(10px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+  hidden:  { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
 };
 
 /** Fade in only */
