@@ -4,6 +4,7 @@
  */
 
 export const navLinks = [
+  { label: 'Home', href: '/' },
   { 
     label: 'Our Courses', 
     dropdown: [

@@ -132,7 +132,7 @@ export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
             className="text-hero font-display leading-[1.05] tracking-tight text-ink font-semibold"
           >
             Communication, <br />
-            <span className="text-terracotta">Without Borders.</span>
+            <span className="text-terracotta">Without Barriers.</span>
           </motion.h1>
         </div>
 

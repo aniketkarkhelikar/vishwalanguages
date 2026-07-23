@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Globe2, Target, User, Phone, CheckCircle2, ArrowRight, GraduationCap, Briefcase, Mail, Building2, ShieldCheck } from 'lucide-react';
+import { X, Globe2, Target, User, Phone, CheckCircle2, ArrowRight, GraduationCap, Briefcase, Mail, Building2, ShieldCheck, FileText } from 'lucide-react';
 import { modalEntrance } from '@/animations/motion';
 import { submitLead } from '@/lib/leadService';
 import { site } from '@/data/site';
@@ -23,7 +23,9 @@ const FORM_SCHEMAS = {
   corporate: [
     { name: 'orgName', label: 'Organization Name', type: 'text', icon: Building2, placeholder: 'Company Name', required: true, fullWidth: true },
     { name: 'targetLanguage', label: 'Language Needed', type: 'select', icon: Globe2, required: true, options: [
-      { value: 'japanese', label: 'Japanese' }, { value: 'german', label: 'German' }, { value: 'french', label: 'French' }, { value: 'spanish', label: 'Spanish' }
+      { value: 'japanese', label: 'Japanese' }, { value: 'german', label: 'German' }, { value: 'french', label: 'French' }, { value: 'spanish', label: 'Spanish' },
+      { value: 'mandarin', label: 'Mandarin' }, { value: 'korean', label: 'Korean' }, { value: 'english', label: 'English' },
+      { value: 'sanskrit', label: 'Sanskrit' }, { value: 'multiple', label: 'Multiple / Custom' }
     ]},
     { name: 'batchSize', label: 'Cohort Size', type: 'select', icon: User, required: true, options: [
       { value: 'under-10', label: 'Fewer than 10' }, { value: '10-30', label: '10 to 30' }, { value: '30-plus', label: 'More than 30' }
@@ -59,6 +61,17 @@ const FORM_SCHEMAS = {
       { value: 'onsite', label: 'On-Site / In-Person' }, { value: 'remote', label: 'Remote Video Translation' }, { value: 'simultaneous', label: 'Simultaneous (Conference)' }
     ]},
     { name: 'name', label: 'Full Name / Org', type: 'text', icon: User, placeholder: 'Name or Company', required: true },
+    { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'name@email.com', required: true, fullWidth: true },
+    { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', icon: Phone, placeholder: 'Contact Number', required: true },
+  ],
+  translation: [
+    { name: 'documentType', label: 'Document Type', type: 'select', icon: FileText, required: true, fullWidth: true, options: [
+      { value: 'legal', label: 'Legal Document' }, { value: 'medical', label: 'Medical Document' }, { value: 'technical', label: 'Technical Manual' }, { value: 'website', label: 'Website / App' }, { value: 'other', label: 'Other' }
+    ]},
+    { name: 'sourceLanguage', label: 'Source Language', type: 'text', icon: Globe2, placeholder: 'e.g. English', required: true },
+    { name: 'targetLanguage', label: 'Target Language', type: 'text', icon: Globe2, placeholder: 'e.g. German', required: true },
+    { name: 'wordCount', label: 'Est. Word Count', type: 'text', icon: FileText, placeholder: 'e.g. 5000', required: true },
+    { name: 'name', label: 'Full Name / Org', type: 'text', icon: User, placeholder: 'Name', required: true },
     { name: 'email', label: 'Email Address', type: 'email', icon: Mail, placeholder: 'name@email.com', required: true, fullWidth: true },
     { name: 'phone', label: 'Phone / WhatsApp', type: 'tel', icon: Phone, placeholder: 'Contact Number', required: true },
   ],
@@ -140,6 +153,12 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
         payload.language = formData.languagePair;
         payload.goal = `Mode: ${formData.mode} | Client: ${formData.clientType}`;
         break;
+      case 'translation':
+        payload.name = formData.name;
+        payload.phone = formData.phone;
+        payload.language = `${formData.sourceLanguage} to ${formData.targetLanguage}`;
+        payload.goal = `Doc: ${formData.documentType} | Words: ${formData.wordCount}`;
+        break;
       case 'language':
         payload.name = formData.name;
         payload.phone = formData.phone;
@@ -176,6 +195,8 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
         return { eyebrow: 'Germany Healthcare', title: 'Begin pathway.', desc: 'Verify nursing credentials & language training.' };
       case 'interpretation':
         return { eyebrow: 'Interpretation Services', title: 'Book interpreter.', desc: 'Simultaneous or consecutive interpretation.' };
+      case 'translation':
+        return { eyebrow: 'Translation Services', title: 'Request translation.', desc: 'Certified and professional document translation.' };
       case 'language':
         return { eyebrow: `${context.data?.card?.title} Program`, title: 'Book free session.', desc: `Course modules and batch timings for ${context.data?.card?.title}.` };
       default:

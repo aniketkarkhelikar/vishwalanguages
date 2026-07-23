@@ -106,7 +106,7 @@ export function AboutPage({ onOpenConsultation }) {
             <div className="md:col-span-2 relative">
                <div className="aspect-square rounded-full overflow-hidden shadow-2xl border-4 border-white/10">
                   <img 
-                    src="/images/homepage/home-0032.jpg" 
+                    src="/images/founder.jpg" 
                     alt="Founder" 
                     className="w-full h-full object-cover"
                   />
