@@ -225,9 +225,9 @@ export function WhyVishwaSection() {
           </motion.div>
 
           {/* Card 4 - Large Text Card */}
-          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-center h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm" style={{ backgroundColor: colors.ink }}>
-            <img src="/images/homepage/home-0011.jpg" className="absolute inset-0 w-full h-full object-cover opacity-[0.25] mix-blend-luminosity group-hover:scale-105 transition-transform duration-1000" alt="Ecosystem" />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-transparent pointer-events-none" />
+          <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.3 }} className="lg:col-span-2 text-white rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col justify-center h-[280px] sm:h-[320px] md:h-[380px] relative overflow-hidden shadow-sm group">
+            <img src="/images/homepage/home-0011.jpg" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="Ecosystem" />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent pointer-events-none" />
             <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-20 pointer-events-none" style={{ background: `radial-gradient(circle, ${colors.gold} 0%, transparent 60%)` }} />
             <div className="max-w-xl relative z-10">
               <span className="text-[10px] uppercase font-mono tracking-widest text-gold mb-4 block">04 / Ecosystem</span>
