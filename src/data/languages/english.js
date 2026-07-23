@@ -8,8 +8,9 @@ export const english = {
   subtitle:   'Speak English with confidence, clarity, and impact in any professional setting.',
   tagline:    'Practical conversational fluency designed for corporate and daily communication.',
 
-  color:  colors.blue,
-  bgTint: 'rgba(46,90,136,0.05)',
+  color:  '#012169',
+  flagColors: ['#012169', '#C8102E', '#012169'],
+  bgTint: 'rgba(1,33,105,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80',
 

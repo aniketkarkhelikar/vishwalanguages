@@ -8,8 +8,9 @@ export const mandarin = {
   subtitle:   'Master Mandarin, the language of the world\'s fastest-growing economy.',
   tagline:    'Connect with over 1.1 billion speakers and tap into global trade power.',
 
-  color:  colors.terracotta,
-  bgTint: 'rgba(184,92,56,0.05)',
+  color:  '#EE1C25',
+  flagColors: ['#EE1C25', '#FFFF00', '#EE1C25'],
+  bgTint: 'rgba(238,28,37,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80',
 

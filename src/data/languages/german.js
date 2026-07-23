@@ -12,8 +12,9 @@ export const german = {
   subtitle:   'Master the precision of German. Engineer your future in Europe.',
   tagline:    'Attain the linguistic precision required for Europe\'s leading engineering and business hubs.',
 
-  color:  colors.blue,
-  bgTint: 'rgba(76,100,120,0.05)',
+  color:  '#DD0000',
+  flagColors: ['#DD0000', '#FFCE00', '#000000'],
+  bgTint: 'rgba(221,0,0,0.05)',
 
   seo: {
     title:       'German Language Program — Goethe Aligned, EU Career Ready | Vishwa Languages',

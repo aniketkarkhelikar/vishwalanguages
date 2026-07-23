@@ -16,8 +16,9 @@ export const japanese = {
   tagline:    'Bridge cultural nuances and technical vocabulary required for success in Japan.',
 
   // Brand colors for this language
-  color:  colors.terracotta,
-  bgTint: 'rgba(184,92,56,0.05)',
+  color:  '#BC002D',
+  flagColors: ['#BC002D', '#000000', '#BC002D'],
+  bgTint: 'rgba(188,0,45,0.05)',
 
   // SEO
   seo: {

@@ -8,8 +8,9 @@ export const korean = {
   subtitle:   'Unlock a dynamic culture. Master Korean, the language of Hallyu wave and global technology.',
   tagline:    'Learn Hangul and open doors in global tech, automotive, and creative sectors.',
 
-  color:  colors.blue,
-  bgTint: 'rgba(43,84,126,0.05)',
+  color:  '#0047A0',
+  flagColors: ['#0047A0', '#CD2E3A', '#000000'],
+  bgTint: 'rgba(0,71,160,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80',
 

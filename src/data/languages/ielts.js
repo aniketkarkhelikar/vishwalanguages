@@ -9,6 +9,7 @@ export const ielts = {
   tagline:    'Targeted preparation for Academic and General Training IELTS tracks.',
 
   color:  colors.teal,
+  flagColors: ['#0D9488', '#0F766E', '#0D9488'],
   bgTint: 'rgba(13,148,136,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',

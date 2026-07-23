@@ -50,7 +50,7 @@ export function ProgramsSection({ onShowToast }) {
         </motion.div>
 
         {/* Mobile/Tablet Tab Bar */}
-        <div className="flex lg:hidden overflow-x-auto gap-2 pb-4 mb-4 scrollbar-none w-full snap-x snap-mandatory">
+        <div className="flex lg:hidden overflow-x-auto gap-2 pb-4 mb-4 -mx-6 px-6 scrollbar-none w-[calc(100%+3rem)] snap-x snap-mandatory">
           {languageCatalogue.map((lang) => (
             <button
               key={lang.slug}

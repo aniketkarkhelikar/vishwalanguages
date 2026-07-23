@@ -38,6 +38,12 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
         className="relative pt-28 md:pt-32 pb-0 overflow-hidden"
         style={{ backgroundColor: lang.bgTint }}
       >
+        {lang.countryImage && (
+          <div className="absolute inset-0 z-0 pointer-events-none mix-blend-luminosity opacity-[0.15] md:opacity-[0.25]">
+            <img src={lang.countryImage} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/80" />
+          </div>
+        )}
         {/* Back link */}
         <div className="container-site relative z-10">
           <Link

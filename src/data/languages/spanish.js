@@ -12,8 +12,9 @@ export const spanish = {
   subtitle:   'The world\'s second most spoken language. The career opportunities are limitless.',
   tagline:    'From Latin America to Spain — one language, a continent of opportunity.',
 
-  color:  colors.ruby,
-  bgTint: 'rgba(200,16,46,0.05)',
+  color:  '#AA151B',
+  flagColors: ['#AA151B', '#F1BF00', '#AA151B'],
+  bgTint: 'rgba(170,21,27,0.05)',
   comingSoon: false,
 
   seo: {

@@ -9,6 +9,7 @@ export const sanskrit = {
   tagline:    'Learn Devanagari, read ancient scriptures, and discover classical heritage.',
 
   color:  colors.saffron,
+  flagColors: ['#FF671F', '#D4AF37', '#FF671F'],
   bgTint: 'rgba(255,103,31,0.05)',
   comingSoon: false,
   countryImage: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80',

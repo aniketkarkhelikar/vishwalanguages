@@ -67,6 +67,12 @@ export function HeroSection({ onOpenConsultation, onScrollToPrograms }) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden bg-surface">
+      {/* Mobile Background Image */}
+      <div className="absolute inset-0 md:hidden z-0 pointer-events-none">
+         <img src="/images/homepage/home-0001.jpg" className="w-full h-full object-cover opacity-30" alt="Mobile Background" />
+         <div className="absolute inset-0 bg-surface/60 backdrop-blur-[2px]" />
+      </div>
+
       {/* Floating Collage */}
       <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-90">
          <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2, duration: 1 }} className="absolute top-[8%] left-[2%] w-[35vw] h-[45vw] md:w-[18vw] md:h-[22vw] rounded-3xl overflow-hidden shadow-2xl hidden md:block">
