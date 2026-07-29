@@ -22,15 +22,15 @@ export const site = {
 
   // Contact
   contact: {
-    email:    'hello@vishwalanguages.com',
-    phone:    '+91 00000 00000',
-    whatsapp: '+91 00000 00000',
-    address:  'Pune, Maharashtra, India',
+    email:    'vishwalanguages@gmail.com',
+    phone:    '+91 75887 06961',
+    whatsapp: '+91 75887 06961',
+    address:  '1, Ritesh Apartment, College Rd, near Kathiyawad Showroom, D\'souza Colony, Nashik, Maharashtra 422005',
   },
 
   // Social
   social: {
-    instagram: 'https://instagram.com/vishwalanguages',
+    instagram: 'https://www.instagram.com/vishwalanguages/',
     linkedin:  'https://linkedin.com/company/vishwalanguages',
     youtube:   'https://youtube.com/@vishwalanguages',
   },

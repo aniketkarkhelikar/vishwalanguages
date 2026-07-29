@@ -39,7 +39,7 @@ export const japanese = {
   // Quick stats
   stats: [
     { label: '1,200+ learners' },
-    { label: '92% pass rate'  },
+    { label: '92% success rate'  },
     { label: 'Tokyo placements' },
   ],
 
@@ -118,15 +118,7 @@ export const japanese = {
   ],
 
   // Testimonials specific to this language
-  testimonials: [
-    {
-      quote:    'Vishwa didn\'t just teach me grammar. They prepared me for the culture. That fluency helped me clear my interviews and seamlessly join a Tokyo-based tech firm.',
-      name:     'Aniket Sharma',
-      role:     'Software Engineer (N3)',
-      outcome:  'Placed in Tokyo',
-      initials: 'AS',
-    },
-  ],
+  testimonials: [],
 
   // Page CTA
   cta: {

@@ -32,13 +32,13 @@ export function Footer({ onOpenConsultation }) {
               onClick={onOpenConsultation}
               className="mt-8 btn-ghost self-start group"
             >
-              Book Consultation
+              Book a Free Session
               <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Link columns */}
-          <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="md:col-span-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
             {footerLinks.map((col) => (
               <div key={col.heading}>
                 <span className="text-label font-semibold text-ink/40 block mb-4 uppercase tracking-micro">
@@ -47,12 +47,23 @@ export function Footer({ onOpenConsultation }) {
                 <ul className="space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link
-                        to={link.href}
-                        className="text-sm text-ink/60 hover:text-terracotta transition-colors"
-                      >
-                        {link.label}
-                      </Link>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-ink/60 hover:text-terracotta transition-colors"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          to={link.href}
+                          className="text-sm text-ink/60 hover:text-terracotta transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

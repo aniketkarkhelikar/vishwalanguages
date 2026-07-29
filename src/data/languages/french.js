@@ -43,7 +43,7 @@ export const french = {
   stats: [
     { label: '350+ learners' },
     { label: '29 countries' },
-    { label: '90% pass rate' },
+    { label: '90% success rate' },
   ],
   
   levels: [
@@ -66,7 +66,7 @@ export const french = {
   ],
   
   testimonials: [
-    { quote: 'The B2 program gave me the confidence to ace my university interview in Paris.', initials: 'AM', name: 'Aisha M.', role: 'Student', outcome: 'Admitted to Sorbonne' }
+    { quote: "Learning here makes me feel more motivated to do well because of the faculty and environment. The courses are much more based on acquiring proper holistic lingual skill (Speaking, listening etc.). Evaluations are held regularly to monitor growth and performance. Merci Beaucoup 🇫🇷✨🖤", initials: 'RK', name: 'Revati Kulkarni', role: 'French Learner', outcome: 'DELF Preparation' }
   ],
 
   cta: {

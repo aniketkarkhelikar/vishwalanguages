@@ -62,9 +62,7 @@ export const sanskrit = {
     { q: 'Can I study ancient scriptures directly after this?', a: 'Yes, by the intermediate level, you will be able to read and translate simple verses from the Gita and Upanishads.' },
   ],
   
-  testimonials: [
-    { quote: 'Deepening my Sanskrit understanding at Vishwa transformed my Yoga and Ayurveda practice. I can now read original texts without depending on translations.', initials: 'AM', name: 'Aarav M.', role: 'Yoga Instructor', outcome: 'Scriptural Fluency' }
-  ],
+  testimonials: [],
 
   cta: {
     heading:     'Discover ancient wisdom.',

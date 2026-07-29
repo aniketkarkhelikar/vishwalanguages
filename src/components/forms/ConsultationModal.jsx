@@ -8,15 +8,15 @@ import { languageCatalogue } from '@/data/languages';
 import { colors } from '@/lib/tokens';
 
 const CINEMATIC_TEXTS = {
-  japanese: "吾輩は猫である。\n名前はまだ無い。\nどこで生れたか\nとんと見当がつかぬ。",
-  german: "Habe nun, ach!\nPhilosophie,\nJuristerei und Medizin,\nUnd leider auch Theologie!",
-  french: "Longtemps, je me\nsuis couché de bonne heure.\nParfois, à peine\nma bougie éteinte...",
-  spanish: "En un lugar\nde la Mancha,\nde cuyo nombre no\nquiero acordarme...",
-  mandarin: "道可道，非常道。\n名可名，非常名。\n无名天地之始；\n有名万物之母。",
-  korean: "나 보기가 역겨워\n가실 때에는\n말없이 고이 보내\n드리오리다.",
-  english: "To be, or not to be,\nthat is the question:\nWhether 'tis nobler\nin the mind...",
-  ielts: "The limits of my\nlanguage mean the\nlimits of my world.",
-  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।\nमा कर्मफलहेतुर्भू\nर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+  japanese: "新しい言語を学ぶたびに、新しい世界が広がる。",
+  german: "Mit jeder Sprache, die du lernst,\nöffnet sich eine neue Welt.",
+  french: "Une langue vous place dans un couloir pour la vie.\nDeux langues vous ouvrent toutes les portes.",
+  spanish: "Aprender un idioma es abrir una puerta\na una nueva forma de ver el mundo.",
+  mandarin: "每学会一种语言，\n就多拥有一个看世界的角度。",
+  korean: "언어를 배운다는 것은\n새로운 세상을 만나는 것입니다.",
+  english: "To have another language\nis to possess a second soul.",
+  ielts: "The limits of my language\nmean the limits of my world.",
+  sanskrit: "विद्या ददाति विनयं,\nविनयाद् याति पात्रताम्।",
 };
 
 const FORM_SCHEMAS = {
@@ -187,6 +187,53 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
     setTimeout(() => { setSubmitted(false); setError(''); setFormData({}); }, 400);
   };
 
+  const getActiveLanguageSlug = () => {
+    if (context.type === 'language') {
+      return context.data?.slug || 'sanskrit';
+    }
+    if (context.type === 'healthcare') {
+      return 'german';
+    }
+    
+    // Check form fields
+    const langVal = formData.targetLanguage || formData.language || formData.languagePair;
+    if (langVal) {
+      const lower = langVal.toLowerCase();
+      if (lower.includes('japanese')) return 'japanese';
+      if (lower.includes('german')) return 'german';
+      if (lower.includes('french')) return 'french';
+      if (lower.includes('spanish')) return 'spanish';
+      if (lower.includes('mandarin')) return 'mandarin';
+      if (lower.includes('korean')) return 'korean';
+      if (lower.includes('english')) return 'english';
+      if (lower.includes('ielts')) return 'ielts';
+      if (lower.includes('sanskrit')) return 'sanskrit';
+    }
+    
+    return 'sanskrit';
+  };
+
+  const activeLangSlug = getActiveLanguageSlug();
+  const activeLangData = languageCatalogue.find(l => l.slug === activeLangSlug);
+  const activeColor = activeLangData?.color || colors.terracotta;
+  const activePhilosophy = CINEMATIC_TEXTS[activeLangSlug] || CINEMATIC_TEXTS.sanskrit;
+
+  const getSubmitButtonLabel = () => {
+    if (loading) return 'Submitting…';
+    switch (context.type) {
+      case 'corporate':
+        return 'Request Proposal';
+      case 'healthcare':
+        return 'Begin Pathway';
+      case 'interpretation':
+        return 'Request Quote';
+      case 'language':
+        return 'Book Free Session';
+      default:
+        return 'Book an Appointment';
+    }
+  };
+
   const getHeaderInfo = () => {
     switch (context.type) {
       case 'corporate':
@@ -194,9 +241,9 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
       case 'healthcare':
         return { eyebrow: 'Germany Healthcare', title: 'Begin pathway.', desc: 'Verify nursing credentials & language training.' };
       case 'interpretation':
-        return { eyebrow: 'Interpretation Services', title: 'Book interpreter.', desc: 'Simultaneous or consecutive interpretation.' };
+        return { eyebrow: 'Interpretation Services', title: 'Request quote.', desc: 'Simultaneous or consecutive interpretation.' };
       case 'translation':
-        return { eyebrow: 'Translation Services', title: 'Request translation.', desc: 'Certified and professional document translation.' };
+        return { eyebrow: 'Translation Services', title: 'Request quote.', desc: 'Certified and professional document translation.' };
       case 'language':
         return { eyebrow: `${context.data?.card?.title} Program`, title: 'Book free session.', desc: `Course modules and batch timings for ${context.data?.card?.title}.` };
       default:
@@ -225,7 +272,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-5"
           role="dialog"
           aria-modal="true"
         >
@@ -236,7 +283,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full max-w-4xl bg-paper shadow-modal rounded-2xl overflow-hidden flex flex-col md:grid md:grid-cols-5 max-h-[90vh] md:max-h-[85vh]"
+            className="relative w-full max-w-5xl bg-paper shadow-modal rounded-2xl overflow-hidden flex flex-col md:flex-row md:max-h-[92vh]"
           >
             <button
               onClick={handleClose}
@@ -246,49 +293,118 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
             </button>
 
             {/* Left Panel */}
-            <div className="hidden md:flex md:col-span-2 relative p-12 flex-col justify-between overflow-hidden bg-surface border-r border-ink/5">
-              {/* Dynamic Glow backdrop */}
-              <div 
-                className="absolute bottom-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-25 blur-[60px]"
-                style={{
-                  background: `radial-gradient(circle, ${
-                    (context.type === 'language' && context.data?.color) || colors.terracotta
-                  } 0%, transparent 70%)`
-                }}
+            <div className="hidden md:flex md:w-[38%] relative p-8 flex-col justify-between overflow-hidden bg-surface border-r border-ink/5 shrink-0">
+              {/* Ambient glow */}
+              <div
+                className="absolute inset-0 pointer-events-none transition-all duration-700"
+                style={{ background: `radial-gradient(ellipse at 60% 70%, ${activeColor}22 0%, transparent 65%)` }}
               />
 
-              {/* Dynamic philosophy script backdrop with opacity gradient */}
-              <div className="absolute inset-y-0 right-0 w-[60%] flex items-center justify-end pr-4 overflow-hidden pointer-events-none select-none">
+              {/* Quote wall — fills entire panel, acting as a textured backdrop */}
+              <div 
+                className="absolute inset-0 overflow-hidden pointer-events-none select-none"
+                style={{
+                  maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+                  WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+                }}
+              >
+                {/* Japanese — top left, large */}
                 <motion.div
-                  key={context.type === 'language' ? context.data?.slug : 'sanskrit'}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 0.25, x: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="font-display leading-[1.2] text-right text-3xl md:text-5xl"
-                  style={{
-                    color: (context.type === 'language' && context.data?.color) || colors.terracotta,
-                    maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)',
-                    WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%)',
-                    whiteSpace: 'pre-line',
-                  }}
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.35 }} transition={{ delay: 0.05, duration: 0.6 }}
+                  className="absolute font-display font-bold leading-[1.1] whitespace-pre-line"
+                  style={{ color: '#B85C38', fontSize: '2.5rem', top: '-2%', left: '-8%', transform: 'rotate(-12deg)' }}
                 >
-                  {CINEMATIC_TEXTS[context.type === 'language' ? context.data?.slug : 'sanskrit'] || CINEMATIC_TEXTS.sanskrit}
+                  {'新しい言語を\n学ぶたびに'}
+                </motion.div>
+
+                {/* German — mid-left */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.28 }} transition={{ delay: 0.1, duration: 0.6 }}
+                  className="absolute font-display font-bold leading-[1.1] whitespace-pre-line"
+                  style={{ color: '#004B87', fontSize: '1.8rem', top: '15%', left: '5%', transform: 'rotate(8deg)' }}
+                >
+                  {'Mit jeder Sprache,\nöffnet sich eine\nneue Welt.'}
+                </motion.div>
+
+                {/* French — center, massive */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 0.15, duration: 0.6 }}
+                  className="absolute font-display italic font-bold leading-[1.1] whitespace-pre-line"
+                  style={{ color: '#C8102E', fontSize: '2.2rem', top: '35%', left: '-10%', transform: 'rotate(-6deg)' }}
+                >
+                  {'Deux langues\nouvrent\ntoutes les portes.'}
+                </motion.div>
+
+                {/* Spanish — overlaps slightly */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.35 }} transition={{ delay: 0.2, duration: 0.6 }}
+                  className="absolute font-display font-bold leading-[1.1] whitespace-pre-line"
+                  style={{ color: '#D4AF37', fontSize: '1.6rem', top: '55%', left: '20%', transform: 'rotate(15deg)' }}
+                >
+                  {'Aprender\nun idioma es\nabrir una puerta.'}
+                </motion.div>
+
+                {/* Mandarin — right side, large */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ delay: 0.25, duration: 0.6 }}
+                  className="absolute font-display font-bold leading-[1.2] whitespace-pre-line"
+                  style={{ color: '#8C7355', fontSize: '3rem', top: '8%', right: '-15%', transform: 'rotate(22deg)' }}
+                >
+                  {'每学会\n一种语言'}
+                </motion.div>
+
+                {/* Korean */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.35 }} transition={{ delay: 0.3, duration: 0.6 }}
+                  className="absolute font-display font-bold leading-[1.2] whitespace-pre-line"
+                  style={{ color: '#6E7D64', fontSize: '1.8rem', top: '65%', right: '-10%', transform: 'rotate(-14deg)' }}
+                >
+                  {'새로운 세상을\n만나는 것입니다.'}
+                </motion.div>
+
+                {/* Sanskrit — bottom left */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.38 }} transition={{ delay: 0.35, duration: 0.6 }}
+                  className="absolute font-display font-bold leading-[1.3] whitespace-pre-line"
+                  style={{ color: '#FF671F', fontSize: '1.9rem', top: '78%', left: '-8%', transform: 'rotate(-8deg)' }}
+                >
+                  {'विद्या ददाति विनयं,\nविनयाद् याति'}
+                </motion.div>
+
+                {/* English — small, bottom right */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} transition={{ delay: 0.4, duration: 0.6 }}
+                  className="absolute font-display italic font-bold leading-[1.1] whitespace-pre-line"
+                  style={{ color: '#0D9488', fontSize: '1.5rem', top: '88%', right: '0%', transform: 'rotate(10deg)' }}
+                >
+                  {'To possess a\nsecond soul.'}
+                </motion.div>
+
+                {/* IELTS quote — mid area */}
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 0.25 }} transition={{ delay: 0.45, duration: 0.6 }}
+                  className="absolute font-display italic font-bold leading-[1.1] whitespace-pre-line"
+                  style={{ color: '#004B87', fontSize: '1.4rem', top: '42%', right: '-5%', transform: 'rotate(-18deg)' }}
+                >
+                  {'The limits\nof my world.'}
                 </motion.div>
               </div>
 
-              <div className="relative z-10">
+              {/* Main Text Content */}
+              <div className="relative z-10 pt-4">
                 <span className="font-display text-[10px] uppercase tracking-micro text-terracotta block mb-6 font-bold">
-                  {header.eyebrow}
+                  Begin Journey
                 </span>
                 <h3 className="font-display italic text-3xl md:text-4xl text-ink leading-tight">
-                  {header.title}
+                  Book consultation.
                 </h3>
                 <p className="text-ink/60 text-sm mt-6 leading-relaxed max-w-xs font-light">
-                  {header.desc}
+                  Discuss your goals with a language advisor.
                 </p>
               </div>
 
-              <div className="relative z-10 grid grid-cols-2 gap-6 border-t border-ink/10 pt-8">
+              {/* Bottom meta info */}
+              <div className="relative z-10 border-t border-ink/10 pt-6 grid grid-cols-2 gap-6 bg-surface/40 backdrop-blur-sm -mx-8 px-8 pb-8 -mb-8">
                 <div>
                   <div className="font-display text-3xl text-ink mb-1">{site.stats.learners}</div>
                   <div className="text-[9px] uppercase tracking-micro text-ink/40">Learners</div>
@@ -301,7 +417,8 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
             </div>
 
             {/* Right Panel (Form) */}
-            <div className="col-span-5 md:col-span-3 p-6 md:p-12 overflow-y-auto hide-scrollbar">
+            <div className="flex-1 md:w-[62%] flex flex-col overflow-y-auto min-h-0 w-full">
+              <div className="p-5 md:p-8 flex flex-col">
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -320,18 +437,18 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
-                  <div className="mb-2">
-                    <h3 className="font-display text-3xl mb-1 text-ink">{header.title}</h3>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+                  <div className="mb-1">
+                    <h3 className="font-display text-2xl mb-0.5 text-ink">{header.title}</h3>
                     <p className="text-xs text-ink/50 font-light">{header.desc}</p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2">
                     {schema.map((field) => (
                       <div key={field.name} className={field.fullWidth ? "sm:col-span-2" : "col-span-1"}>
                         <label className="field-label" htmlFor={field.name}>{field.label}</label>
                         <div className="field-wrap relative flex items-center">
-                          <field.icon size={18} className="absolute left-4 text-ink/40 pointer-events-none" />
+                          <field.icon size={16} className="absolute left-3.5 text-ink/40 pointer-events-none" />
                           
                           {field.type === 'select' ? (
                             <select 
@@ -340,7 +457,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                               required={field.required} 
                               value={formData[field.name] || ''}
                               onChange={handleChange}
-                              className="w-full bg-surface border border-ink/10 rounded-xl h-12 pl-12 pr-4 text-sm outline-none focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/50 transition-all appearance-none cursor-pointer"
+                              className="w-full bg-surface border border-ink/10 rounded-xl h-10 pl-10 pr-4 text-sm outline-none focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/50 transition-all appearance-none cursor-pointer"
                             >
                               <option value="" disabled>Select {field.label.toLowerCase()}</option>
                               {field.options.map(opt => (
@@ -357,7 +474,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                               placeholder={field.placeholder}
                               value={formData[field.name] || ''}
                               onChange={handleChange}
-                              className={`w-full bg-surface border border-ink/10 rounded-xl h-12 pl-12 pr-4 text-sm outline-none focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/50 transition-all ${field.readOnly ? 'bg-ink/5 cursor-not-allowed opacity-70' : ''}`}
+                              className={`w-full bg-surface border border-ink/10 rounded-xl h-10 pl-10 pr-4 text-sm outline-none focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/50 transition-all ${field.readOnly ? 'bg-ink/5 cursor-not-allowed opacity-70' : ''}`}
                             />
                           )}
                         </div>
@@ -370,9 +487,9 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-14 rounded-xl bg-ink text-white font-bold uppercase text-xs tracking-widest flex items-center justify-center gap-2 mt-4 hover:bg-terracotta hover:shadow-lg transition-all disabled:opacity-60 disabled:hover:bg-ink disabled:hover:shadow-none"
+                    className="w-full h-12 rounded-xl bg-ink text-white font-bold uppercase text-xs tracking-widest flex items-center justify-center gap-2 mt-2 hover:bg-terracotta hover:shadow-lg transition-all disabled:opacity-60 disabled:hover:bg-ink disabled:hover:shadow-none"
                   >
-                    {loading ? 'Submitting…' : 'Submit Request'}
+                    {getSubmitButtonLabel()}
                     {!loading && <ArrowRight size={16} />}
                   </button>
 
@@ -381,6 +498,7 @@ export function ConsultationModal({ isOpen, onClose, context = { type: 'general'
                   </p>
                 </form>
               )}
+              </div>
             </div>
           </motion.div>
         </motion.div>

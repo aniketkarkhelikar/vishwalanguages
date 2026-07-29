@@ -63,7 +63,7 @@ export const ielts = {
   ],
   
   testimonials: [
-    { quote: 'The writing correction program helped me raise my score from a 6.0 to a 7.5 in just 6 weeks. I got admitted to my dream college.', initials: 'AP', name: 'Aditya P.', role: 'Graduate Student', outcome: 'Scored Band 8.0' }
+    { quote: "I joined Vishwa Institute with the goal of getting my desired IELTS band, and looking back, it was one of the best decisions I made. Ketki ma’am's feedback, tips, and constant motivation really helped me improve. I managed to score Band 7! 🌟", initials: 'SS', name: 'Shubham Sonawane', role: 'IELTS Learner', outcome: 'Achieved Band 7' }
   ],
 
   cta: {

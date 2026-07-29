@@ -40,7 +40,7 @@ export const mandarin = {
   stats: [
     { label: 'Tonal accuracy focus' },
     { label: 'HSK 1-6 alignment' },
-    { label: '92% pass rate' },
+    { label: '92% success rate' },
   ],
   
   levels: [
@@ -62,9 +62,7 @@ export const mandarin = {
     { q: 'How many characters will I learn?', a: 'By HSK 4, you will master approximately 1,200 characters, which covers about 90% of daily written Chinese.' },
   ],
   
-  testimonials: [
-    { quote: 'Learning Mandarin at Vishwa helped me negotiate directly with our manufacturing partners in Shenzhen without an interpreter.', initials: 'VD', name: 'Vikram D.', role: 'Operations Lead', outcome: 'Trade Specialist' }
-  ],
+  testimonials: [],
 
   cta: {
     heading:     'Mandarin program now enrolling.',

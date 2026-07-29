@@ -6,15 +6,15 @@ import { fadeUp, staggerContainer, pageSlideUp } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 
 const CINEMATIC_TEXTS = {
-  japanese: "吾輩は猫である。\n名前はまだ無い。\nどこで生れたか\nとんと見当がつかぬ。",
-  german: "Habe nun, ach!\nPhilosophie,\nJuristerei und Medizin,\nUnd leider auch Theologie!",
-  french: "Longtemps, je me\nsuis couché de bonne heure.\nParfois, à peine\nma bougie éteinte...",
-  spanish: "En un lugar\nde la Mancha,\nde cuyo nombre no\nquiero acordarme...",
-  mandarin: "道可道，非常道。\n名可名，非常名。\n无名天地之始；\n有名万物之母。",
-  korean: "나 보기가 역겨워\n가실 때에는\n말없이 고이 보내\n드리오리다.",
-  english: "To be, or not to be,\nthat is the question:\nWhether 'tis nobler\nin the mind...",
-  ielts: "The limits of my\nlanguage mean the\nlimits of my world.",
-  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।\nमा कर्मफलहेतुर्भू\nर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+  japanese: "新しい言語を学ぶたびに、新しい世界が広がる。",
+  german: "Mit jeder Sprache, die du lernst,\nöffnet sich eine neue Welt.",
+  french: "Une langue vous place dans un couloir pour la vie.\nDeux langues vous ouvrent toutes les portes.",
+  spanish: "Aprender un idioma es abrir una puerta\na una nueva forma de ver el mundo.",
+  mandarin: "每学会一种语言，\n就多拥有一个看世界的角度。",
+  korean: "언어를 배운다는 것은\n새로운 세상을 만나는 것입니다.",
+  english: "To have another language\nis to possess a second soul.",
+  ielts: "The limits of my language\nmean the limits of my world.",
+  sanskrit: "विद्या ददाति विनयं,\nविनयाद् याति पात्रताम्।",
 };
 
 /**
@@ -314,7 +314,7 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
               <div className="relative w-full rounded-[2rem] bg-paper p-8 border shadow-card flex flex-col items-center text-center group hover:-translate-y-1 transition-transform duration-500" style={{ borderColor: colors.line }}>
                 <Trophy size={48} className="mb-4 opacity-80 group-hover:scale-110 transition-transform duration-500" style={{ color: lang.color }} />
                 <h4 className="font-display text-xl mb-2">{lang.certificateName || "Proficiency Certificate"}</h4>
-                <p className="text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: lang.color }}>Globally Validated</p>
+                {!['english', 'sanskrit'].includes(lang.slug) && <p className="text-[10px] uppercase tracking-widest font-bold mb-4" style={{ color: lang.color }}>Globally Validated</p>}
                 <p className="text-xs italic text-ink/50 leading-relaxed font-display">
                   "This certification is the gold standard for proving your proficiency to international employers."
                  </p>
@@ -412,7 +412,7 @@ export function LanguageTemplate({ language: lang, onOpenConsultation }) {
                     style={{ borderColor: colors.line, backgroundColor: lang.bgTint }}
                   >
                     <div className="font-display text-4xl mb-2" style={{ color: lang.color }}>92%</div>
-                    <div className="text-[9px] uppercase tracking-wide opacity-50">Pass rate</div>
+                    <div className="text-[9px] uppercase tracking-wide opacity-50">Success rate</div>
                     <div className="w-full h-px my-4" style={{ backgroundColor: colors.line }} />
                     <div className="font-display text-4xl mb-2" style={{ color: lang.color }}>1.2k+</div>
                     <div className="text-[9px] uppercase tracking-wide opacity-50">Learners</div>

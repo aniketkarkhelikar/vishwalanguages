@@ -29,28 +29,40 @@ export const navLinks = [
 
 export const footerLinks = [
   {
-    heading: 'Programs',
+    heading: 'Foreign Languages',
     links: [
       { label: 'Japanese',  href: '/languages/japanese' },
       { label: 'German',    href: '/languages/german' },
       { label: 'French',    href: '/languages/french' },
       { label: 'Spanish',   href: '/languages/spanish' },
+      { label: 'Mandarin',  href: '/languages/mandarin' },
+      { label: 'Korean',    href: '/languages/korean' },
+    ],
+  },
+  {
+    heading: 'Other Courses',
+    links: [
+      { label: 'Sanskrit',       href: '/languages/sanskrit' },
+      { label: 'IELTS',          href: '/languages/ielts' },
+      { label: 'Spoken English', href: '/languages/english' },
     ],
   },
   {
     heading: 'Services',
     links: [
-      { label: 'Corporate Training',     href: '/corporate-training' },
-      { label: 'Translation & Interpretation', href: '/interpretation-services' },
-      { label: 'Healthcare Placement',   href: '/healthcare-placement' },
-      { label: 'Self-Paced (Coming Soon)', href: '/coming-soon' },
+      { label: 'Corporate Training',           href: '/corporate-training' },
+      { label: 'Translation & Interpretation', href: '/services#translation-interpretation' },
+      { label: 'Healthcare Placement',         href: '/services#healthcare-placement' },
+      { label: 'Self-Paced (Coming Soon)',     href: '/coming-soon' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About',   href: '/about' },
-      { label: 'Contact', href: '/contact' },
+      { label: 'About',     href: '/about' },
+      { label: 'Contact',   href: '/contact' },
+      { label: 'WhatsApp',  href: 'https://wa.me/917588706961', external: true },
+      { label: 'Instagram', href: 'https://www.instagram.com/vishwalanguages/', external: true },
     ],
   },
 ];

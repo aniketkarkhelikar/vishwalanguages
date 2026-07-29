@@ -245,11 +245,15 @@ export function WhyVishwaSection() {
  * BookCTASection — dramatic editorial closing CTA with warm gradient.
  */
 const CINEMATIC_TEXTS = {
-  japanese: "吾輩は猫である。\n名前はまだ無い。",
-  sanskrit: "कर्मण्येवाधिकारस्ते\nमा फलेषु कदाचन।",
-  german: "Habe nun, ach!\nPhilosophie",
-  french: "Longtemps, je me\nsuis couché",
-  mandarin: "道可道，非常道。\n名可名，非常名。",
+  japanese: "新しい言語を学ぶたびに、新しい世界が広がる。",
+  german: "Mit jeder Sprache, die du lernst,\nöffnet sich eine neue Welt.",
+  french: "Une langue vous place dans un couloir pour la vie.\nDeux langues vous ouvrent toutes les portes.",
+  spanish: "Aprender un idioma es abrir una puerta\na una nueva forma de ver el mundo.",
+  mandarin: "每学会一种语言，\n就多拥有一个看世界的角度。",
+  korean: "언어를 배운다는 것은\n새로운 세상을 만나는 것입니다.",
+  english: "To have another language\nis to possess a second soul.",
+  ielts: "The limits of my language\nmean the limits of my world.",
+  sanskrit: "विद्या ददाति विनयं,\nविनयाद् याति पात्रताम्।",
 };
 
 export function BookCTASection({ onOpenConsultation, title, subtitle, contextLabel }) {

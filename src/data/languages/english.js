@@ -63,7 +63,7 @@ export const english = {
   ],
   
   testimonials: [
-    { quote: 'The public speaking sessions helped me overcome my stage fright. I can now present to global clients with complete confidence.', initials: 'SK', name: 'Siddharth K.', role: 'Project Manager', outcome: 'Client Facing Lead' }
+    { quote: "I'm currently pursuing the Spoken English course at Vishwa Institute, Nashik, and my experience has been wonderful. A special thanks to Kareena Hemnani Ma'am for her guidance.", initials: 'PK', name: 'Purva Kane', role: 'Spoken English Student', outcome: 'Improved Communication' }
   ],
 
   cta: {

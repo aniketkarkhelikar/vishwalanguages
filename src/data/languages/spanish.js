@@ -43,7 +43,7 @@ export const spanish = {
   stats: [
     { label: '400+ learners' },
     { label: '21 countries' },
-    { label: '94% pass rate' },
+    { label: '94% success rate' },
   ],
   
   levels: [
@@ -66,7 +66,7 @@ export const spanish = {
   ],
   
   testimonials: [
-    { quote: 'The focus on conversational practice meant I was speaking Spanish from day one. Invaluable for my job in Madrid.', initials: 'RK', name: 'Rahul K.', role: 'Engineer', outcome: 'Relocated to Spain' }
+    { quote: "The institute is indeed a temple to learn languages. I am at the brink of completing my A1 in Spanish and I can without any shadow of a doubt recommend it to anyone.", initials: 'SB', name: 'Sushant Bhandari', role: 'Spanish Learner', outcome: 'A1 Completed' }
   ],
 
   cta: {

@@ -52,7 +52,7 @@ export function AboutPage({ onOpenConsultation }) {
             <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative">
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] md:h-[600px]">
                 <img
-                  src="/images/homepage/home-0011.jpg"
+                  src="/images/homepage/home-0004.jpg"
                   alt="Cultural Exchange"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]"
                 />

@@ -40,7 +40,7 @@ export const korean = {
   stats: [
     { label: 'Hangul in 1 week' },
     { label: 'Hallyu culture track' },
-    { label: '94% pass rate' },
+    { label: '94% success rate' },
   ],
   
   levels: [
@@ -62,9 +62,7 @@ export const korean = {
     { q: 'Are there job opportunities with Korean companies?', a: 'Yes, Korea has a massive presence in tech, automotive, and electronics (Samsung, Hyundai, LG), which highly value bilingual speakers.' },
   ],
   
-  testimonials: [
-    { quote: 'The focus on conversational practice meant I was speaking Korean from day one. Invaluable for my transfer to our Seoul branch.', initials: 'RK', name: 'Rahul K.', role: 'Engineer', outcome: 'Relocated to Seoul' }
-  ],
+  testimonials: [],
 
   cta: {
     heading:     'Korean program now enrolling.',

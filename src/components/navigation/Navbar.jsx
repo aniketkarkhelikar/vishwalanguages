@@ -80,7 +80,11 @@ export function Navbar({ onOpenConsultation }) {
         <div className="container-site flex justify-between items-center">
 
           {/* Logo */}
-          <Link to="/" className="flex flex-col cursor-pointer group z-50">
+          <Link 
+            to="/" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex flex-col cursor-pointer group z-50"
+          >
             <span
               className={`font-display text-[10px] uppercase tracking-micro mb-1 transition-colors ${
                 isDarkHeroPage && !scrolled ? 'text-gold' : 'text-brown'

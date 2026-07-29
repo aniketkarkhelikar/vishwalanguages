@@ -86,7 +86,7 @@ export function ServicesPage({ onOpenConsultation }) {
                   Document translation, website localization, and certified legal translations. We ensure cultural accuracy and technical precision.
                 </p>
                 <button onClick={() => onOpenConsultation({ type: 'translation' })} className="text-xs uppercase font-bold tracking-widest text-gold hover:text-white transition-colors flex items-center gap-2">
-                  Request Translation <ArrowRight size={14} />
+                  Request Quote <ArrowRight size={14} />
                 </button>
               </div>
             </motion.div>
@@ -113,7 +113,7 @@ export function ServicesPage({ onOpenConsultation }) {
                   Real-time simultaneous and consecutive interpretation for conferences, corporate meetings, and liaison events globally.
                 </p>
                 <button onClick={() => onOpenConsultation({ type: 'interpretation' })} className="text-xs uppercase font-bold tracking-widest text-gold hover:text-white transition-colors flex items-center gap-2">
-                  Book Interpreter <ArrowRight size={14} />
+                  Request Quote <ArrowRight size={14} />
                 </button>
               </div>
             </motion.div>
@@ -161,15 +161,30 @@ export function ServicesPage({ onOpenConsultation }) {
 
             {/* Right - Image mosaic */}
             <motion.div variants={fadeUpScale} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-[2rem] overflow-hidden shadow-xl h-56">
-                  <img src="/images/healthcare/healthcare-5.jpg" alt="Hospital in Germany" className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]" />
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-center">
+                {/* Column 1 */}
+                <div className="space-y-4 md:space-y-6 md:translate-y-12">
+                  <div className="rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl h-48 md:h-64 relative group md:-rotate-2 hover:rotate-0 hover:z-10 transition-all duration-500">
+                    <img src="/images/healthcare/healthcare-1.jpg" alt="Healthcare Training" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                  </div>
+                  <div className="rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl h-40 md:h-56 relative group md:rotate-3 hover:rotate-0 hover:z-10 transition-all duration-500">
+                    <img src="/images/healthcare/healthcare-4.jpg" alt="German Hospital" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                  </div>
                 </div>
-                <div className="rounded-[2rem] overflow-hidden shadow-xl h-56 mt-8">
-                  <img src="/images/healthcare/healthcare-3.jpg" alt="Healthcare team" className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]" />
+                {/* Column 2 */}
+                <div className="space-y-4 md:space-y-6 md:-translate-y-6">
+                  <div className="rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl h-72 md:h-[420px] relative group hover:z-10 transition-all duration-500">
+                    <img src="/images/healthcare/healthcare-2.jpg" alt="Nursing in Germany" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                  </div>
                 </div>
-                <div className="rounded-[2rem] overflow-hidden shadow-xl h-48 col-span-2 -mt-4">
-                  <img src="/images/healthcare/healthcare-4.jpg" alt="Nurses" className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]" />
+                {/* Column 3 */}
+                <div className="hidden md:block space-y-4 md:space-y-6 md:translate-y-20">
+                  <div className="rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl h-44 md:h-56 relative group md:rotate-2 hover:rotate-0 hover:z-10 transition-all duration-500">
+                    <img src="/images/healthcare/healthcare-3.jpg" alt="Medical professional" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                  </div>
+                  <div className="rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl h-52 md:h-64 relative group md:-rotate-3 hover:rotate-0 hover:z-10 transition-all duration-500">
+                    <img src="/images/healthcare/healthcare-5.jpg" alt="Healthcare team" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" />
+                  </div>
                 </div>
               </div>
             </motion.div>

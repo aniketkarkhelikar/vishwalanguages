@@ -88,8 +88,8 @@ export const german = {
 
   faq: [
     {
-      q: 'How long to reach B2 from zero?',
-      a: 'Our B2 program takes approximately 50 weeks from A1. Students with prior exposure may progress faster.',
+      q: 'How long to reach B1 from zero?',
+      a: 'Our B1 program takes approximately 10 months from A1. Students with prior exposure may progress faster.',
     },
     {
       q: 'Is this aligned with Goethe-Institut exams?',
@@ -103,11 +103,11 @@ export const german = {
 
   testimonials: [
     {
-      quote:    'The B2 batch at Vishwa was structured exactly how a serious learner needs it. The technical vocabulary track helped me clear my German employer interview on the first attempt.',
-      name:     'Priya Mehta',
-      role:     'Mechanical Engineer (B2)',
-      outcome:  'Placed in Munich',
-      initials: 'PM',
+      quote:    'I have been attending a German class for a few months, and I really enjoy it. The lessons are interesting and well-organized. Our teacher explains everything clearly and patiently... We practice speaking, listening, reading, and writing in every class. The classroom atmosphere is friendly and supportive.',
+      name:     'Vishakha Mhaske',
+      role:     'German Learner',
+      outcome:  'Improved Fluency',
+      initials: 'VM',
     },
   ],
 

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { fadeUp } from '@/animations/motion';
 import { site } from '@/data/site';
 
@@ -15,7 +15,7 @@ export function ContactPage({ onOpenConsultation }) {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
           <div className="bg-paper p-12 rounded-[2rem] border border-ink/5 shadow-sm text-center flex flex-col items-center">
             <div className="w-16 h-16 rounded-full bg-terracotta/10 text-terracotta flex items-center justify-center mb-6">
               <Mail size={24} />
@@ -34,6 +34,28 @@ export function ContactPage({ onOpenConsultation }) {
             <a href={`tel:${site.contact.phone.replace(/[^0-9+]/g, '')}`} className="text-gold font-bold text-lg hover:underline transition-all hover:text-ink">{site.contact.phone}</a>
           </div>
         </div>
+
+        <a href="https://maps.app.goo.gl/VNezkk1huvwSZ73T8?g_st=ac" target="_blank" rel="noopener noreferrer" className="block bg-paper p-10 md:p-16 rounded-[2rem] border border-ink/5 shadow-sm hover:border-ink/20 transition-all hover:shadow-md cursor-pointer group mb-16 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] group-hover:bg-blue-500/10 transition-colors pointer-events-none" />
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="flex items-center gap-6 md:gap-10 w-full md:w-auto text-center md:text-left flex-col md:flex-row">
+              <div className="w-20 h-20 shrink-0 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform bg-blue-500/10 text-blue-500">
+                <MapPin size={32} />
+              </div>
+              <div>
+                <h3 className="font-display text-3xl md:text-4xl mb-3 text-ink">Visit Us</h3>
+                <p className="text-ink/60 font-light text-sm md:text-base max-w-sm">
+                  Find our exact location on Google Maps and get directions to our center.
+                </p>
+              </div>
+            </div>
+            <div className="shrink-0">
+              <span className="font-bold text-lg group-hover:underline transition-all flex items-center gap-2 text-blue-500">
+                View on Map <ArrowUpRight size={20} />
+              </span>
+            </div>
+          </div>
+        </a>
 
         <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.2 }} className="text-center">
           <button onClick={() => onOpenConsultation({ type: 'general' })} className="group inline-flex items-center gap-3 bg-ink text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs transition-all hover:bg-terracotta hover:shadow-xl hover:-translate-y-1">

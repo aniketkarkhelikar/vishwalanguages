@@ -44,7 +44,7 @@ export function LanguagesIndexPage({ onShowToast }) {
                 </div>
                 <div>
                   <div className="font-display text-3xl" style={{ color: colors.terracotta }}>92%</div>
-                  <div className="text-[9px] uppercase tracking-wide opacity-40">Pass rate</div>
+                  <div className="text-[9px] uppercase tracking-wide opacity-40">Success rate</div>
                 </div>
               </div>
             </motion.div>

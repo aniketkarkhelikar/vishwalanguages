@@ -1,86 +1,190 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, MousePointer2 } from 'lucide-react';
+import { ArrowUpRight, MousePointer2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { languageCatalogue } from '@/data/languages';
 import { colors } from '@/lib/tokens';
 import { fadeUp } from '@/animations/motion';
 
-
-
 /**
- * ProgramsSection — Interactive Split Layout.
- * Language names on left/right, central preview card updates on hover.
+ * ProgramsSection — Interactive Split Layout (Desktop) + Full-Card Arrow Carousel (Mobile).
  */
 export function ProgramsSection({ onShowToast }) {
-  const [hoveredLang, setHoveredLang] = useState(languageCatalogue[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const hoveredLang = languageCatalogue[activeIndex];
 
-  // Split catalogue for left and right columns
-  const midIndex = Math.ceil(languageCatalogue.length / 2);
-  const leftLangs = languageCatalogue.slice(0, midIndex);
-  const rightLangs = languageCatalogue.slice(midIndex);
+  const handlePrev = () =>
+    setActiveIndex((i) => (i - 1 + languageCatalogue.length) % languageCatalogue.length);
+  const handleNext = () =>
+    setActiveIndex((i) => (i + 1) % languageCatalogue.length);
 
   return (
     <section id="programs-section" className="py-16 md:py-20 scroll-m-20 bg-surface relative">
       <div className="container-site max-w-7xl mx-auto relative z-10">
-        {/* Mobile Header (Hidden on Desktop) */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="lg:hidden mb-10 flex flex-col md:flex-row justify-between items-center text-center gap-6"
-        >
-          <div className="max-w-2xl mx-auto md:mx-0">
+
+        {/* ── MOBILE LAYOUT (hidden on lg+) ──────────────────────────── */}
+        <div className="lg:hidden">
+          {/* Mobile header */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mb-10 text-center"
+          >
             <span className="text-[10px] font-mono block mb-3 tracking-widest text-terracotta uppercase">
               The Curriculum
             </span>
-            <h2 className="font-display text-4xl md:text-5xl leading-[1.05] tracking-tight text-ink">
-              Structured for the<br />
-              <span className="italic text-terracotta">global professional.</span>
+            <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-ink">
+              Structured as per<br />
+              <span className="italic text-terracotta">International standards.</span>
             </h2>
-          </div>
-          <Link
-            to="/languages"
-            className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ink/50 hover:text-terracotta transition-all group shrink-0"
-          >
-            All {languageCatalogue.length} programs
-            <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </Link>
-        </motion.div>
+          </motion.div>
 
-        {/* Mobile/Tablet Tab Bar */}
-        <div className="flex lg:hidden overflow-x-auto gap-2 pb-4 mb-4 -mx-6 px-6 scrollbar-none w-[calc(100%+3rem)] snap-x snap-mandatory">
-          {languageCatalogue.map((lang) => (
-            <button
-              key={lang.slug}
-              onClick={() => setHoveredLang(lang)}
-              className={`px-5 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap snap-start border transition-all duration-300
-                ${hoveredLang.slug === lang.slug
-                  ? 'bg-terracotta text-white border-terracotta shadow-md'
-                  : 'bg-white text-ink/60 border-ink/10'
-                }`}
+          {/* Card with integrated arrows — lots of whitespace, arrows float on image */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={hoveredLang.slug + '-mobile'}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             >
-              {lang.card.title.replace('Language Program', '').trim()}
-            </button>
-          ))}
+              <div className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-ink/5 mx-1">
+                {/* Image with floating arrows */}
+                <div className="relative h-64 w-full">
+                  <img
+                    src={hoveredLang.countryImage}
+                    alt={hoveredLang.card.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+
+                  {/* Color accent bar at top */}
+                  <div
+                    className="absolute top-0 left-0 w-full h-1"
+                    style={{ backgroundColor: hoveredLang.color }}
+                  />
+
+                  {/* Language counter — top right */}
+                  <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1">
+                    <span className="text-[10px] font-mono text-white/70 tracking-widest">
+                      {String(activeIndex + 1).padStart(2, '0')} / {String(languageCatalogue.length).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  {/* Left Arrow — floats on image left edge */}
+                  <button
+                    onClick={handlePrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/35 transition-all active:scale-90 z-10"
+                    aria-label="Previous language"
+                  >
+                    <ChevronLeft size={20} strokeWidth={2.5} />
+                  </button>
+
+                  {/* Right Arrow — floats on image right edge */}
+                  <button
+                    onClick={handleNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/35 transition-all active:scale-90 z-10"
+                    aria-label="Next language"
+                  >
+                    <ChevronRight size={20} strokeWidth={2.5} />
+                  </button>
+
+                  {/* Native name + label — bottom left */}
+                  <div className="absolute bottom-5 left-6 text-white z-10">
+                    <span className="font-display italic text-4xl opacity-35 block mb-1">
+                      {hoveredLang.nativeName}
+                    </span>
+                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/55">
+                      Vishwa Languages
+                    </span>
+                  </div>
+                </div>
+
+                {/* Info — generous whitespace */}
+                <div className="px-7 pt-7 pb-8">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h4 className="font-display text-2xl text-ink font-semibold leading-tight">
+                        {hoveredLang.card.title}
+                      </h4>
+                      <span
+                        className="text-[10px] font-mono font-bold uppercase tracking-wider text-ink/40 mt-0.5 block"
+                      >
+                        Program #{hoveredLang.card.index}
+                      </span>
+                    </div>
+                    {/* Color dot */}
+                    <div
+                      className="w-3 h-3 rounded-full mt-2 shrink-0"
+                      style={{ backgroundColor: hoveredLang.color }}
+                    />
+                  </div>
+
+                  <p className="text-ink/60 text-sm leading-relaxed font-light mb-6">
+                    {hoveredLang.card.description}
+                  </p>
+
+                  {/* Progression & Outcomes */}
+                  <div className="grid grid-cols-2 gap-4 mb-7 border-y py-4" style={{ borderColor: colors.line }}>
+                    <div>
+                      <span className="text-[8px] uppercase tracking-wider font-mono text-ink/35 block mb-1.5">Progression</span>
+                      <span className="text-xs font-semibold text-ink">{hoveredLang.card.progression || 'A1 → C2'}</span>
+                    </div>
+                    <div>
+                      <span className="text-[8px] uppercase tracking-wider font-mono text-ink/35 block mb-1.5">Outcomes</span>
+                      <div className="flex flex-wrap gap-1">
+                        {hoveredLang.card.outcomes?.map((out, idx) => (
+                          <span key={idx} className="text-[9px] bg-surface px-1.5 py-0.5 rounded text-ink/75 border border-ink/5">{out}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Link
+                    to={`/languages/${hoveredLang.slug}`}
+                    className="flex items-center justify-between w-full p-4 rounded-xl text-white transition-all shadow-md active:scale-[0.98]"
+                    style={{ backgroundColor: hoveredLang.color }}
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Explore Full Syllabus</span>
+                    <ArrowUpRight size={16} />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* All programs link */}
+          <div className="flex justify-center mt-8">
+            <Link
+              to="/languages"
+              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-ink/45 hover:text-terracotta transition-all group"
+            >
+              All {languageCatalogue.length} programs
+              <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        {/* Interactive Split Layout */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 relative min-h-auto lg:min-h-[420px] items-start">
-          
-          {/* Left Column: Vertical Menu (Desktop Only) */}
-          <div className="hidden lg:flex w-full lg:w-1/3 flex-col gap-1 relative pt-6">
+        {/* ── DESKTOP LAYOUT (hidden on mobile) ──────────────────────── */}
+        <div className="hidden lg:flex flex-row gap-16 relative min-h-[420px] items-start">
+
+          {/* Left Column: Vertical Menu */}
+          <div className="w-1/3 flex flex-col gap-1 relative pt-6">
             <div className="flex items-center gap-2 text-[10px] uppercase font-mono tracking-widest text-ink/30 mb-8 border-b border-ink/5 pb-4">
-               <MousePointer2 size={12} className="animate-pulse" /> Hover to explore
+              <MousePointer2 size={12} className="animate-pulse" /> Click to explore
             </div>
-            {languageCatalogue.map((lang) => (
-              <div 
+            {languageCatalogue.map((lang, idx) => (
+              <div
                 key={lang.slug}
-                onMouseEnter={() => setHoveredLang(lang)}
-                className={`cursor-pointer transition-all duration-300 py-2.5 hover:pl-3`}
+                onClick={() => setActiveIndex(idx)}
+                className="cursor-pointer transition-all duration-300 py-2.5 hover:pl-3"
               >
-                <h3 className={`font-display text-2xl lg:text-3xl tracking-tight transition-colors duration-500 ${hoveredLang.slug === lang.slug ? 'text-terracotta font-semibold' : 'text-ink/30 hover:text-ink/50'}`}>
+                <h3 className={`font-display text-2xl lg:text-3xl tracking-tight transition-colors duration-500 ${
+                  activeIndex === idx ? 'text-terracotta font-semibold' : 'text-ink/30 hover:text-ink/50'
+                }`}>
                   {lang.card.title.replace('Language Program', '').trim()}
                 </h3>
               </div>
@@ -88,17 +192,18 @@ export function ProgramsSection({ onShowToast }) {
           </div>
 
           {/* Right Column: Title + Card */}
-          <div className="w-full lg:w-2/3 flex flex-col relative z-20">
-            {/* Desktop Title Header above the card */}
-            <div className="hidden lg:flex flex-col mb-12 text-left">
+          <div className="w-2/3 flex flex-col relative z-20">
+            {/* Desktop Title */}
+            <div className="flex flex-col mb-12 text-left">
               <span className="text-[10px] font-mono block mb-4 tracking-widest text-terracotta uppercase">
                 The Curriculum
               </span>
               <h2 className="font-display text-5xl lg:text-6xl leading-[1.05] tracking-tight text-ink">
-                Structured for the<br />
-                <span className="italic text-terracotta">global professional.</span>
+                Structured as per<br />
+                <span className="italic text-terracotta">International standards.</span>
               </h2>
             </div>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={hoveredLang.slug}
@@ -111,9 +216,9 @@ export function ProgramsSection({ onShowToast }) {
                 <div className="flex flex-col md:flex-row bg-white rounded-[2rem] overflow-hidden shadow-xl border border-ink/5 w-full min-h-auto md:min-h-[460px]">
                   {/* Image Side */}
                   <div className="w-full md:w-5/12 relative min-h-[260px] md:min-h-auto">
-                    <img 
-                      src={hoveredLang.countryImage} 
-                      alt={hoveredLang.card.title} 
+                    <img
+                      src={hoveredLang.countryImage}
+                      alt={hoveredLang.card.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] hover:scale-102"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/25 mix-blend-multiply" />
@@ -137,7 +242,6 @@ export function ProgramsSection({ onShowToast }) {
                         {hoveredLang.card.description}
                       </p>
 
-                      {/* Progression & Outcomes */}
                       <div className="grid grid-cols-2 gap-4 mb-6 border-y py-4" style={{ borderColor: colors.line }}>
                         <div>
                           <span className="text-[8px] uppercase tracking-wider font-mono text-ink/40 block mb-1">Progression</span>
@@ -153,7 +257,6 @@ export function ProgramsSection({ onShowToast }) {
                         </div>
                       </div>
 
-                      {/* Stats pills */}
                       {hoveredLang.stats && (
                         <div className="flex flex-wrap gap-1.5 mb-6">
                           {hoveredLang.stats.slice(0, 2).map((s, idx) => (
@@ -178,8 +281,8 @@ export function ProgramsSection({ onShowToast }) {
               </motion.div>
             </AnimatePresence>
           </div>
-
         </div>
+
       </div>
     </section>
   );

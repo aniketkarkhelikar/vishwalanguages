@@ -11,7 +11,7 @@
  */
 
 /** WhatsApp number — all leads go here */
-const WHATSAPP_NUMBER = '919561894119';
+const WHATSAPP_NUMBER = '917588706961';
 
 /** Email config */
 const CONTACT_EMAIL = 'hello@vishwalanguages.com';
