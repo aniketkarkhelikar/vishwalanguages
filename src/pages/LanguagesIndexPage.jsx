@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, ratingSchema } from '@/components/SEO';
 import { languageCatalogue } from '@/data/languages';
 import { pageSlideUp, fadeUp, staggerContainer } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
@@ -18,9 +18,14 @@ export function LanguagesIndexPage({ onShowToast }) {
   return (
     <motion.div variants={pageSlideUp} initial="hidden" animate="visible" exit="exit" className="relative">
       <SEO 
-        title="Language Courses in Nashik - German, Japanese, French, Spanish" 
-        description="Explore our language courses in Nashik. We offer certified classes in German, Japanese, French, and Spanish with expert trainers."
-        keywords="Language Classes in Nashik, Foreign language courses, Best Japanese language classes in Nashik, Best german language course in Nashik, Best french language classes in nashik"
+        title="All Language Courses in Nashik – German, Japanese, French, Spanish, English, IELTS, Korean, Mandarin" 
+        description="Explore all language courses offered by Vishwa Languages in Nashik. Certified classes in German, Japanese, French, Spanish, English, Korean, Mandarin, and IELTS with expert trainers. Online & offline batches, affordable fees, and flexible timings on College Road, Nashik."
+        keywords="Language Classes in Nashik, Foreign language courses, Foreign language classes in Nashik, Foreign language classes near me, Best Japanese language classes in Nashik, Best german language course in Nashik, Best french language classes in nashik, Spanish classes in Nashik, Korean language classes in Nashik, Mandarin classes in Nashik, English speaking classes in Nashik, IELTS classes in Nashik, Language classes in Nashik with fees, Language tutorial classes in Nashik, Online language classes in Nashik"
+        canonicalPath="/languages"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Languages", path: "/languages" }]),
+          ratingSchema()
+        ]}
       />
 
       {/* ── HERO ─────────────────────────────────────────────── */}

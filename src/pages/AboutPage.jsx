@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Globe, Users, HeartHandshake, BookOpen } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -14,9 +14,14 @@ export function AboutPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink overflow-hidden">
       <SEO 
-        title="About Us" 
-        description="Learn more about Vishwa Languages, the best language school in Nashik. We believe in Vasudhaiva Kutumbakam and are dedicated to helping students build successful careers through language learning."
-        keywords="About Vishwa Languages, Language School Nashik, Vasudhaiva Kutumbakam, Best language tutorial classes in Nashik, Language study in English"
+        title="About Vishwa Languages – Best Language Institute in Nashik" 
+        description="Vishwa Languages is Nashik's leading language school founded on the philosophy of Vasudhaiva Kutumbakam. We connect cultures through career-focused German, Japanese, French, English, and Spanish language education. Located on College Road, Nashik with expert trainers and personalized learning."
+        keywords="About Vishwa Languages, Language School Nashik, Vasudhaiva Kutumbakam, Best language tutorial classes in Nashik, Language study in English, Language study for students, Language institute Nashik, Foreign Languages, Foreign language classes in Nashik"
+        canonicalPath="/about"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }]),
+          ratingSchema()
+        ]}
       />
 
       {/* ──────────────────────────── HERO ──────────────────────────── */}

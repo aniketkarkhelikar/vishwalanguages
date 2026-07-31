@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, FileText, Globe, ShieldCheck, Languages, Clock, Award, CheckCircle2 } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -14,9 +14,15 @@ export function TranslationPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink">
       <SEO 
-        title="Translation Services in Nashik - German, Japanese, French" 
-        description="Certified translation services in Nashik for legal, medical, and corporate documents in German, Japanese, French, and Spanish."
-        keywords="Translation services, Document translation, Legal translation, Japanese translation, German translation, French translation"
+        title="Certified Translation Services in Nashik – German, Japanese, French, Spanish" 
+        description="Vishwa Languages offers certified document translation, website localization, and legal translation services in German, Japanese, French, and Spanish. We ensure cultural accuracy and technical precision for legal, medical, corporate, and academic documents. Based in Nashik, serving clients pan-India."
+        keywords="Translation services Nashik, Certified document translation, Legal translation services, Japanese translation, German translation, French translation, Website localization, Medical document translation, Academic transcript translation"
+        canonicalPath="/translation-services"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Translation Services", path: "/translation-services" }]),
+          ratingSchema({ name: "Translation Services at Vishwa Languages" }),
+          faqSchema(PAGE_FAQS.translation)
+        ]}
       />
       
       {/* ──────────────────────────── HERO ──────────────────────────── */}

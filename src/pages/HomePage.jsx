@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ProgramsSection } from '@/components/sections/ProgramsSection';
 import { CorporateSection } from '@/components/sections/CorporateSection';
@@ -36,9 +36,15 @@ export function HomePage({ onOpenConsultation, onShowToast }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
       <SEO 
-        title="Best Language Classes in Nashik - German, Japanese, French, English, Spanish" 
-        description="Join Vishwa Languages for expert-led classes in German, Japanese, French, English, and Spanish in Nashik. We offer online and offline language courses, corporate training, and IELTS preparation."
-        keywords="Best German classes in Nashik, Best Japanese classes in Nashik, Best english speaking classes in Nashik, Best french language classes in nashik, IELTS preparation in Nashik, Foreign language classes in Nashik, German classes in College road Nashik"
+        title="Vishwa Languages — Best Language Classes in Nashik | German, Japanese, French, English, IELTS" 
+        description="Vishwa Languages is Nashik's top-rated language institute on College Road. Expert-led German, Japanese, French, English, Spanish, Korean, and Mandarin classes. IELTS coaching, corporate training, interpretation, translation services, and exclusive German healthcare placement for nurses. Online & offline batches with affordable fees."
+        keywords="Best language classes in Nashik, German classes in Nashik, Japanese classes in Nashik, French classes in Nashik, English speaking classes in Nashik, Spanish classes in Nashik, Korean classes in Nashik, Mandarin classes in Nashik, IELTS preparation Nashik, JLPT preparation, Goethe certificate, corporate language training, interpretation services, translation services, German nurse placement, foreign language classes near me, language institute Nashik, language classes College Road Nashik"
+        canonicalPath="/"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }]),
+          ratingSchema(),
+          faqSchema(PAGE_FAQS.home)
+        ]}
       />
       <HeroSection
         onOpenConsultation={onOpenConsultation}

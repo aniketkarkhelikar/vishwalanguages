@@ -1,6 +1,6 @@
 import { motion, useScroll } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { ArrowRight, Globe, Target, BarChart3, Briefcase, CheckCircle2 } from 'lucide-react';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
@@ -34,9 +34,15 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="bg-paper text-ink" ref={containerRef}>
       <SEO 
-        title="Corporate Language Training - English, German, Japanese in Nashik" 
-        description="Empower your workforce with our bespoke corporate language training programs. We offer tailored English speaking, German, and Japanese classes for businesses in Nashik."
-        keywords="Corporate Language Training, English speaking classes in Nashik for adults, Best english speaking classes in Nashik, Foreign language classes in Nashik"
+        title="Corporate Language Training in Nashik – English, German, Japanese for Companies" 
+        description="Empower your workforce with Vishwa Languages' bespoke corporate language training programs in Nashik. Tailored English speaking, German, Japanese, and French courses for businesses. Flexible on-site and online batches, personality development, and skills training for professionals and adults."
+        keywords="Corporate Language Training Nashik, English speaking classes in Nashik for adults, Best english speaking classes in Nashik, Foreign language classes in Nashik, Spoken English course Nashik, Personality Development, Skills Development, English speaking classes near me for adults, Online Classes, Offline Classes"
+        canonicalPath="/corporate-training"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Corporate Training", path: "/corporate-training" }]),
+          ratingSchema({ name: "Corporate Language Training at Vishwa Languages" }),
+          faqSchema(PAGE_FAQS.corporateTraining)
+        ]}
       />
       
       {/* --- HERO SECTION --- */}

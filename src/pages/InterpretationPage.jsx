@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Mic, Users, Briefcase, Headphones, Globe2, ShieldCheck, Award, Languages } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -14,9 +14,15 @@ export function InterpretationPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink">
       <SEO 
-        title="Interpretation Services in Nashik - Japanese, German, French" 
-        description="Professional interpretation services in Nashik for Japanese, German, French, and Spanish. We offer real-time simultaneous and consecutive interpretation for conferences and corporate meetings."
-        keywords="Interpretation services, Japanese interpretation, German interpretation, French interpretation, Corporate interpretation"
+        title="Professional Interpretation Services in Nashik – Japanese, German, French, Spanish" 
+        description="Vishwa Languages provides expert simultaneous and consecutive interpretation services in Japanese, German, French, and Spanish for conferences, corporate meetings, legal proceedings, and liaison events. Qualified, NDA-bound interpreters available across India and globally."
+        keywords="Interpretation services Nashik, Japanese interpretation services, German interpretation, French interpretation, Corporate interpretation services, Simultaneous interpretation India, Consecutive interpretation, Legal interpretation services, Conference interpretation"
+        canonicalPath="/interpretation-services"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Interpretation Services", path: "/interpretation-services" }]),
+          ratingSchema({ name: "Interpretation Services at Vishwa Languages" }),
+          faqSchema(PAGE_FAQS.interpretation)
+        ]}
       />
       
       {/* ──────────────────────────── HERO ──────────────────────────── */}

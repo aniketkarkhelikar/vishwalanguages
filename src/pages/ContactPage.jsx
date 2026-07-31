@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { fadeUp } from '@/animations/motion';
 import { site } from '@/data/site';
 
@@ -8,9 +8,14 @@ export function ContactPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} className="min-h-screen bg-surface pt-40 pb-32">
       <SEO 
-        title="Contact Us - Vishwa Languages Nashik" 
-        description="Get in touch with Vishwa Languages in Nashik for language courses, translation, interpretation, and healthcare placement inquiries."
-        keywords="Contact Vishwa Languages, Language school near me, Best language tutorial classes in Nashik, Nashik language classes"
+        title="Contact Us – Vishwa Languages, College Road, Nashik" 
+        description="Get in touch with Vishwa Languages on College Road, Nashik. Enquire about German, Japanese, French, English, and Spanish language classes, IELTS preparation, corporate training, translation, interpretation, and healthcare placement services. Call +91 75887 06961 or visit us today."
+        keywords="Contact Vishwa Languages, Language school near me, Best language tutorial classes in Nashik, Nashik language classes, Language classes College Road Nashik, Vishwa Languages phone number, Vishwa Languages address"
+        canonicalPath="/contact"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]),
+          ratingSchema()
+        ]}
       />
       <div className="container-site max-w-4xl mx-auto">
         <motion.div variants={fadeUp} initial="hidden" animate="visible" className="text-center mb-16">

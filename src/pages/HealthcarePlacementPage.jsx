@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, HeartPulse, GraduationCap, Plane, CheckCircle2, Award, Building2, Shield, Clock } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEO, breadcrumbSchema, faqSchema, ratingSchema, PAGE_FAQS } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { healthcareColors, colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -14,9 +14,15 @@ export function HealthcarePlacementPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink">
       <SEO 
-        title="Healthcare Placement in Germany - German classes in Nashik" 
-        description="Exclusive pathway for nursing graduates from India to Germany. We provide A1-B2 German language training and credential recognition."
-        keywords="Learn German for healthcare professionals, German language classes in Nashik, Healthcare Placements Germany"
+        title="Healthcare Placement in Germany – German Language Training for Nurses in Nashik" 
+        description="Exclusive pathway for Indian nursing graduates to work in Germany. Vishwa Languages provides comprehensive A1 to B2 German language training, credential recognition (Anerkennung), and direct hospital placement in Germany. Based in Nashik, we handle the entire process from language learning to relocation."
+        keywords="Learn German for healthcare professionals, German language classes in Nashik, Healthcare Placements Germany, German nurse placement India to Germany, Anerkennung process India, Nursing jobs in Germany, Certified German language courses for nurses, German healthcare pathway Nashik"
+        canonicalPath="/healthcare-placement"
+        schemas={[
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Healthcare Placement", path: "/healthcare-placement" }]),
+          ratingSchema({ name: "German Healthcare Placement at Vishwa Languages" }),
+          faqSchema(PAGE_FAQS.healthcarePlacement)
+        ]}
       />
       
       {/* ──────────────────────────── HERO ──────────────────────────── */}
