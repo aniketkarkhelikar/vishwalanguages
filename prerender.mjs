@@ -51,13 +51,8 @@ async function prerender() {
     // A trick: set the URL so React Router knows where it is
     await page.route('**/*', (routeReq) => {
       const url = routeReq.request().url();
-      if (url === 'http://localhost/') {
-        routeReq.fulfill({
-          status: 200,
-          contentType: 'text/html',
-          body: indexHtml.replace('<head>', `<head><base href="/">`)
-        });
-      } else if (url.startsWith('http://localhost/assets/')) {
+      
+      if (url.startsWith('http://localhost/assets/')) {
         // Serve local assets
         const assetPath = path.join(distDir, new URL(url).pathname);
         if (fs.existsSync(assetPath)) {
@@ -68,6 +63,13 @@ async function prerender() {
         } else {
           routeReq.continue();
         }
+      } else if (url.startsWith('http://localhost/')) {
+        // For ANY other localhost route (like /about, /services), serve index.html (SPA fallback)
+        routeReq.fulfill({
+          status: 200,
+          contentType: 'text/html',
+          body: indexHtml.replace('<head>', `<head><base href="/">`)
+        });
       } else {
         routeReq.continue();
       }
