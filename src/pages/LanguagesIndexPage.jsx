@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Clock } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { languageCatalogue } from '@/data/languages';
 import { pageSlideUp, fadeUp, staggerContainer } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
@@ -16,6 +17,11 @@ export function LanguagesIndexPage({ onShowToast }) {
 
   return (
     <motion.div variants={pageSlideUp} initial="hidden" animate="visible" exit="exit" className="relative">
+      <SEO 
+        title="Language Courses in Nashik - German, Japanese, French, Spanish" 
+        description="Explore our language courses in Nashik. We offer certified classes in German, Japanese, French, and Spanish with expert trainers."
+        keywords="Language Classes in Nashik, Foreign language courses, Best Japanese language classes in Nashik, Best german language course in Nashik, Best french language classes in nashik"
+      />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="pt-44 pb-16 border-b" style={{ borderColor: colors.line, backgroundColor: colors.surface }}>

@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, FileText, Globe, ShieldCheck, Languages, Clock, Award, CheckCircle2 } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -12,6 +13,11 @@ export function TranslationPage({ onOpenConsultation }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink">
+      <SEO 
+        title="Translation Services in Nashik - German, Japanese, French" 
+        description="Certified translation services in Nashik for legal, medical, and corporate documents in German, Japanese, French, and Spanish."
+        keywords="Translation services, Document translation, Legal translation, Japanese translation, German translation, French translation"
+      />
       
       {/* ──────────────────────────── HERO ──────────────────────────── */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-end overflow-hidden">

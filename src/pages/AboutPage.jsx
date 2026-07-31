@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Globe, Users, HeartHandshake, BookOpen } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -12,6 +13,11 @@ export function AboutPage({ onOpenConsultation }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink overflow-hidden">
+      <SEO 
+        title="About Us" 
+        description="Learn more about Vishwa Languages, the best language school in Nashik. We believe in Vasudhaiva Kutumbakam and are dedicated to helping students build successful careers through language learning."
+        keywords="About Vishwa Languages, Language School Nashik, Vasudhaiva Kutumbakam, Best language tutorial classes in Nashik, Language study in English"
+      />
 
       {/* ──────────────────────────── HERO ──────────────────────────── */}
       <section ref={heroRef} className="relative min-h-[85vh] flex items-end overflow-hidden">

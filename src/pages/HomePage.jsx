@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SEO } from '@/components/SEO';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ProgramsSection } from '@/components/sections/ProgramsSection';
 import { CorporateSection } from '@/components/sections/CorporateSection';
@@ -34,6 +35,11 @@ export function HomePage({ onOpenConsultation, onShowToast }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+      <SEO 
+        title="Best Language Classes in Nashik - German, Japanese, French, English, Spanish" 
+        description="Join Vishwa Languages for expert-led classes in German, Japanese, French, English, and Spanish in Nashik. We offer online and offline language courses, corporate training, and IELTS preparation."
+        keywords="Best German classes in Nashik, Best Japanese classes in Nashik, Best english speaking classes in Nashik, Best french language classes in nashik, IELTS preparation in Nashik, Foreign language classes in Nashik, German classes in College road Nashik"
+      />
       <HeroSection
         onOpenConsultation={onOpenConsultation}
         onScrollToPrograms={scrollToPrograms}

@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Mic, HeartPulse, FileText, Globe, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors, healthcareColors } from '@/lib/tokens';
 
@@ -11,6 +12,11 @@ export function ServicesPage({ onOpenConsultation }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink">
+      <SEO 
+        title="Professional Language Services - Translation, Interpretation, Healthcare Placement" 
+        description="Explore our specialized services including translation, interpretation, and exclusive healthcare placement pathways to Germany."
+        keywords="Language Translation, Interpretation services, Healthcare Placements Germany, Learn German for healthcare professionals"
+      />
       
       {/* ──────────────────────────── HERO ──────────────────────────── */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-end overflow-hidden">

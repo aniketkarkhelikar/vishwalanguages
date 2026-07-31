@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, HeartPulse, GraduationCap, Plane, CheckCircle2, Award, Building2, Shield, Clock } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { healthcareColors, colors } from '@/lib/tokens';
 import { BookCTASection } from '@/components/sections/HomeSections';
@@ -12,6 +13,11 @@ export function HealthcarePlacementPage({ onOpenConsultation }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="bg-surface text-ink">
+      <SEO 
+        title="Healthcare Placement in Germany - German classes in Nashik" 
+        description="Exclusive pathway for nursing graduates from India to Germany. We provide A1-B2 German language training and credential recognition."
+        keywords="Learn German for healthcare professionals, German language classes in Nashik, Healthcare Placements Germany"
+      />
       
       {/* ──────────────────────────── HERO ──────────────────────────── */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-end overflow-hidden">

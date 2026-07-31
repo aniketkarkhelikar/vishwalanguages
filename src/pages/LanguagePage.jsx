@@ -1,6 +1,7 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { getLanguage } from '@/data/languages';
 import { LanguageTemplate } from '@/components/templates/LanguageTemplate';
+import { SEO } from '@/components/SEO';
 
 /**
  * LanguagePage — route handler for /languages/:slug
@@ -15,9 +16,16 @@ export function LanguagePage({ onOpenConsultation }) {
   if (!language) return <Navigate to="/languages" replace />;
 
   return (
-    <LanguageTemplate
-      language={language}
-      onOpenConsultation={onOpenConsultation}
-    />
+    <>
+      <SEO 
+        title={`${language.card.title} - Best ${language.card.title} Classes in Nashik`}
+        description={`Learn ${language.card.title} in Nashik with expert trainers at Vishwa Languages. Our courses include beginner to advanced level training.`}
+        keywords={`Best ${language.card.title} classes in Nashik, ${language.card.title} classes near me, ${language.card.title} language course`}
+      />
+      <LanguageTemplate
+        language={language}
+        onOpenConsultation={onOpenConsultation}
+      />
+    </>
   );
 }

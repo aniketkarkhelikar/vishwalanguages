@@ -1,9 +1,27 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import Sitemap from 'vite-plugin-sitemap';
 import { resolve } from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    Sitemap({
+      hostname: 'https://vishwalanguages.com',
+      dynamicRoutes: [
+        '/',
+        '/about',
+        '/services',
+        '/corporate-training',
+        '/languages',
+        '/contact',
+        '/languages/japanese',
+        '/languages/german',
+        '/languages/french',
+        '/languages/spanish',
+      ]
+    })
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

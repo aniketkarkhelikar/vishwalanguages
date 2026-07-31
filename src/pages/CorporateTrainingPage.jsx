@@ -1,6 +1,6 @@
 import { motion, useScroll } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-
+import { SEO } from '@/components/SEO';
 import { ArrowRight, Globe, Target, BarChart3, Briefcase, CheckCircle2 } from 'lucide-react';
 import { fadeUp, fadeUpScale } from '@/animations/motion';
 import { colors } from '@/lib/tokens';
@@ -33,6 +33,11 @@ export function CorporateTrainingPage({ onOpenConsultation }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="bg-paper text-ink" ref={containerRef}>
+      <SEO 
+        title="Corporate Language Training - English, German, Japanese in Nashik" 
+        description="Empower your workforce with our bespoke corporate language training programs. We offer tailored English speaking, German, and Japanese classes for businesses in Nashik."
+        keywords="Corporate Language Training, English speaking classes in Nashik for adults, Best english speaking classes in Nashik, Foreign language classes in Nashik"
+      />
       
       {/* --- HERO SECTION --- */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-24 overflow-hidden bg-surface">

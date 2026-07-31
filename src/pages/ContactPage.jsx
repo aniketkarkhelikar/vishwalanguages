@@ -1,11 +1,17 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { SEO } from '@/components/SEO';
 import { fadeUp } from '@/animations/motion';
 import { site } from '@/data/site';
 
 export function ContactPage({ onOpenConsultation }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} className="min-h-screen bg-surface pt-40 pb-32">
+      <SEO 
+        title="Contact Us - Vishwa Languages Nashik" 
+        description="Get in touch with Vishwa Languages in Nashik for language courses, translation, interpretation, and healthcare placement inquiries."
+        keywords="Contact Vishwa Languages, Language school near me, Best language tutorial classes in Nashik, Nashik language classes"
+      />
       <div className="container-site max-w-4xl mx-auto">
         <motion.div variants={fadeUp} initial="hidden" animate="visible" className="text-center mb-16">
           <span className="text-[10px] font-mono uppercase tracking-widest text-terracotta mb-4 block">Connect</span>
