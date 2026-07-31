@@ -13,12 +13,20 @@ export default defineConfig({
         '/about',
         '/services',
         '/corporate-training',
+        '/healthcare-placement',
+        '/interpretation-services',
+        '/translation-services',
         '/languages',
         '/contact',
-        '/languages/japanese',
         '/languages/german',
+        '/languages/japanese',
         '/languages/french',
         '/languages/spanish',
+        '/languages/english',
+        '/languages/ielts',
+        '/languages/mandarin',
+        '/languages/korean',
+        '/languages/sanskrit'
       ]
     })
   ],
